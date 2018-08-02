@@ -1,5 +1,6 @@
 package fr.arthurvimond.oscletonsdk
 
+import fr.arthurvimond.oscletonsdk.exceptions.OscletonSDKException
 import kotlin.jvm.JvmStatic
 
 class OscletonSDK {
@@ -27,6 +28,13 @@ class OscletonSDK {
 
 
         sdkInitialized = true
+    }
+
+
+    private fun checkInitialized() {
+        if (!sdkInitialized) {
+            throw OscletonSDKException("SDK not initialized")
+        }
     }
 
 }

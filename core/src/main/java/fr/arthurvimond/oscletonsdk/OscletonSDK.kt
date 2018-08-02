@@ -6,6 +6,8 @@ import fr.arthurvimond.oscletonsdk.di.oscletonSDKModule
 import fr.arthurvimond.oscletonsdk.exceptions.OscletonSDKException
 import fr.arthurvimond.oscletonsdk.internal.AppLifecycleObserver
 import fr.arthurvimond.oscletonsdk.utils.Logger
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import org.koin.standalone.StandAloneContext.loadKoinModules
 import org.koin.standalone.inject
 
@@ -22,6 +24,9 @@ class OscletonSDK {
     private val lifecycleObserver: AppLifecycleObserver by injector.inject()
     private var sdkInitialized = false
 
+    // Rx
+    private val compositeDisposable = CompositeDisposable()
+
     // Public methods
 
     /**
@@ -36,7 +41,26 @@ class OscletonSDK {
         Logger.i("initialize", this)
         loadKoinModules(listOf(oscletonSDKModule))
 
+        observeLifecycleObserverProperties()
+
         sdkInitialized = true
+    }
+
+    private fun observeLifecycleObserverProperties() {
+
+        lifecycleObserver.rxOnAppCreate()
+                .subscribe {
+                    connect()
+                }
+                .addTo(compositeDisposable)
+
+        lifecycleObserver.rxOnAppDestroy()
+                .subscribe {
+                    disconnect()
+                    dispose()
+                }
+                .addTo(compositeDisposable)
+
     }
 
     /**
@@ -118,6 +142,7 @@ class OscletonSDK {
      */
     fun dispose() {
         checkInitialized()
+        compositeDisposable.clear()
 
     }
 

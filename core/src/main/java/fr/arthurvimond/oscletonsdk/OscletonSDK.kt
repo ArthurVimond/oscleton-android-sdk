@@ -55,6 +55,22 @@ class OscletonSDK {
 
     }
 
+    /**
+     * Disconnect the device and close the incoming changes listener.
+     *
+     * If attachLifecycleOwner() has been specified in an Activity's onCreate(),
+     * this method will be automatically called by the SDK.
+     *
+     * NB: Calling this method before initialize() will throw an [OscletonSDKException].
+     *
+     * @see attachLifecycleOwner
+     * @since 1.0
+     */
+    fun disconnect() {
+        checkInitialized()
+
+    }
+
     // LifecycleObserver
 
     /**

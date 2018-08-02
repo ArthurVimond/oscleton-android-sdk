@@ -48,7 +48,7 @@ class OscletonSDK {
      * NB: Calling this method before initialize() will throw an [OscletonSDKException].
      *
      * @see attachLifecycleOwner
-     * @since 1.0
+     * @since 0.1
      */
     fun connect() {
         checkInitialized()
@@ -64,7 +64,7 @@ class OscletonSDK {
      * NB: Calling this method before initialize() will throw an [OscletonSDKException].
      *
      * @see attachLifecycleOwner
-     * @since 1.0
+     * @since 0.1
      */
     fun disconnect() {
         checkInitialized()

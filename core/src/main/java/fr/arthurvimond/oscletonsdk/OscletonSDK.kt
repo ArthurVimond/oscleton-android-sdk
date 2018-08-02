@@ -1,7 +1,9 @@
 package fr.arthurvimond.oscletonsdk
 
+import fr.arthurvimond.oscletonsdk.di.oscletonSDKModule
 import fr.arthurvimond.oscletonsdk.exceptions.OscletonSDKException
-import kotlin.jvm.JvmStatic
+import fr.arthurvimond.oscletonsdk.utils.Logger
+import org.koin.standalone.StandAloneContext.loadKoinModules
 
 class OscletonSDK {
 
@@ -25,7 +27,8 @@ class OscletonSDK {
      * @since 0.1
      */
     fun initialize() {
-
+        Logger.i("initialize", this)
+        loadKoinModules(listOf(oscletonSDKModule))
 
         sdkInitialized = true
     }

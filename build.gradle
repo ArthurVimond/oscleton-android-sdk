@@ -4,6 +4,7 @@ buildscript {
 
     ext {
         kotlin_version = '1.2.60'
+        koin_version = '0.9.3'
     }
 
     repositories {

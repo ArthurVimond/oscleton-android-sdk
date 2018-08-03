@@ -1,0 +1,81 @@
+site_name: Oscleton SDK Documentation
+site_description: Ableton Live companion SDK for Android
+
+copyright: 'Copyright © 2018 Arthur Vimond'
+
+theme: 
+  name: 'material'
+  custom_dir: 'theme'
+  language: en
+  feature:
+    tabs: true
+
+extra:
+  version: 0.1
+  social:
+    - type: 'globe'
+      link: 'http://arthurvimond.fr'
+    - type: 'github'
+      link: 'https://github.com/arthurvimond'
+    - type: 'linkedin'
+      link: 'https://linkedin.com/in/arthurvimond'
+
+pages:
+  - Introduction: index.md
+  - Getting started:
+    - Prerequesite: getting-started/prerequesite.md
+    - Android project setup: getting-started/android-project-setup.md
+#  - API reference:
+#    - Package Index: api-reference/index.md
+#    - SDK:
+#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk/index.md
+#      - OscletonSDK: api-reference/fr.arthurvimond.oscleton.sdk/-oscleton-s-d-k/index.md
+#      - Configuration: api-reference/fr.arthurvimond.oscleton.sdk/-configuration/index.md
+#      - Controller: api-reference/fr.arthurvimond.oscleton.sdk/-controller/index.md
+#      - Receiver: api-reference/fr.arthurvimond.oscleton.sdk/-receiver/index.md
+#      - ReactiveReceiver: api-reference/fr.arthurvimond.oscleton.sdk/-reactive-receiver/index.md
+#      - CallbackReceiver: api-reference/fr.arthurvimond.oscleton.sdk/-callback-receiver/index.md
+#    - Enums:
+#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.enums/index.md
+#      - ClipState: api-reference/fr.arthurvimond.oscleton.sdk.enums/-clip-state/index.md
+#      - TrackType: api-reference/fr.arthurvimond.oscleton.sdk.enums/-track-type/index.md
+#    - Exceptions:
+#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.exceptions/index.md
+#      - OscletonSDKException: api-reference/fr.arthurvimond.oscleton.sdk.exceptions/-oscleton-s-d-k-exception/index.md
+#    - Listeners:
+#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.listeners/index.md
+#      - OnTempoChangedListener: api-reference/fr.arthurvimond.oscleton.sdk.listeners/-on-tempo-changed-listener/index.md
+#      - OnVolumeChangedListener: api-reference/fr.arthurvimond.oscleton.sdk.listeners/-on-volume-changed-listener/index.md
+#    - Models:
+#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.models/index.md
+#      - Clip: api-reference/fr.arthurvimond.oscleton.sdk.models/-clip/index.md
+#      - ClipSlot: api-reference/fr.arthurvimond.oscleton.sdk.models/-clip-slot/index.md
+#      - Device: api-reference/fr.arthurvimond.oscleton.sdk.models/-device/index.md
+#      - DeviceParameter: api-reference/fr.arthurvimond.oscleton.sdk.models/-device-parameter/index.md
+#      - Scene: api-reference/fr.arthurvimond.oscleton.sdk.models/-scene/index.md
+#      - Track: api-reference/fr.arthurvimond.oscleton.sdk.models/-track/index.md
+#    - Utils:
+#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.utils/index.md
+#      - FormatUtils: api-reference/fr.arthurvimond.oscleton.sdk.utils/-format-utils/index.md
+#      - MathUtils: api-reference/fr.arthurvimond.oscleton.sdk.utils/-math-utils/index.md
+#      - NetworkUtils: api-reference/fr.arthurvimond.oscleton.sdk.utils/-network-utils/index.md
+  - More:
+    - Changelog: more/changelog.md
+    - Feedback and issues: more/feedback-and-issues.md
+    - License: more/license.md
+
+markdown_extensions:
+  - codehilite:
+      linenums: false
+  - markdown_fenced_code_tabs:
+      single_block_as_tab: false
+      active_class: 'active'
+      template: 'default'
+
+
+extra_javascript:
+  - js/tabhack.js
+
+extra_css:
+  - 'css/general.css'
+  - 'css/code-tabs.css'

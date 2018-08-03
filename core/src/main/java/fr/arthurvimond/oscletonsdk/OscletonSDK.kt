@@ -1,6 +1,6 @@
 package fr.arthurvimond.oscletonsdk
 
-import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.ProcessLifecycleOwner
 import fr.arthurvimond.oscletonsdk.di.Injector
 import fr.arthurvimond.oscletonsdk.di.oscletonSDKModule
 import fr.arthurvimond.oscletonsdk.exceptions.OscletonSDKException
@@ -26,6 +26,7 @@ class OscletonSDK {
 
     // Rx
     private val compositeDisposable = CompositeDisposable()
+    private val lifecycleCompositeDisposable = CompositeDisposable()
 
     // Public methods
 
@@ -42,36 +43,55 @@ class OscletonSDK {
         loadKoinModules(listOf(oscletonSDKModule))
 
         observeLifecycleObserverProperties()
+        attachApplicationLifecycle()
 
         sdkInitialized = true
+    }
+
+    private fun checkInitialized() {
+        if (!sdkInitialized) {
+            throw OscletonSDKException("SDK not initialized")
+        }
     }
 
     private fun observeLifecycleObserverProperties() {
 
         lifecycleObserver.rxOnAppCreate()
                 .subscribe {
-                    connect()
+                    Logger.i("APP IS CREATED", this)
                 }
-                .addTo(compositeDisposable)
+                .addTo(lifecycleCompositeDisposable)
 
-        lifecycleObserver.rxOnAppDestroy()
+        lifecycleObserver.rxOnAppForeground()
                 .subscribe {
-                    disconnect()
-                    dispose()
+                    Logger.i("APP IS FOREGROUND", this)
+                    connect()
+                    startListening()
                 }
-                .addTo(compositeDisposable)
+                .addTo(lifecycleCompositeDisposable)
 
+        lifecycleObserver.rxOnAppBackground()
+                .subscribe {
+                    Logger.i("APP IS BACKGROUND", this)
+                    disconnect()
+                    stopListening()
+                }
+                .addTo(lifecycleCompositeDisposable)
+
+    }
+
+    private fun attachApplicationLifecycle() {
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
     /**
      * Connect the device and prepare to listen for incoming changes.
      *
-     * If attachLifecycleOwner() has been specified in an Activity's onCreate(),
-     * this method will be automatically called by the SDK.
+     * Since OscletonSDK is lifecycle-aware,
+     * this method is automatically called when the app goes to foreground.
      *
      * NB: Calling this method before initialize() will throw an [OscletonSDKException].
      *
-     * @see attachLifecycleOwner
      * @since 0.1
      */
     fun connect() {
@@ -82,12 +102,11 @@ class OscletonSDK {
     /**
      * Disconnect the device and close the incoming changes listener.
      *
-     * If attachLifecycleOwner() has been specified in an Activity's onCreate(),
-     * this method will be automatically called by the SDK.
+     * Since OscletonSDK is lifecycle-aware,
+     * this method is automatically called when the app goes to background.
      *
      * NB: Calling this method before initialize() will throw an [OscletonSDKException].
      *
-     * @see attachLifecycleOwner
      * @since 0.1
      */
     fun disconnect() {
@@ -98,12 +117,11 @@ class OscletonSDK {
     /**
      * Start listening for incoming changes.
      *
-     * If attachLifecycleOwner() has been specified in an Activity's onCreate(),
-     * this method will be automatically called by the SDK.
+     * Since OscletonSDK is lifecycle-aware,
+     * this method is automatically called when the app goes to foreground.
      *
      * NB: Calling this method before initialize() will throw an [OscletonSDKException].
      *
-     * @see attachLifecycleOwner
      * @since 0.1
      */
     fun startListening() {
@@ -114,87 +132,16 @@ class OscletonSDK {
     /**
      * Stop listening for incoming changes.
      *
-     * If attachLifecycleOwner() has been specified in an Activity's onCreate(),
-     * this method will be automatically called by the SDK.
+     * Since OscletonSDK is lifecycle-aware,
+     * this method is automatically called when the app goes to background.
      *
      * NB: Calling this method before initialize() will throw an [OscletonSDKException].
      *
-     * @see attachLifecycleOwner
      * @since 0.1
      */
     fun stopListening() {
         checkInitialized()
 
-    }
-
-    /**
-     * Dispose the SDK observers.
-     *
-     * This method must be called when the app is about to terminate.
-     *
-     * If attachLifecycleOwner() has been specified in an Activity's onCreate(),
-     * this method will be automatically called by the SDK.
-     *
-     * NB: Calling this method before initialize() will throw an [OscletonSDKException].
-     *
-     * @see attachLifecycleOwner
-     * @since 0.1
-     */
-    fun dispose() {
-        checkInitialized()
-        compositeDisposable.clear()
-
-    }
-
-    // LifecycleObserver
-
-    /**
-     * Attach a LifecycleOwner to the SDK.
-     *
-     * This method is used to let the SDK being lifecycle-aware,
-     * so it will automatically call the necessary methods no matter
-     * what the device state is (background, paused, resumed etc.).
-     *
-     * If used, this method must be called in each Activity's onCreate().
-     * If not used, you will have to manually call the methods like
-     * connect(), disconnect(), startListening(), stopListening() in their proper place.
-     *
-     * NB: Calling this method before initialize() will throw an [OscletonSDKException].
-     *
-     * @since 0.1
-     */
-    fun attachLifecycleOwner(lifecycleOwner: LifecycleOwner) {
-        checkInitialized()
-        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-    }
-
-    /**
-     * Detach a LifecycleOwner from the SDK.
-     *
-     * This method is used to let the SDK being lifecycle-aware,
-     * so it will automatically call the necessary methods no matter
-     * what the device state is (background, paused, resumed etc.).
-     *
-     * If used, this method, which goes with attachLifecycleOwner(),
-     * must be called in each Activity's onDestroy(),
-     * If not used, you will have to manually call the methods like
-     * connect(), disconnect(), startListening(), stopListening() in their proper place.
-     *
-     * NB: Calling this method before initialize() will throw an [OscletonSDKException].
-     *
-     * @see attachLifecycleOwner
-     * @since 0.1
-     */
-    fun detachLifecycleOwner(lifecycleOwner: LifecycleOwner) {
-        checkInitialized()
-        lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
-    }
-
-
-    private fun checkInitialized() {
-        if (!sdkInitialized) {
-            throw OscletonSDKException("SDK not initialized")
-        }
     }
 
 }

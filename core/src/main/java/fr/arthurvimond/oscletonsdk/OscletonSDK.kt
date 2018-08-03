@@ -28,6 +28,10 @@ class OscletonSDK {
     private val compositeDisposable = CompositeDisposable()
     private val lifecycleCompositeDisposable = CompositeDisposable()
 
+    // Public properties
+
+    val receiver: Receiver by injector.inject()
+
     // Public methods
 
     /**

@@ -12,6 +12,16 @@ import io.reactivex.rxkotlin.addTo
 import org.koin.standalone.StandAloneContext.loadKoinModules
 import org.koin.standalone.inject
 
+/**
+ * The main entry point to use Oscleton SDK.
+ *
+ * This singleton provides multiple features splitted in different classes:
+ * - [Configuration] is responsible for the settings needed to establish the connection.
+ * - [Controller] lets you control a Live set from your Android device.
+ * - [Receiver] lets you receive Live set events in real time on your Android device.
+ *
+ * @since 1.0
+ */
 class OscletonSDK {
 
     companion object {

@@ -5,6 +5,7 @@ import fr.arthurvimond.oscletonsdk.di.Injector
 import fr.arthurvimond.oscletonsdk.di.oscletonSDKModule
 import fr.arthurvimond.oscletonsdk.exceptions.OscletonSDKException
 import fr.arthurvimond.oscletonsdk.internal.AppLifecycleObserver
+import fr.arthurvimond.oscletonsdk.internal.MessageManager
 import fr.arthurvimond.oscletonsdk.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -22,6 +23,7 @@ class OscletonSDK {
 
     private val injector by lazy { Injector() }
     private val lifecycleObserver: AppLifecycleObserver by injector.inject()
+    private val messageManager: MessageManager by injector.inject()
     private var sdkInitialized = false
 
     // Rx

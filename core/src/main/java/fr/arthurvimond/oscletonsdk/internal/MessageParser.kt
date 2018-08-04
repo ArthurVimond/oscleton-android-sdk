@@ -5,6 +5,10 @@ package fr.arthurvimond.oscletonsdk.internal
  */
 internal class MessageParser internal constructor(val liveSetDataManager: LiveSetDataManager) {
 
+    fun parse(address: String, args: MutableList<Any>) {
 
+
+
+    }
 
 }

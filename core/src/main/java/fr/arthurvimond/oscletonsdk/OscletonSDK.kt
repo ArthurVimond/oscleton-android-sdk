@@ -32,6 +32,7 @@ class OscletonSDK {
 
     // Public properties
 
+    val config: Configuration by injector.inject()
     val controller: Controller by injector.inject()
     val receiver: Receiver by injector.inject()
 

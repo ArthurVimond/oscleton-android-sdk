@@ -1,13 +1,11 @@
 package fr.arthurvimond.oscletonsdk.di
 
-import fr.arthurvimond.oscletonsdk.CallbackReceiver
-import fr.arthurvimond.oscletonsdk.Controller
-import fr.arthurvimond.oscletonsdk.ReactiveReceiver
-import fr.arthurvimond.oscletonsdk.Receiver
+import fr.arthurvimond.oscletonsdk.*
 import fr.arthurvimond.oscletonsdk.internal.*
 import org.koin.dsl.module.applicationContext
 
 internal val oscletonSDKModule = applicationContext {
+    bean { Configuration(get()) }
     bean { Controller(get()) }
     bean { Receiver() }
     bean { ReactiveReceiver(get()) }

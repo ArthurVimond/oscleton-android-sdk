@@ -40,6 +40,9 @@ dependencies {
     // Koin
     implementation "org.koin:koin-android:$koin_version"
 
+    // OSC
+    implementation 'com.illposed.osc:javaosc-core:0.4'
+
 }
 
 task dokka(overwrite: true, type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {

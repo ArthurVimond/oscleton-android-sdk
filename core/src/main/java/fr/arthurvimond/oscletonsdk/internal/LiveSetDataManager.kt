@@ -1,27 +1,16 @@
 package fr.arthurvimond.oscletonsdk.internal
 
-import com.illposed.osc.OSCMessage
+import fr.arthurvimond.oscletonsdk.extensions.float
 import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 
-internal class LiveSetDataManager {
-
-    // Private properties
-
-    // General
-
-    private val _tempo: BehaviorSubject<Float> = BehaviorSubject.create()
+internal class LiveSetDataManager internal constructor(messageManager: MessageManager) {
 
     // Public properties
 
-    val neededOSCMessage: PublishSubject<OSCMessage> = PublishSubject.create()
-
     // General
 
-    val tempo: Observable<Float> = _tempo
-
-
-
+    val tempo: Observable<Float> = messageManager.oscMessage
+            .filter { it.address == LiveAPI.tempo }
+            .map { it.arguments.first().float }
 
 }

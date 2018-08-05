@@ -13,8 +13,17 @@ class MainActivity : AppCompatActivity() {
         DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.activity_main)
     }
 
+    // Data
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProviders.of(this).get(MainViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.viewModel = viewModel
+
+        viewModel.configure()
+        viewModel.observeLiveEvents()
 
     }
 

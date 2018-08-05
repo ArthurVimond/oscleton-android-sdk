@@ -91,8 +91,8 @@ class OscletonSDK {
         lifecycleObserver.rxOnAppBackground()
                 .subscribe {
                     Logger.i("APP IS BACKGROUND", this)
-                    disconnect()
                     stopListening()
+                    disconnect()
                 }
                 .addTo(lifecycleCompositeDisposable)
 
@@ -114,7 +114,7 @@ class OscletonSDK {
      */
     fun connect() {
         checkInitialized()
-
+        messageManager.connect()
     }
 
     /**
@@ -129,7 +129,7 @@ class OscletonSDK {
      */
     fun disconnect() {
         checkInitialized()
-
+        messageManager.disconnect()
     }
 
     /**
@@ -144,7 +144,7 @@ class OscletonSDK {
      */
     fun startListening() {
         checkInitialized()
-
+        messageManager.startListening()
     }
 
     /**
@@ -159,7 +159,7 @@ class OscletonSDK {
      */
     fun stopListening() {
         checkInitialized()
-
+        messageManager.stopListening()
     }
 
 }

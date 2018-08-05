@@ -11,7 +11,7 @@ import io.reactivex.Observable
  * @since 0.1
  * @see CallbackReceiver
  */
-class ReactiveReceiver internal constructor(private val liveSetDataManager: LiveSetDataManager) {
+class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManager) {
 
     val tempo: Observable<Float> = liveSetDataManager.tempo
 

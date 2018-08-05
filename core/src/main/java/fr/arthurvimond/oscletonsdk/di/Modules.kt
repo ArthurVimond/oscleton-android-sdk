@@ -12,7 +12,6 @@ internal val oscletonSDKModule = applicationContext {
     bean { CallbackReceiver(get()) }
     bean { MessageManager(get(), get(), get()) }
     bean { OSCManager() }
-    bean { MessageParser(get()) }
     bean { LiveSetDataManager() }
     bean { AppLifecycleObserver() }
 }

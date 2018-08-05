@@ -2,6 +2,7 @@ package fr.arthurvimond.oscletonsdk.sample
 
 import android.arch.lifecycle.ViewModel
 import fr.arthurvimond.oscletonsdk.OscletonSDK
+import fr.arthurvimond.oscletonsdk.listeners.OnTempoChangeListener
 import fr.arthurvimond.oscletonsdk.sample.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -27,6 +28,11 @@ class MainViewModel : ViewModel() {
                 .subscribe {
                     Logger.d("rxReceiver - tempo.onNext: $it", this)
                 }.addTo(compositeDisposable)
+
+        // Add tempo listener
+        OscletonSDK.instance.receiver.cb.set(OnTempoChangeListener {
+            Logger.d("cbReceiver - tempo.onNext: $it", this)
+        })
 
     }
 

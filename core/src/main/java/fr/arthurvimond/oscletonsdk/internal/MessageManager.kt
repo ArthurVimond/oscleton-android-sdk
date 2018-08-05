@@ -1,16 +1,17 @@
 package fr.arthurvimond.oscletonsdk.internal
 
+import com.illposed.osc.OSCMessage
 import fr.arthurvimond.oscletonsdk.utils.Logger
 import fr.arthurvimond.oscletonsdk.utils.NetworkUtils
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 
 /**
  * Created by Arthur Vimond on 03/08/2018.
  */
-internal class MessageManager internal constructor(private val oscManager: OSCManager,
-                                                   private val messageParser: MessageParser,
-                                                   private val liveSetDataManager: LiveSetDataManager) {
+internal class MessageManager internal constructor(private val oscManager: OSCManager) {
+
+    val oscMessage: Observable<OSCMessage> = oscManager.oscMessage
 
     // RxJava
     private var compositeDisposable = CompositeDisposable()
@@ -52,22 +53,6 @@ internal class MessageManager internal constructor(private val oscManager: OSCMa
     // Receiver
     fun connect() {
         oscManager.connect()
-    }
-
-    fun observeOSCProperties() {
-
-        oscManager.oscMessage
-                .subscribe {
-                    messageParser.parse(it.address, it.arguments)
-                }
-                .addTo(compositeDisposable)
-
-        liveSetDataManager.neededOSCMessage
-                .subscribe {
-                    sendMessage(it.address, it.arguments)
-                }
-                .addTo(compositeDisposable)
-
     }
 
     fun startListening() {

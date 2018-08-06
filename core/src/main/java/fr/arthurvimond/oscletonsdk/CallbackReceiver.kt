@@ -1,6 +1,7 @@
 package fr.arthurvimond.oscletonsdk
 
 import fr.arthurvimond.oscletonsdk.internal.LiveSetDataManager
+import fr.arthurvimond.oscletonsdk.listeners.OnDeviceParameterChangeListener
 import fr.arthurvimond.oscletonsdk.listeners.OnTempoChangeListener
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -18,6 +19,7 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     // RxJava
     private val compositeDisposable = CompositeDisposable()
     private var tempoDisp: Disposable? = null
+    private var deviceParameterDisp: Disposable? = null
 
     /**
      * Register a callback to be invoked when the general tempo changes.
@@ -32,6 +34,21 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
                 }
 
         compositeDisposable.add(tempoDisp!!)
+    }
+
+    /**
+     * Register a callback to be invoked when device parameter changes.
+     *
+     * @param listener The callback that will run
+     * @since 0.1
+     */
+    fun set(listener: OnDeviceParameterChangeListener) {
+        deviceParameterDisp = liveSetDataManager.deviceParameter
+                .subscribe {
+                    listener.onDeviceParameterChange(it)
+                }
+
+        compositeDisposable.add(deviceParameterDisp!!)
     }
 
     /**
@@ -50,6 +67,15 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      */
     fun removeOnTempoChangeListener() {
         tempoDisp?.dispose()
+    }
+
+    /**
+     * Remove the current [OnDeviceParameterChangeListener].
+     *
+     * @since 0.1
+     */
+    fun removeOnDeviceParameterChangeListener() {
+        deviceParameterDisp?.dispose()
     }
 
 }

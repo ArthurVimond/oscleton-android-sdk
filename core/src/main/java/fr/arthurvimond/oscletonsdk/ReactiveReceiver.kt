@@ -1,6 +1,7 @@
 package fr.arthurvimond.oscletonsdk
 
 import fr.arthurvimond.oscletonsdk.internal.LiveSetDataManager
+import fr.arthurvimond.oscletonsdk.models.DeviceParameter
 import io.reactivex.Observable
 
 /**
@@ -14,5 +15,8 @@ import io.reactivex.Observable
 class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManager) {
 
     val tempo: Observable<Float> = liveSetDataManager.tempo
+
+
+    val deviceParameter: Observable<DeviceParameter> = liveSetDataManager.deviceParameter
 
 }

@@ -18,21 +18,31 @@ class MainViewModel : ViewModel() {
     fun configure() {
 
         // Set computer IP address running Ableton Live
-        OscletonSDK.instance.config.setComputerIP("192.168.0.14")
+        OscletonSDK.instance.config.setComputerIP("192.168.4.239")
     }
 
     fun observeLiveEvents() {
 
+        val reactiveReceiver = OscletonSDK.instance.receiver.rx
+        val callbackReceiver = OscletonSDK.instance.receiver.cb
+
         // Listen for tempo changes
-        OscletonSDK.instance.receiver.rx.tempo
+        reactiveReceiver.tempo
                 .subscribe {
                     Logger.d("rxReceiver - tempo.onNext: $it", this)
                 }.addTo(compositeDisposable)
 
         // Add tempo listener
-        OscletonSDK.instance.receiver.cb.set(OnTempoChangeListener {
+        callbackReceiver.set(OnTempoChangeListener {
             Logger.d("cbReceiver - tempo.onNext: $it", this)
         })
+
+        // Listen for device parameter changes
+        reactiveReceiver.deviceParameter
+                .subscribe {
+                    Logger.d("deviceParameter.onNext: name: ${it.name} - value: ${it.value}" +
+                            " - track: ${it.trackIndex} - device: ${it.deviceIndex} - param: ${it.paramIndex}", this)
+                }.addTo(compositeDisposable)
 
     }
 

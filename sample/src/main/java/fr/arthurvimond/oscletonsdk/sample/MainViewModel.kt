@@ -2,6 +2,7 @@ package fr.arthurvimond.oscletonsdk.sample
 
 import android.arch.lifecycle.ViewModel
 import fr.arthurvimond.oscletonsdk.OscletonSDK
+import fr.arthurvimond.oscletonsdk.listeners.OnDeviceParameterChangeListener
 import fr.arthurvimond.oscletonsdk.listeners.OnTempoChangeListener
 import fr.arthurvimond.oscletonsdk.sample.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
@@ -43,6 +44,11 @@ class MainViewModel : ViewModel() {
                     Logger.d("deviceParameter.onNext: name: ${it.name} - value: ${it.value}" +
                             " - track: ${it.trackIndex} - device: ${it.deviceIndex} - param: ${it.paramIndex}", this)
                 }.addTo(compositeDisposable)
+
+        // Add device parameter listener
+        callbackReceiver.set(OnDeviceParameterChangeListener {
+            Logger.d("cbReceiver - deviceParameter.onNext: $it", this)
+        })
 
     }
 

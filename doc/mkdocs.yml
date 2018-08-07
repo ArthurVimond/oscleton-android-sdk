@@ -25,40 +25,41 @@ pages:
   - Getting started:
     - Prerequesite: getting-started/prerequesite.md
     - Android project setup: getting-started/android-project-setup.md
-#  - API reference:
-#    - Package Index: api-reference/index.md
-#    - SDK:
-#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk/index.md
-#      - OscletonSDK: api-reference/fr.arthurvimond.oscleton.sdk/-oscleton-s-d-k/index.md
-#      - Configuration: api-reference/fr.arthurvimond.oscleton.sdk/-configuration/index.md
-#      - Controller: api-reference/fr.arthurvimond.oscleton.sdk/-controller/index.md
-#      - Receiver: api-reference/fr.arthurvimond.oscleton.sdk/-receiver/index.md
-#      - ReactiveReceiver: api-reference/fr.arthurvimond.oscleton.sdk/-reactive-receiver/index.md
-#      - CallbackReceiver: api-reference/fr.arthurvimond.oscleton.sdk/-callback-receiver/index.md
-#    - Enums:
-#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.enums/index.md
-#      - ClipState: api-reference/fr.arthurvimond.oscleton.sdk.enums/-clip-state/index.md
-#      - TrackType: api-reference/fr.arthurvimond.oscleton.sdk.enums/-track-type/index.md
-#    - Exceptions:
-#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.exceptions/index.md
-#      - OscletonSDKException: api-reference/fr.arthurvimond.oscleton.sdk.exceptions/-oscleton-s-d-k-exception/index.md
-#    - Listeners:
-#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.listeners/index.md
-#      - OnTempoChangedListener: api-reference/fr.arthurvimond.oscleton.sdk.listeners/-on-tempo-changed-listener/index.md
-#      - OnVolumeChangedListener: api-reference/fr.arthurvimond.oscleton.sdk.listeners/-on-volume-changed-listener/index.md
-#    - Models:
-#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.models/index.md
-#      - Clip: api-reference/fr.arthurvimond.oscleton.sdk.models/-clip/index.md
-#      - ClipSlot: api-reference/fr.arthurvimond.oscleton.sdk.models/-clip-slot/index.md
-#      - Device: api-reference/fr.arthurvimond.oscleton.sdk.models/-device/index.md
-#      - DeviceParameter: api-reference/fr.arthurvimond.oscleton.sdk.models/-device-parameter/index.md
-#      - Scene: api-reference/fr.arthurvimond.oscleton.sdk.models/-scene/index.md
-#      - Track: api-reference/fr.arthurvimond.oscleton.sdk.models/-track/index.md
-#    - Utils:
-#      - Overview: api-reference/fr.arthurvimond.oscleton.sdk.utils/index.md
-#      - FormatUtils: api-reference/fr.arthurvimond.oscleton.sdk.utils/-format-utils/index.md
-#      - MathUtils: api-reference/fr.arthurvimond.oscleton.sdk.utils/-math-utils/index.md
-#      - NetworkUtils: api-reference/fr.arthurvimond.oscleton.sdk.utils/-network-utils/index.md
+  - API reference:
+    - Package Index: api-reference/index.md
+    - SDK:
+      - Overview: api-reference/fr.arthurvimond.oscletonsdk/index.md
+      - OscletonSDK: api-reference/fr.arthurvimond.oscletonsdk/-oscleton-s-d-k/index.md
+      - Configuration: api-reference/fr.arthurvimond.oscletonsdk/-configuration/index.md
+      - Controller: api-reference/fr.arthurvimond.oscletonsdk/-controller/index.md
+      - Receiver: api-reference/fr.arthurvimond.oscletonsdk/-receiver/index.md
+      - ReactiveReceiver: api-reference/fr.arthurvimond.oscletonsdk/-reactive-receiver/index.md
+      - CallbackReceiver: api-reference/fr.arthurvimond.oscletonsdk/-callback-receiver/index.md
+    - Enums:
+      - Overview: api-reference/fr.arthurvimond.oscletonsdk.enums/index.md
+#      - ClipState: api-reference/fr.arthurvimond.oscletonsdk.enums/-clip-state/index.md
+      - TrackType: api-reference/fr.arthurvimond.oscletonsdk.enums/-track-type/index.md
+    - Exceptions:
+      - Overview: api-reference/fr.arthurvimond.oscletonsdk.exceptions/index.md
+      - OscletonSDKException: api-reference/fr.arthurvimond.oscletonsdk.exceptions/-oscleton-s-d-k-exception/index.md
+    - Listeners:
+      - Overview: api-reference/fr.arthurvimond.oscletonsdk.listeners/index.md
+      - OnTempoChangedListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-tempo-change-listener/index.md
+#      - OnVolumeChangedListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-volume-change-listener/index.md
+    - Models:
+      - Overview: api-reference/fr.arthurvimond.oscletonsdk.models/index.md
+#      - Clip: api-reference/fr.arthurvimond.oscletonsdk.models/-clip/index.md
+#      - ClipSlot: api-reference/fr.arthurvimond.oscletonsdk.models/-clip-slot/index.md
+      - Device: api-reference/fr.arthurvimond.oscletonsdk.models/-device/index.md
+      - DeviceParameter: api-reference/fr.arthurvimond.oscletonsdk.models/-device-parameter/index.md
+#      - Scene: api-reference/fr.arthurvimond.oscletonsdk.models/-scene/index.md
+      - Track: api-reference/fr.arthurvimond.oscletonsdk.models/-track/index.md
+    - Utils:
+      - Overview: api-reference/fr.arthurvimond.oscletonsdk.utils/index.md
+      - Empty: api-reference/fr.arthurvimond.oscletonsdk.utils/-empty/index.md
+#      - FormatUtils: api-reference/fr.arthurvimond.oscletonsdk.utils/-format-utils/index.md
+#      - MathUtils: api-reference/fr.arthurvimond.oscletonsdk.utils/-math-utils/index.md
+      - NetworkUtils: api-reference/fr.arthurvimond.oscletonsdk.utils/-network-utils/index.md
   - More:
     - Changelog: more/changelog.md
     - Feedback and issues: more/feedback-and-issues.md

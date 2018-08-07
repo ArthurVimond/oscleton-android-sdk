@@ -1,7 +1,11 @@
 # Oscleton SDK for Android
 Ableton Live companion SDK for Android
 
-# Gradle Setup
+## Official documentation
+
+The official documentation is hosted on the [Oscleton SDK website](https://oscletonsdk.arthurvimond.fr).
+
+## Gradle Setup
 
 Check that you have the `jcenter` repository in your Project's `build.gradle` file:
 
@@ -23,7 +27,7 @@ dependencies {
 }
 ```
 
-# License
+## License
 
 ```
 Copyright 2018 Arthur VIMOND

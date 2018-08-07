@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text size -->
+    <dimen name="text_display4">112sp</dimen>
+    <dimen name="text_display3">56sp</dimen>
+    <dimen name="text_display2">45sp</dimen>
+    <dimen name="text_display1">34sp</dimen>
+    <dimen name="text_headline">24sp</dimen>
+    <dimen name="text_title">20sp</dimen>
+    <dimen name="text_subtitle">18sp</dimen>
+    <dimen name="text_subheading">16sp</dimen>
+    <dimen name="text_list">16sp</dimen>
+    <dimen name="text_edit_text_content">16sp</dimen>
+    <dimen name="text_panel_primary_content">15sp</dimen>
+    <dimen name="text_panel_secondary_content">12sp</dimen>
+    <dimen name="text_body2">14sp</dimen>
+    <dimen name="text_body1">14sp</dimen>
+    <dimen name="text_button">14sp</dimen>
+    <dimen name="text_chip">13sp</dimen>
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_caption_small">11sp</dimen>
+    <dimen name="text_edit_text_title">12sp</dimen>
+    <dimen name="text_edit_text_error">12sp</dimen>
+
+    <!-- Icon -->
+    <dimen name="icon_48">48dp</dimen>
+    <dimen name="icon_24">24dp</dimen>
+    <dimen name="icon_padding_12">12dp</dimen>
+
+    <!-- List -->
+    <dimen name="list_item_avatar_with_text">72dp</dimen>
+    <dimen name="list_item_icon_with_text">56dp</dimen>
+    <dimen name="list_item_bottom_sheet">56dp</dimen>
+    <dimen name="list_item_single_line">48dp</dimen>
+    <dimen name="list_side_padding">16dp</dimen>
+    <dimen name="list_top_padding">16dp</dimen>
+    <dimen name="list_top_padding_8">8dp</dimen>
+    <dimen name="list_icon_side_padding">4dp</dimen>
+    <dimen name="list_title_side_padding">72dp</dimen>
+
+    <!-- Misc -->
+    <dimen name="dividerWeight1">1dp</dimen>
+    <dimen name="dividerWeight">0.5dp</dimen>
+
+</resources>

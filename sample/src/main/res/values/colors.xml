@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- General -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Text -->
+    <color name="primaryText">#212121</color>
+    <color name="secondaryText">#757575</color>
+    <color name="primaryIcon">#212121</color>
+    <color name="secondaryIcon">#757575</color>
+
+
+    <!-- Default -->
+    <color name="transparent">#00000000</color>
+    <color name="disabled">#77ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="whitePressed">#cccccc</color>
+    <color name="whiteAlpha">#c1ffffff</color>
+    <color name="black">#000000</color>
+    <color name="blackAlpha">#64000000</color>
+    <color name="gray">#ffc8c8c8</color>
+    <color name="grayPressed">#9f9f9f</color>
+    <color name="greenSuccess">#31b431</color>
+    <color name="redError">#ff0000</color>
+
+    <!-- Background -->
+    <color name="bg">#e9e9e9</color>
+    <color name="bgPressed">#cfcfcf</color>
+    <color name="divider">#BDBDBD</color>
 </resources>

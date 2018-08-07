@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ListTextView">
+        <item name="android:layout_height">@dimen/list_item_single_line</item>
+        <item name="android:background">@drawable/bg_item_state</item>
+        <item name="android:textSize">@dimen/text_list</item>
+        <item name="android:paddingStart">@dimen/list_item_icon_with_text</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_height">@dimen/dividerWeight</item>
+        <item name="android:background">@color/divider</item>
+        <item name="android:layout_marginStart">@dimen/list_side_padding</item>
+    </style>
+
 </resources>

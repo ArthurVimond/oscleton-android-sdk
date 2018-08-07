@@ -21,4 +21,4 @@ data class DeviceParameter(var trackIndex: Int,
                            var name: String = "",
                            var value: Float = 0f,
                            var min: Float = 0f,
-                           var max: Float = 0f)
+                           var max: Float = 1f)

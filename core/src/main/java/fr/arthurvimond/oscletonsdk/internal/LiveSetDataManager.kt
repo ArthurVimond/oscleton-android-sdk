@@ -34,7 +34,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()
-    
+
     private val tracks: MutableMap<Int, Track> = mutableMapOf()
     private val devices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
     private val deviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
@@ -76,17 +76,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         // Emit full device parameter info from map
         currentDeviceParameterIndices
                 .subscribe {
-
                     val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
                     val deviceParam = deviceParameters.getValue(triple)
-
-                    val deviceParameter = DeviceParameter(it.trackIndex,
-                            it.deviceIndex,
-                            it.paramIndex,
-                            name = deviceParam.name,
-                            value = deviceParam.value)
-
-                    _deviceParameter.onNext(deviceParameter)
+                    _deviceParameter.onNext(deviceParam)
                 }
                 .addTo(compositeDisposable)
 
@@ -101,13 +93,17 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         val paramIndex = oscMessage.arguments[2].int
         val name = oscMessage.arguments[3].string
         val value = oscMessage.arguments[4].float
+        val min = oscMessage.arguments[5].float
+        val max = oscMessage.arguments[6].float
 
         return DeviceParameter(
                 paramIndex = paramIndex,
                 deviceIndex = deviceIndex,
                 trackIndex = trackIndex,
                 name = name,
-                value = value)
+                value = value,
+                min = min,
+                max = max)
     }
 
     private fun mapToDeviceParameterIndices(oscMessage: OSCMessage): DeviceParameterIndices {

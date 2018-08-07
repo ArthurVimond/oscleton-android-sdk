@@ -17,13 +17,64 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/controllerTextView"
+            style="@style/ListTextView"
+            android:layout_width="0dp"
+            android:text="@string/controller"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/controllerImageView"
+            android:layout_width="@dimen/icon_24"
+            android:layout_height="@dimen/icon_24"
+            android:layout_marginStart="16dp"
+            android:tint="@color/secondaryIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/controllerTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/controllerTextView"
+            app:srcCompat="@drawable/ic_controller" />
+
+        <TextView
+            android:id="@+id/receiverTextView"
+            style="@style/ListTextView"
+            android:layout_width="0dp"
+            android:text="@string/receiver"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/controllerTextView" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/receiverImageView"
+            android:layout_width="@dimen/icon_24"
+            android:layout_height="@dimen/icon_24"
+            android:layout_marginStart="16dp"
+            android:tint="@color/secondaryIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/receiverTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/receiverTextView"
+            app:srcCompat="@drawable/ic_receiver" />
+
+        <TextView
+            android:id="@+id/configurationTextView"
+            style="@style/ListTextView"
+            android:layout_width="0dp"
+            android:text="@string/configuration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/receiverTextView" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/configurationImageView"
+            android:layout_width="@dimen/icon_24"
+            android:layout_height="@dimen/icon_24"
+            android:layout_marginStart="16dp"
+            android:tint="@color/secondaryIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/configurationTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/configurationTextView"
+            app:srcCompat="@drawable/ic_settings" />
 
     </android.support.constraint.ConstraintLayout>
 

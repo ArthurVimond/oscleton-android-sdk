@@ -25,6 +25,7 @@ pages:
     - Prerequesite: getting-started/prerequesite.md
     - Android project setup: getting-started/android-project-setup.md
     - Configuration: getting-started/configuration.md
+    - Controller: getting-started/controller.md
     - Receiver: getting-started/receiver.md
   - API reference:
     - Package Index: api-reference/index.md

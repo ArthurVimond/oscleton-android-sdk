@@ -24,6 +24,7 @@ pages:
   - Getting started:
     - Prerequesite: getting-started/prerequesite.md
     - Android project setup: getting-started/android-project-setup.md
+    - Configuration: getting-started/configuration.md
   - API reference:
     - Package Index: api-reference/index.md
     - SDK:

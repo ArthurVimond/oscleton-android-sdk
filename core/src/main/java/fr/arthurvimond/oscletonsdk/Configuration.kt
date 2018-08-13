@@ -1,6 +1,8 @@
 package fr.arthurvimond.oscletonsdk
 
+import fr.arthurvimond.oscletonsdk.internal.LiveSetDataManager
 import fr.arthurvimond.oscletonsdk.internal.MessageManager
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -10,7 +12,9 @@ import io.reactivex.disposables.CompositeDisposable
  *
  * @since 0.1
  */
-class Configuration internal constructor(private val messageManager: MessageManager) {
+class Configuration internal constructor(private val liveSetDataManager: LiveSetDataManager,
+                                         private val messageManager: MessageManager) {
+
     /**
      * Oscleton SDK version
      *
@@ -18,6 +22,14 @@ class Configuration internal constructor(private val messageManager: MessageMana
      * @since 0.1
      */
     val sdkVersion: String by lazy { BuildConfig.VERSION_NAME }
+
+    /**
+     * Live application version
+     *
+     * @return the Live application version
+     * @since 0.1
+     */
+    val liveVersion: Observable<String> = liveSetDataManager.liveVersion
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()

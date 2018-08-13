@@ -39,6 +39,8 @@ internal class MessageManager internal constructor(private val oscManager: OSCMa
 
     private fun requestCurrentState() {
 
+        sendMessage(LiveAPI.liveVersion)
+        
         sendMessage(LiveAPI.tempo)
 
         sendMessage(LiveAPI.masterVolume)

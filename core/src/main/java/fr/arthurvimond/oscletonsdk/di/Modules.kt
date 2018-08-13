@@ -8,7 +8,7 @@ import fr.arthurvimond.oscletonsdk.internal.OSCManager
 import org.koin.dsl.module.applicationContext
 
 internal val oscletonSDKModule = applicationContext {
-    bean { Configuration(get()) }
+    bean { Configuration(get(), get()) }
     bean { Controller(get()) }
     bean { Receiver() }
     bean { ReactiveReceiver(get()) }

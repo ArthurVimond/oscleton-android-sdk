@@ -19,6 +19,10 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     // General
 
+    val liveVersion: Observable<String> = messageManager.oscMessage
+            .filter { it.address == LiveAPI.liveVersion }
+            .map { it.arguments.first().string }
+
     val tempo: Observable<Float> = messageManager.oscMessage
             .filter { it.address == LiveAPI.tempo }
             .map { it.arguments.first().float }

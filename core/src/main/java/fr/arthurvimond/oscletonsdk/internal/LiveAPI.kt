@@ -7,6 +7,7 @@ internal object LiveAPI {
 
     // Config
     const val liveVersion = live + "config/live_version"
+    const val scriptVersion = live + "config/script_version"
     const val setPeer = live + "set_peer"
 
     // Transport

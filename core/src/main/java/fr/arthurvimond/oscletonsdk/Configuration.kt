@@ -24,12 +24,20 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     val sdkVersion: String by lazy { BuildConfig.VERSION_NAME }
 
     /**
-     * Live application version
+     * Live software version
      *
-     * @return the Live application version
+     * @return the Live software version
      * @since 0.1
      */
     val liveVersion: Observable<String> = liveSetDataManager.liveVersion
+
+    /**
+     * Oscleton MIDI Remote Script version in Live
+     *
+     * @return Oscleton MIDI Remote Script version
+     * @since 0.1
+     */
+    val scriptVersion: Observable<String> = liveSetDataManager.scriptVersion
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()

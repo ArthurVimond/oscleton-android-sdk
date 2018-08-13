@@ -26,4 +26,4 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
 
-script: ./gradlew test
+script: ./gradlew --no-daemon --parallel lintDebug testDebug

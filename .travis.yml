@@ -19,6 +19,7 @@ before_cache:
 
 before_install: 
   - yes | sdkmanager 'platforms;android-27'
+  - chmod +x gradlew
 
 cache: 
   directories: 
@@ -26,4 +27,4 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
 
-script: ./gradlew --no-daemon --parallel lintDebug testDebug
+script: ./gradlew test

@@ -30,8 +30,8 @@ android {
     compileSdkVersion 27
     defaultConfig {
         minSdkVersion 19
+        versionName "$libraryVersion"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {

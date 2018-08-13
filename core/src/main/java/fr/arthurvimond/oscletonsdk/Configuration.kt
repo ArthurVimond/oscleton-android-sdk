@@ -11,6 +11,13 @@ import io.reactivex.disposables.CompositeDisposable
  * @since 0.1
  */
 class Configuration internal constructor(private val messageManager: MessageManager) {
+    /**
+     * Oscleton SDK version
+     *
+     * @return the Oscleton SDK version
+     * @since 0.1
+     */
+    val sdkVersion: String by lazy { BuildConfig.VERSION_NAME }
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()

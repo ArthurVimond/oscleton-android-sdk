@@ -11,6 +11,7 @@ import fr.arthurvimond.oscletonsdk.models.Track
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
 internal class LiveSetDataManager internal constructor(private val messageManager: MessageManager) {
@@ -19,17 +20,14 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     // General
 
-    val liveVersion: Observable<String> = messageManager.oscMessage
-            .filter { it.address == LiveAPI.liveVersion }
-            .map { it.arguments.first().string }
+    val liveVersion: Observable<String>
+        get() = _liveVersion
 
-    val scriptVersion: Observable<String> = messageManager.oscMessage
-            .filter { it.address == LiveAPI.scriptVersion }
-            .map { it.arguments.first().string }
+    val scriptVersion: Observable<String>
+        get() = _scriptVersion
 
-    val tempo: Observable<Float> = messageManager.oscMessage
-            .filter { it.address == LiveAPI.tempo }
-            .map { it.arguments.first().float }
+    val tempo: Observable<Float>
+        get() = _tempo
 
 
     // Device parameters
@@ -37,6 +35,10 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         get() = _deviceParameter
 
     // Private properties
+
+    private val _liveVersion: BehaviorSubject<String> = BehaviorSubject.create()
+    private val _scriptVersion: BehaviorSubject<String> = BehaviorSubject.create()
+    private val _tempo: BehaviorSubject<Float> = BehaviorSubject.create()
 
     private val _deviceParameter: PublishSubject<DeviceParameter> = PublishSubject.create()
 
@@ -50,10 +52,41 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     private val currentDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
 
     init {
-        observeProperties()
+        observeConfigProperties()
+        observeTransportProperties()
+        observeDeviceParametersProperties()
     }
 
-    private fun observeProperties() {
+    private fun observeConfigProperties() {
+
+        // Live version
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.liveVersion }
+                .map { it.arguments.first().string }
+                .subscribe { _liveVersion.onNext(it) }
+                .addTo(compositeDisposable)
+
+        // Script version
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.scriptVersion }
+                .map { it.arguments.first().string }
+                .subscribe { _scriptVersion.onNext(it) }
+                .addTo(compositeDisposable)
+
+    }
+
+    private fun observeTransportProperties() {
+
+        // Tempo
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.tempo }
+                .map { it.arguments.first().float }
+                .subscribe { _tempo.onNext(it) }
+                .addTo(compositeDisposable)
+
+    }
+
+    private fun observeDeviceParametersProperties() {
 
         // Fill the maps on device parameters changes
         messageManager.oscMessage

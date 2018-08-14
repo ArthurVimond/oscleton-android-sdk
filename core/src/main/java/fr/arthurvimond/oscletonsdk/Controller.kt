@@ -31,12 +31,12 @@ class Controller internal constructor(private val messageManager: MessageManager
         messageManager.sendMessage(LiveAPI.tempo, listOf(tempo))
     }
 
-    fun setOverdub(enabled: Boolean) {
-        messageManager.sendMessage(LiveAPI.overdub, listOf(enabled.int))
-    }
-
     fun setMetronome(enabled: Boolean) {
         messageManager.sendMessage(LiveAPI.metronome, listOf(enabled.int))
+    }
+
+    fun setOverdub(enabled: Boolean) {
+        messageManager.sendMessage(LiveAPI.overdub, listOf(enabled.int))
     }
 
 }

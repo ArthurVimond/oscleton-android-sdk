@@ -43,6 +43,27 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/undoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/undo"
+                android:onClick="@{() -> viewModel.undo()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playButton" />
+
+            <Button
+                android:id="@+id/redoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{() -> viewModel.redo()}"
+                android:text="@string/redo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/undoButton" />
+
             <Switch
                 android:id="@+id/metronomeSwitch"
                 android:layout_width="wrap_content"
@@ -53,7 +74,7 @@
                 android:switchPadding="8dp"
                 android:text="@string/metronome"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/playButton" />
+                app:layout_constraintTop_toBottomOf="@+id/undoButton" />
 
             <Switch
                 android:id="@+id/overdubSwitch"
@@ -65,27 +86,6 @@
                 android:text="@string/overdub"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/metronomeSwitch" />
-
-            <Button
-                android:id="@+id/undoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/undo"
-                android:onClick="@{() -> viewModel.undo()}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/metronomeSwitch" />
-
-            <Button
-                android:id="@+id/redoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:onClick="@{() -> viewModel.redo()}"
-                android:text="@string/redo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/undoButton" />
 
         </android.support.constraint.ConstraintLayout>
 

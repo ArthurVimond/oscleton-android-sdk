@@ -9,6 +9,8 @@
     <string name="stop">Stop</string>
     <string name="metronome">Metronome</string>
     <string name="overdub">Overdub</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
 
     <!-- Receiver -->
     <string name="deviceParameter">Device parameter</string>

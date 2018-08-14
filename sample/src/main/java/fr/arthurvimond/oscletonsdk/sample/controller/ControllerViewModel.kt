@@ -21,6 +21,14 @@ class ControllerViewModel : ViewModel() {
         OscletonSDK.instance.controller.setOverdub(enabled)
     }
 
+    fun undo() {
+        OscletonSDK.instance.controller.undo()
+    }
+
+    fun redo() {
+        OscletonSDK.instance.controller.redo()
+    }
+
     override fun onCleared() {
         super.onCleared()
     }

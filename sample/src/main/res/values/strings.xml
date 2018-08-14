@@ -4,6 +4,10 @@
     <string name="receiver">Receiver</string>
     <string name="configuration">Configuration</string>
 
+    <!-- Controller -->
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+
     <!-- Receiver -->
     <string name="deviceParameter">Device parameter</string>
     <string name="name_comma">Name:</string>

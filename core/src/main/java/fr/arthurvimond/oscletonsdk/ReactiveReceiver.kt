@@ -14,9 +14,20 @@ import io.reactivex.Observable
  */
 class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManager) {
 
+    /**
+     * Returns the Live set global tempo as Observable.
+     *
+     * @return the Live set global tempo as Observable
+     * @since 0.1
+     */
     val tempo: Observable<Float> = liveSetDataManager.tempo
 
-
+    /**
+     * Returns the last changing device parameter as Observable.
+     *
+     * @return the last changing device parameter as Observable
+     * @since 0.1
+     */
     val deviceParameter: Observable<DeviceParameter> = liveSetDataManager.deviceParameter
 
 }

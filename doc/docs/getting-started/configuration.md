@@ -2,6 +2,7 @@
 
 In order to connect your Android device to your computer running Ableton Live, you first have to configure
 Oscleton SDK. Hunder the hood, it uses the Open Sound Control protocol to send and receive OSC messages.
+The only needed information is the computer IP address.
 
 To know what the IP address of your computer is, open the Terminal (on Mac)
 or the Command Prompt (on Windows) and type the following command:

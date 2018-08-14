@@ -10,6 +10,13 @@ import java.util.*
  */
 object NetworkUtils {
 
+    /**
+     * Returns the device IP address.
+     *
+     * @param useIPv4 the flag indicating which version of IP address it should return: v4 or v6. By default, it returns the IP v4.
+     * @return the device IP address
+     * @since 0.1
+     */
     fun deviceIPAddress(useIPv4: Boolean = true): String {
         try {
             val networkInterfaces = Collections.list(NetworkInterface.getNetworkInterfaces())

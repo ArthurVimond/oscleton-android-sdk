@@ -17,4 +17,8 @@
     <string name="name_comma">Name:</string>
     <string name="value_comma">Value:</string>
 
+    <!-- Configuration -->
+    <string name="computer_ip_address">Computer IP address</string>
+    <string name="set">Set</string>
+
 </resources>

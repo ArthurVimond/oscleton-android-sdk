@@ -1,8 +1,10 @@
 package fr.arthurvimond.oscletonsdk.internal
 
+import android.util.Patterns
 import com.illposed.osc.OSCMessage
 import com.illposed.osc.OSCPortIn
 import com.illposed.osc.OSCPortOut
+import fr.arthurvimond.oscletonsdk.enums.SDKResult
 import fr.arthurvimond.oscletonsdk.utils.Logger
 import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
@@ -33,15 +35,24 @@ internal class OSCManager {
 
     }
 
-    fun initSender(ip: String, port: Int = 9000) {
+    fun initSender(ip: String, port: Int = 9000): SDKResult {
         Logger.d("initSender", this)
 
-        try {
-            sender = OSCPortOut(InetAddress.getByName(ip), port)
-        } catch (e: SocketException) {
-            e.printStackTrace()
-        }
+        // Validate IP address
+        val isIpAddressValid = Patterns.IP_ADDRESS.matcher(ip).matches()
 
+        return if (isIpAddressValid) {
+            try {
+                sender = OSCPortOut(InetAddress.getByName(ip), port)
+                SDKResult.SUCCESS
+            } catch (e: SocketException) {
+                e.printStackTrace()
+                SDKResult.ERROR
+            }
+        } else {
+            Logger.e("Invalid IP address", this)
+            SDKResult.ERROR
+        }
     }
 
     // Receiver
@@ -56,16 +67,16 @@ internal class OSCManager {
                 e.printStackTrace()
             }
 
-            receiver.addListener("", { _, message ->
+            receiver.addListener("") { _, message ->
 
-//                var string = "oscMessage - address: ${message.address}"
+                //                var string = "oscMessage - address: ${message.address}"
 //                message.arguments.forEachIndexed { index, arg ->
 //                    string += " - arg[$index]: $arg"
 //                }
 //                Logger.d(string, this)
 
                 oscMessage.onNext(message)
-            })
+            }
         }
 
     }

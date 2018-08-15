@@ -1,6 +1,7 @@
 package fr.arthurvimond.oscletonsdk.internal
 
 import com.illposed.osc.OSCMessage
+import fr.arthurvimond.oscletonsdk.enums.SDKResult
 import fr.arthurvimond.oscletonsdk.utils.Logger
 import fr.arthurvimond.oscletonsdk.utils.NetworkUtils
 import io.reactivex.Observable
@@ -21,14 +22,20 @@ internal class MessageManager internal constructor(private val oscManager: OSCMa
     }
 
     // Sender
-    fun initSender(ip: String, port: Int = 9000) {
-        oscManager.initSender(ip, port)
+    fun initSender(ip: String, port: Int = 9000): SDKResult {
+        val result = oscManager.initSender(ip, port)
+
+        if (result != SDKResult.SUCCESS) {
+            return result
+        }
 
         // Set peer
         setPeer()
 
         // Request current state
         requestCurrentState()
+
+        return result
     }
 
     private fun setPeer() {

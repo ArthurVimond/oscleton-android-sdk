@@ -1,5 +1,6 @@
 package fr.arthurvimond.oscletonsdk
 
+import fr.arthurvimond.oscletonsdk.enums.SDKResult
 import fr.arthurvimond.oscletonsdk.internal.LiveSetDataManager
 import fr.arthurvimond.oscletonsdk.internal.MessageManager
 import io.reactivex.Observable
@@ -56,9 +57,10 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * NB: The default port is 9000.
      *
      * @param ip the IP address of the computer running Ableton Live
+     * @return the SDK result
      */
-    fun setComputerIP(ip: String) {
-        messageManager.initSender(ip)
+    fun setComputerIP(ip: String): SDKResult {
+        return messageManager.initSender(ip)
     }
 
     @JvmSynthetic

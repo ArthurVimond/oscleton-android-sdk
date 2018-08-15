@@ -3,16 +3,16 @@
 Oscleton SDK relies on a custom MIDI Remote Script for Ableton Live. In order to use the SDK in your Android application project, please follow the steps below:
 
 1. On your computer, download the [Oscleton MIDI Remote Script].
-2. Extract the ZIP and put it in the Ableton Live MIDI Remote Scripts folder as follow:
+2. Extract the ZIP and put the Oscleton folder in the Ableton Live MIDI Remote Scripts as follow:
 
     * On Mac:
     ```
-    /Applications/Live x.x/Contents/App-Resources/MIDI Remote Scripts/
+    /Applications/Live x.x/Contents/App-Resources/MIDI Remote Scripts/Oscleton
     ```
 
     * On Windows:
     ```
-    C:\ProgramData\Ableton\Live x.x\Resources\MIDI Remote Scripts\
+    C:\ProgramData\Ableton\Live x.x\Resources\MIDI Remote Scripts\Oscleton
     ```
 
 3. Start Ableton Live

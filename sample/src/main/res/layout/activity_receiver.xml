@@ -34,17 +34,19 @@
 
             <TextView
                 android:id="@+id/deviceParameterNameTitleTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/name_comma"
+                android:text="@string/name_title"
                 android:textSize="@dimen/text_body1"
-                app:layout_constraintStart_toStartOf="@+id/deviceParameterTitleTextView"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/deviceParameterTitleTextView" />
 
             <TextView
                 android:id="@+id/deviceParameterNameValueTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -56,17 +58,18 @@
 
             <TextView
                 android:id="@+id/deviceParameterValueTitleTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/value_comma"
+                android:text="@string/value_title"
                 android:textSize="@dimen/text_body1"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/deviceParameterTitleTextView"
                 app:layout_constraintTop_toBottomOf="@+id/deviceParameterNameTitleTextView" />
 
             <TextView
                 android:id="@+id/deviceParameterValueValueTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"

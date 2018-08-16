@@ -20,8 +20,6 @@ repositories {
 
 Add the dependency in your Module's `build.gradle` file:
 
-(not available yet)
-
 ```groovy
 dependencies {
     // ...

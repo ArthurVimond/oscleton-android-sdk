@@ -32,6 +32,7 @@ android {
         minSdkVersion 19
         versionName "$libraryVersion"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {

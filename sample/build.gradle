@@ -45,6 +45,7 @@ dependencies {
 
     // Oscleton SDK
     implementation project(':core')
+//    implementation 'fr.arthurvimond.oscletonsdk:core:0.1.0'
 
     // Lifecycle
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"

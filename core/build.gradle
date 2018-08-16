@@ -5,7 +5,7 @@ apply plugin: 'org.jetbrains.dokka'
 
 ext {
     bintrayRepo = 'oscleton-android-sdk'
-    bintrayName = 'oscleton-android-sdk'
+    bintrayName = 'core'
 
     publishedGroupId = 'fr.arthurvimond.oscletonsdk'
     artifact = 'core'

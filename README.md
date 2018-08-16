@@ -1,5 +1,6 @@
 # Oscleton SDK for Android
 [![Build Status](https://travis-ci.org/ArthurVimond/oscleton-android-sdk.svg?branch=master)](https://travis-ci.org/ArthurVimond/oscleton-android-sdk)
+[![Download](https://api.bintray.com/packages/arthurvimond/oscleton-android-sdk/core/images/download.svg)](https://bintray.com/arthurvimond/oscleton-android-sdk/core/_latestVersion)
 
 Ableton Live companion SDK for Android
 

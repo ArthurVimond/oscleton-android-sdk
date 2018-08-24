@@ -16,6 +16,7 @@
     <string name="deviceParameter">Device parameter</string>
     <string name="name_title">Name:</string>
     <string name="value_title">Value:</string>
+    <string name="display_value_title">Display value:</string>
 
     <!-- Configuration -->
     <string name="computer_ip_address">Computer IP address</string>

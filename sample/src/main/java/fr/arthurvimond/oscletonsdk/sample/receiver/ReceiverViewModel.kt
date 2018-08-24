@@ -23,12 +23,17 @@ class ReceiverViewModel : ViewModel() {
 
     val deviceParameterName: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
             reactiveReceiver.deviceParameter
-                    .map { it.name }
+                    .map { it.deviceName }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     val deviceParameterValue: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
             reactiveReceiver.deviceParameter
                     .map { "${it.value}" }
+                    .toFlowable(BackpressureStrategy.LATEST))
+
+    val deviceParameterDisplayValue: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
+            reactiveReceiver.deviceParameter
+                    .map { it.displayValue }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     init {
@@ -54,7 +59,7 @@ class ReceiverViewModel : ViewModel() {
         // Listen for device parameter changes
         reactiveReceiver.deviceParameter
                 .subscribe {
-                    Logger.d("deviceParameter.onNext: name: ${it.name} - value: ${it.value}" +
+                    Logger.d("deviceParameter.onNext: name: ${it.paramName} - value: ${it.value}" +
                             " - track: ${it.trackIndex} - device: ${it.deviceIndex} - param: ${it.paramIndex}", this)
                 }.addTo(compositeDisposable)
 

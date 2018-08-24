@@ -79,6 +79,29 @@
                 app:layout_constraintStart_toEndOf="@+id/deviceParameterValueTitleTextView"
                 tools:text="0.8" />
 
+            <TextView
+                android:id="@+id/deviceParameterDisplayValueTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/display_value_title"
+                android:textSize="@dimen/text_body1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/deviceParameterValueTitleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/deviceParameterValueTitleTextView" />
+
+            <TextView
+                android:id="@+id/deviceParameterDisplayValueValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.deviceParameterDisplayValue}"
+                android:textSize="@dimen/text_body1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/deviceParameterDisplayValueTitleTextView"
+                app:layout_constraintStart_toEndOf="@+id/deviceParameterDisplayValueTitleTextView"
+                tools:text="5.1 kHz" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>

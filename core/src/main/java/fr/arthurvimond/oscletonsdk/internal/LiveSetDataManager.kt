@@ -132,16 +132,22 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         val trackIndex = oscMessage.arguments[0].int
         val deviceIndex = oscMessage.arguments[1].int
         val paramIndex = oscMessage.arguments[2].int
-        val name = oscMessage.arguments[3].string
-        val value = oscMessage.arguments[4].float
-        val min = oscMessage.arguments[5].float
-        val max = oscMessage.arguments[6].float
+        val trackName = oscMessage.arguments[3].string
+        val deviceName = oscMessage.arguments[4].string
+        val paramName = oscMessage.arguments[5].string
+        val displayValue = oscMessage.arguments[6].string
+        val value = oscMessage.arguments[7].float
+        val min = oscMessage.arguments[8].float
+        val max = oscMessage.arguments[9].float
 
         return DeviceParameter(
-                paramIndex = paramIndex,
-                deviceIndex = deviceIndex,
                 trackIndex = trackIndex,
-                name = name,
+                deviceIndex = deviceIndex,
+                paramIndex = paramIndex,
+                trackName = trackName,
+                deviceName = deviceName,
+                paramName = paramName,
+                displayValue = displayValue,
                 value = value,
                 min = min,
                 max = max)

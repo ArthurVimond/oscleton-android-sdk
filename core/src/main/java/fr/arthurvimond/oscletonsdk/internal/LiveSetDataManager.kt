@@ -94,12 +94,21 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 .map { mapToDeviceParameter(it) }
                 .subscribe {
 
-                    // Track
-                    tracks[it.trackIndex] = Track(it.trackIndex)
+                    // Create new track (if needed)
+                    if (tracks[it.trackIndex] == null) {
+                        tracks[it.trackIndex] = Track(it.trackIndex)
+                    }
 
-                    // Device
+                    tracks[it.trackIndex]!!.index = it.trackIndex
+
+                    // Create new device (if needed)
                     val pair = Pair(it.trackIndex, it.deviceIndex)
-                    devices[pair] = Device(it.trackIndex, it.deviceIndex)
+                    if (devices[pair] == null) {
+                        devices[pair] = Device(it.trackIndex, it.deviceIndex)
+                    }
+
+                    devices[pair]!!.trackIndex = it.trackIndex
+                    devices[pair]!!.deviceIndex = it.deviceIndex
 
                     // Device parameter
                     val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)

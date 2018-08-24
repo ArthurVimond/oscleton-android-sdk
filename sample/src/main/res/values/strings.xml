@@ -20,6 +20,7 @@
     <string name="display_value_title">Display value:</string>
     <string name="value_title">Value:</string>
     <string name="min_title">Min:</string>
+    <string name="max_title">Max:</string>
 
     <!-- Configuration -->
     <string name="computer_ip_address">Computer IP address</string>

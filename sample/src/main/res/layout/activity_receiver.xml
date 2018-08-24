@@ -173,6 +173,29 @@
                 app:layout_constraintStart_toEndOf="@+id/deviceParameterMinTitleTextView"
                 tools:text="20.0" />
 
+            <TextView
+                android:id="@+id/deviceParameterMaxTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/max_title"
+                android:textSize="@dimen/text_body1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/deviceParameterMinTitleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/deviceParameterMinTitleTextView" />
+
+            <TextView
+                android:id="@+id/deviceParameterMaxValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.deviceParameterMax}"
+                android:textSize="@dimen/text_body1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/deviceParameterMaxTitleTextView"
+                app:layout_constraintStart_toEndOf="@+id/deviceParameterMaxTitleTextView"
+                tools:text="135.0" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>

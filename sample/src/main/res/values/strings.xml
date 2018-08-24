@@ -17,8 +17,9 @@
     <string name="trackName_title">Track name:</string>
     <string name="deviceName_title">Device name:</string>
     <string name="parameterName_title">Parameter name:</string>
-    <string name="value_title">Value:</string>
     <string name="display_value_title">Display value:</string>
+    <string name="value_title">Value:</string>
+    <string name="min_title">Min:</string>
 
     <!-- Configuration -->
     <string name="computer_ip_address">Computer IP address</string>

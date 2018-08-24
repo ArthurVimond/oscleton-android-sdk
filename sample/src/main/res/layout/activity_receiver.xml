@@ -105,29 +105,6 @@
                 tools:text="Frequency" />
 
             <TextView
-                android:id="@+id/deviceParameterValueTitleTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/value_title"
-                android:textSize="@dimen/text_body1"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/deviceParameterTitleTextView"
-                app:layout_constraintTop_toBottomOf="@+id/deviceParameterNameTitleTextView" />
-
-            <TextView
-                android:id="@+id/deviceParameterValueValueTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@{viewModel.deviceParameterValue}"
-                android:textSize="@dimen/text_body1"
-                app:layout_constraintBaseline_toBaselineOf="@+id/deviceParameterValueTitleTextView"
-                app:layout_constraintStart_toEndOf="@+id/deviceParameterValueTitleTextView"
-                tools:text="0.8" />
-
-            <TextView
                 android:id="@+id/deviceParameterDisplayValueTitleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -135,8 +112,8 @@
                 android:text="@string/display_value_title"
                 android:textSize="@dimen/text_body1"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/deviceParameterValueTitleTextView"
-                app:layout_constraintTop_toBottomOf="@+id/deviceParameterValueTitleTextView" />
+                app:layout_constraintStart_toStartOf="@+id/deviceParameterNameTitleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/deviceParameterNameTitleTextView" />
 
             <TextView
                 android:id="@+id/deviceParameterDisplayValueValueTextView"
@@ -149,6 +126,52 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/deviceParameterDisplayValueTitleTextView"
                 app:layout_constraintStart_toEndOf="@+id/deviceParameterDisplayValueTitleTextView"
                 tools:text="5.1 kHz" />
+
+            <TextView
+                android:id="@+id/deviceParameterValueTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/value_title"
+                android:textSize="@dimen/text_body1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/deviceParameterDisplayValueTitleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/deviceParameterDisplayValueTitleTextView" />
+
+            <TextView
+                android:id="@+id/deviceParameterValueValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.deviceParameterValue}"
+                android:textSize="@dimen/text_body1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/deviceParameterValueTitleTextView"
+                app:layout_constraintStart_toEndOf="@+id/deviceParameterValueTitleTextView"
+                tools:text="110.0" />
+
+            <TextView
+                android:id="@+id/deviceParameterMinTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/min_title"
+                android:textSize="@dimen/text_body1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/deviceParameterValueTitleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/deviceParameterValueTitleTextView" />
+
+            <TextView
+                android:id="@+id/deviceParameterMinValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.deviceParameterMin}"
+                android:textSize="@dimen/text_body1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/deviceParameterMinTitleTextView"
+                app:layout_constraintStart_toEndOf="@+id/deviceParameterMinTitleTextView"
+                tools:text="20.0" />
 
         </android.support.constraint.ConstraintLayout>
 

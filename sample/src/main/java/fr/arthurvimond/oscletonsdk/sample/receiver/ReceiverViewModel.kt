@@ -46,6 +46,11 @@ class ReceiverViewModel : ViewModel() {
                     .map { it.displayValue }
                     .toFlowable(BackpressureStrategy.LATEST))
 
+    val deviceParameterMin: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
+            reactiveReceiver.deviceParameter
+                    .map { "${it.min}" }
+                    .toFlowable(BackpressureStrategy.LATEST))
+
     init {
         observeProperties()
     }

@@ -54,7 +54,31 @@
                 android:textSize="@dimen/text_body1"
                 app:layout_constraintBaseline_toBaselineOf="@+id/trackNameTitleTextView"
                 app:layout_constraintStart_toEndOf="@+id/trackNameTitleTextView"
-                tools:text="1- Audio" />
+                tools:text="1-Audio" />
+
+            <TextView
+                android:id="@+id/deviceNameTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/deviceName_title"
+                android:textSize="@dimen/text_body1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trackNameTitleTextView" />
+
+            <TextView
+                android:id="@+id/deviceNameValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.deviceName}"
+                android:textSize="@dimen/text_body1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/deviceNameTitleTextView"
+                app:layout_constraintStart_toEndOf="@+id/deviceNameTitleTextView"
+                tools:text="Auto Filter" />
 
             <TextView
                 android:id="@+id/deviceParameterNameTitleTextView"
@@ -66,7 +90,7 @@
                 android:textSize="@dimen/text_body1"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trackNameTitleTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/deviceNameTitleTextView" />
 
             <TextView
                 android:id="@+id/deviceParameterNameValueTextView"

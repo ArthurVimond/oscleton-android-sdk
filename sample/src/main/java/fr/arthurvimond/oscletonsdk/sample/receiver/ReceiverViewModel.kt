@@ -21,9 +21,14 @@ class ReceiverViewModel : ViewModel() {
 
     // Public properties
 
+    val trackName: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
+            reactiveReceiver.deviceParameter
+                    .map { it.trackName }
+                    .toFlowable(BackpressureStrategy.LATEST))
+
     val deviceParameterName: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
             reactiveReceiver.deviceParameter
-                    .map { it.deviceName }
+                    .map { it.paramName }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     val deviceParameterValue: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(

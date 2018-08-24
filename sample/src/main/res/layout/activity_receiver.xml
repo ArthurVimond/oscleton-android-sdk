@@ -33,16 +33,40 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/trackNameTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/trackName_title"
+                android:textSize="@dimen/text_body1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceParameterTitleTextView" />
+
+            <TextView
+                android:id="@+id/trackNameValueTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.trackName}"
+                android:textSize="@dimen/text_body1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/trackNameTitleTextView"
+                app:layout_constraintStart_toEndOf="@+id/trackNameTitleTextView"
+                tools:text="1- Audio" />
+
+            <TextView
                 android:id="@+id/deviceParameterNameTitleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/name_title"
+                android:text="@string/parameterName_title"
                 android:textSize="@dimen/text_body1"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/deviceParameterTitleTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/trackNameTitleTextView" />
 
             <TextView
                 android:id="@+id/deviceParameterNameValueTextView"
@@ -54,7 +78,7 @@
                 android:textSize="@dimen/text_body1"
                 app:layout_constraintBaseline_toBaselineOf="@+id/deviceParameterNameTitleTextView"
                 app:layout_constraintStart_toEndOf="@+id/deviceParameterNameTitleTextView"
-                tools:text="AutoFilter" />
+                tools:text="Frequency" />
 
             <TextView
                 android:id="@+id/deviceParameterValueTitleTextView"

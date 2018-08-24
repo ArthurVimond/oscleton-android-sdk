@@ -14,7 +14,8 @@
 
     <!-- Receiver -->
     <string name="deviceParameter">Device parameter</string>
-    <string name="name_title">Name:</string>
+    <string name="trackName_title">Track name:</string>
+    <string name="parameterName_title">Parameter name:</string>
     <string name="value_title">Value:</string>
     <string name="display_value_title">Display value:</string>
 

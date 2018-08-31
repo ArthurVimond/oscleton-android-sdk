@@ -3,9 +3,11 @@ package fr.arthurvimond.oscletonsdk
 import fr.arthurvimond.oscletonsdk.enums.SDKResult
 import fr.arthurvimond.oscletonsdk.internal.LiveSetDataManager
 import fr.arthurvimond.oscletonsdk.internal.MessageManager
+import fr.arthurvimond.oscletonsdk.listeners.OnConnectionSuccessListener
 import fr.arthurvimond.oscletonsdk.utils.Empty
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * Configuration is responsible for the SDK settings,
@@ -53,6 +55,8 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     // RxJava
     private val compositeDisposable = CompositeDisposable()
 
+    private var onConnectionSuccessDisp: Disposable? = null
+
     init {
         observeProperties()
     }
@@ -71,6 +75,31 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun setComputerIP(ip: String): SDKResult {
         return messageManager.initSender(ip)
+    }
+
+    /**
+     * Register a callback to be invoked when the mobile device
+     * is connected to the computer running Ableton Live.
+     *
+     * @param listener The callback that will run
+     * @since 0.2
+     */
+    fun set(listener: OnConnectionSuccessListener) {
+        onConnectionSuccessDisp = liveSetDataManager.onSetPeerSuccess
+                .subscribe {
+                    listener.onConnectionSuccess()
+                }
+
+        compositeDisposable.add(onConnectionSuccessDisp!!)
+    }
+
+    /**
+     * Remove the current [OnConnectionSuccessListener].
+     *
+     * @since 0.2
+     */
+    fun removeOnConnectionSuccessListener() {
+        onConnectionSuccessDisp?.dispose()
     }
 
     @JvmSynthetic

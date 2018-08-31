@@ -2,6 +2,14 @@
 
 The format is based on [Keep a Changelog] and this project adheres to [Semantic Versioning].
 
+## [0.2.0] - 2018-08-31
+
+### Added
+- Configuration: onConnectionSuccess API
+
+### Changed
+- DeviceParameter: add trackName, deviceName, displayValue properties
+
 ## [0.1.0] - 2018-08-16
 
 ### Added
@@ -13,6 +21,7 @@ The format is based on [Keep a Changelog] and this project adheres to [Semantic 
 
 
 
+[0.2.0]: https://github.com/ArthurVimond/oscleton-android-sdk/releases/tag/0.2.0
 [0.1.0]: https://github.com/ArthurVimond/oscleton-android-sdk/releases/tag/0.1.0
 
 [Keep a Changelog]: http://keepachangelog.com/en/1.0.0/

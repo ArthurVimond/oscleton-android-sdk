@@ -19,7 +19,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     // Public properties
 
-    // General
+    // Config
 
     val liveVersion: Observable<String>
         get() = _liveVersion
@@ -29,6 +29,8 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     val onSetPeerSuccess: Observable<Empty>
         get() = _onSetPeerSuccess
+
+    // Transport
 
     val tempo: Observable<Float>
         get() = _tempo

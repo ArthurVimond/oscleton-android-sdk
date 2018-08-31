@@ -32,4 +32,4 @@ script: ./gradlew test
 notifications:
   email:
     recipients:
-      - ci@oscletonsdk.arthurvimond.fr
+      - ci@oscleton.arthurvimond.fr

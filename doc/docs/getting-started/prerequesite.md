@@ -23,4 +23,4 @@ Oscleton SDK relies on a custom MIDI Remote Script for Ableton Live. In order to
 
 
 
-[Oscleton MIDI Remote Script]: http://downloads.oscletonsdk.arthurvimond.fr/midi-remote-script/0.1.0/oscleton.zip
+[Oscleton MIDI Remote Script]: http://downloads.oscleton.arthurvimond.fr/midi-remote-script/0.2.0/oscleton.zip

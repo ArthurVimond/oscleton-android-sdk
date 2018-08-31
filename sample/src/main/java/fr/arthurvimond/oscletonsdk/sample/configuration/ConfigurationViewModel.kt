@@ -5,7 +5,9 @@ import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import fr.arthurvimond.oscletonsdk.OscletonSDK
+import fr.arthurvimond.oscletonsdk.utils.Empty
 import io.reactivex.BackpressureStrategy
+import io.reactivex.Observable
 
 class ConfigurationViewModel : ViewModel() {
 
@@ -18,6 +20,8 @@ class ConfigurationViewModel : ViewModel() {
             OscletonSDK.instance.config.scriptVersion.toFlowable(BackpressureStrategy.LATEST))
 
     val sdkVersion: ObservableField<String> = ObservableField(OscletonSDK.instance.config.sdkVersion)
+
+    val onConnectionSuccess: Observable<Empty> = OscletonSDK.instance.config.onConnectionSuccess
 
     fun setComputerIPAddress() {
         val computerIP = computerIPAddress.get()

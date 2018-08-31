@@ -7,6 +7,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import fr.arthurvimond.oscletonsdk.sample.R
 import fr.arthurvimond.oscletonsdk.sample.databinding.ConfigurationActivityBinding
+import fr.arthurvimond.oscletonsdk.sample.utils.SnackbarUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 
 class ConfigurationActivity : AppCompatActivity() {
 
@@ -20,6 +24,9 @@ class ConfigurationActivity : AppCompatActivity() {
         ViewModelProviders.of(this).get(ConfigurationViewModel::class.java)
     }
 
+    // Rx
+    private val compositeDisposable = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
@@ -30,6 +37,18 @@ class ConfigurationActivity : AppCompatActivity() {
 
         // Set toolbar title
         supportActionBar?.title = resources.getString(R.string.configuration)
+
+        observeProperties()
+    }
+
+    private fun observeProperties() {
+
+        // Connection success message
+        viewModel.onConnectionSuccess
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connectedToLive) }
+                .addTo(compositeDisposable)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -43,4 +62,8 @@ class ConfigurationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.clear()
+    }
 }

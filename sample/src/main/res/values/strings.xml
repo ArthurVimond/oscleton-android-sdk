@@ -28,5 +28,6 @@
     <string name="ableton_live_version_title">Ableton Live version:</string>
     <string name="midi_remote_script_version_title">MIDI Remote Script version:</string>
     <string name="sdk_version_title">SDK version:</string>
+    <string name="connectedToLive">Connected to Live</string>
 
 </resources>

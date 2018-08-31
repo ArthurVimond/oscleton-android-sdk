@@ -3,6 +3,7 @@ package fr.arthurvimond.oscletonsdk
 import fr.arthurvimond.oscletonsdk.enums.SDKResult
 import fr.arthurvimond.oscletonsdk.internal.LiveSetDataManager
 import fr.arthurvimond.oscletonsdk.internal.MessageManager
+import fr.arthurvimond.oscletonsdk.utils.Empty
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 
@@ -39,6 +40,15 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.1
      */
     val scriptVersion: Observable<String> = liveSetDataManager.scriptVersion
+
+    /**
+     * Connection success message in response of [setComputerIP] call.
+     *
+     * @return Connection success message
+     * @since 0.2
+     * @see setComputerIP
+     */
+    val onConnectionSuccess: Observable<Empty> = liveSetDataManager.onSetPeerSuccess
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()

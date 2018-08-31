@@ -1,6 +1,14 @@
 package fr.arthurvimond.oscletonsdk.extensions
 
 /**
+ * Extension property to cast an [Any] to [Boolean].
+ *
+ * @since 0.2
+ */
+val Any.boolean: Boolean
+    get() = this as Boolean
+
+/**
  * Extension property to cast an [Any] to [Int].
  *
  * @since 0.1

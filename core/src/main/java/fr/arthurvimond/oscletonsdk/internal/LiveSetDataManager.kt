@@ -8,6 +8,7 @@ import fr.arthurvimond.oscletonsdk.models.Device
 import fr.arthurvimond.oscletonsdk.models.DeviceParameter
 import fr.arthurvimond.oscletonsdk.models.DeviceParameterIndices
 import fr.arthurvimond.oscletonsdk.models.Track
+import fr.arthurvimond.oscletonsdk.utils.Empty
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -26,6 +27,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     val scriptVersion: Observable<String>
         get() = _scriptVersion
 
+    val onSetPeerSuccess: Observable<Empty>
+        get() = _onSetPeerSuccess
+
     val tempo: Observable<Float>
         get() = _tempo
 
@@ -38,6 +42,8 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     private val _liveVersion: BehaviorSubject<String> = BehaviorSubject.create()
     private val _scriptVersion: BehaviorSubject<String> = BehaviorSubject.create()
+    private val _onSetPeerSuccess: PublishSubject<Empty> = PublishSubject.create()
+
     private val _tempo: BehaviorSubject<Float> = BehaviorSubject.create()
 
     private val _deviceParameter: PublishSubject<DeviceParameter> = PublishSubject.create()
@@ -71,6 +77,13 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 .filter { it.address == LiveAPI.scriptVersion }
                 .map { it.arguments.first().string }
                 .subscribe { _scriptVersion.onNext(it) }
+                .addTo(compositeDisposable)
+
+        // SetPeer success
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.setPeerSuccess }
+                .map { it.arguments.first() }
+                .subscribe { _onSetPeerSuccess.onNext(Empty.VOID) }
                 .addTo(compositeDisposable)
 
     }

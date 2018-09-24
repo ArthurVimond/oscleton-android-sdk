@@ -22,7 +22,7 @@ extra:
 pages:
   - Introduction: index.md
   - Getting started:
-    - Prerequesite: getting-started/prerequesite.md
+    - Prerequisite: getting-started/prerequisite.md
     - Android project setup: getting-started/android-project-setup.md
     - Configuration: getting-started/configuration.md
     - Controller: getting-started/controller.md

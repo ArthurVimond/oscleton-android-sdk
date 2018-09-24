@@ -6,7 +6,7 @@ Ableton Live companion SDK for Android
 
 ## Official documentation
 
-The official documentation is hosted on the [Oscleton SDK website](https://oscletonsdk.arthurvimond.fr).
+The official documentation is hosted on the [Oscleton SDK website](https://sdk.oscleton.com).
 
 ## Gradle Setup
 

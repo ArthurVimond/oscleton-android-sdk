@@ -1,4 +1,4 @@
-# Osleton SDK for Android
+# Oscleton SDK for Android
 
 ## Introduction
 

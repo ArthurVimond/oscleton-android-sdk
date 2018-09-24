@@ -1,6 +1,6 @@
 ## Feedback
 
-If you have any feedback, you can send an email to [sdk@oscleton.arthurvimond.fr](mailto:sdk@oscleton.arthurvimond.fr)
+If you have any feedback, you can send an email to [feedback@sdk.oscleton.com](mailto:feedback@sdk.oscleton.com)
 or create a [GitHub pull request].
 
 ## Issues

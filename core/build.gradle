@@ -7,7 +7,7 @@ ext {
     bintrayRepo = 'oscleton-android-sdk'
     bintrayName = 'core'
 
-    publishedGroupId = 'com.oscleton.sdk'
+    publishedGroupId = 'fr.arthurvimond.oscletonsdk'
     artifact = 'core'
     libraryVersion = '0.3.0'
 

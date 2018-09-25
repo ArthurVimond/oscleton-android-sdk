@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="fr.arthurvimond.oscletonsdk.sample.configuration.ConfigurationViewModel" />
+            type="com.oscleton.sdk.sample.configuration.ConfigurationViewModel" />
 
     </data>
 

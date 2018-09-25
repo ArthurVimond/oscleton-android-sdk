@@ -1,4 +1,4 @@
-package fr.arthurvimond.oscletonsdk.sample.utils
+package com.oscleton.sdk.sample.utils
 
 import android.support.design.widget.Snackbar
 import android.view.View

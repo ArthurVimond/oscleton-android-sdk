@@ -1,7 +1,7 @@
-package fr.arthurvimond.oscletonsdk.sample.base
+package com.oscleton.sdk.sample.base
 
 import android.app.Application
-import fr.arthurvimond.oscletonsdk.OscletonSDK
+import com.oscleton.sdk.OscletonSDK
 
 class SampleApp : Application() {
 

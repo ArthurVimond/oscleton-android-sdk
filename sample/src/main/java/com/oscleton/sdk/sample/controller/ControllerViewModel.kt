@@ -1,7 +1,7 @@
-package fr.arthurvimond.oscletonsdk.sample.controller
+package com.oscleton.sdk.sample.controller
 
 import android.arch.lifecycle.ViewModel
-import fr.arthurvimond.oscletonsdk.OscletonSDK
+import com.oscleton.sdk.OscletonSDK
 
 class ControllerViewModel : ViewModel() {
 

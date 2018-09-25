@@ -1,7 +1,8 @@
-package fr.arthurvimond.oscletonsdk.sample
+package com.oscleton.sdk.sample
 
 import android.arch.lifecycle.ViewModel
-import fr.arthurvimond.oscletonsdk.OscletonSDK
+import com.oscleton.sdk.OscletonSDK
+import com.oscleton.sdk.sample.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -15,7 +16,7 @@ class MainViewModel : ViewModel() {
     fun configure() {
 
         // Set computer IP address running Ableton Live
-        OscletonSDK.instance.config.setComputerIP("192.168.4.239")
+        OscletonSDK.instance.config.setComputerIP("192.168.4.186")
     }
 
     override fun onCleared() {

@@ -1,7 +1,7 @@
-package fr.arthurvimond.oscletonsdk.sample.utils
+package com.oscleton.sdk.sample.utils
 
 import android.util.Log
-import fr.arthurvimond.oscletonsdk.BuildConfig
+import com.oscleton.sdk.BuildConfig
 
 object Logger {
 

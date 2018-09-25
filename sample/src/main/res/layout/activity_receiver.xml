@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="fr.arthurvimond.oscletonsdk.sample.receiver.ReceiverViewModel" />
+            type="com.oscleton.sdk.sample.receiver.ReceiverViewModel" />
 
     </data>
 

@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.2'
     defaultConfig {
-        applicationId "fr.arthurvimond.oscletonsdk"
+        applicationId "com.oscleton.sdk.sample"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1

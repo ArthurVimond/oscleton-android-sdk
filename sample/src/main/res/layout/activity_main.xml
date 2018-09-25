@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="fr.arthurvimond.oscletonsdk.sample.MainViewModel" />
+            type="com.oscleton.sdk.sample.MainViewModel" />
 
     </data>
 

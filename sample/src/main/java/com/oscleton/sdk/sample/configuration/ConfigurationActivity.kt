@@ -1,13 +1,13 @@
-package fr.arthurvimond.oscletonsdk.sample.configuration
+package com.oscleton.sdk.sample.configuration
 
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import fr.arthurvimond.oscletonsdk.sample.R
-import fr.arthurvimond.oscletonsdk.sample.databinding.ConfigurationActivityBinding
-import fr.arthurvimond.oscletonsdk.sample.utils.SnackbarUtils
+import com.oscleton.sdk.sample.R
+import com.oscleton.sdk.sample.databinding.ConfigurationActivityBinding
+import com.oscleton.sdk.sample.utils.SnackbarUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

@@ -1,23 +1,23 @@
-package fr.arthurvimond.oscletonsdk.sample.controller
+package com.oscleton.sdk.sample.receiver
 
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import fr.arthurvimond.oscletonsdk.sample.R
-import fr.arthurvimond.oscletonsdk.sample.databinding.ControllerActivityBinding
+import com.oscleton.sdk.sample.R
+import com.oscleton.sdk.sample.databinding.ReceiverActivityBinding
 
-class ControllerActivity : AppCompatActivity() {
+class ReceiverActivity : AppCompatActivity() {
 
     // UI
-    private val binding: ControllerActivityBinding by lazy {
-        DataBindingUtil.setContentView<ControllerActivityBinding>(this, R.layout.activity_controller)
+    private val binding: ReceiverActivityBinding by lazy {
+        DataBindingUtil.setContentView<ReceiverActivityBinding>(this, R.layout.activity_receiver)
     }
 
     // Data
-    private val viewModel: ControllerViewModel by lazy {
-        ViewModelProviders.of(this).get(ControllerViewModel::class.java)
+    private val viewModel: ReceiverViewModel by lazy {
+        ViewModelProviders.of(this).get(ReceiverViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class ControllerActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Set toolbar title
-        supportActionBar?.title = resources.getString(R.string.controller)
+        supportActionBar?.title = resources.getString(R.string.receiver)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

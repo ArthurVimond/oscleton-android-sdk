@@ -1,14 +1,14 @@
-package fr.arthurvimond.oscletonsdk.sample
+package com.oscleton.sdk.sample
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import fr.arthurvimond.oscletonsdk.sample.configuration.ConfigurationActivity
-import fr.arthurvimond.oscletonsdk.sample.controller.ControllerActivity
-import fr.arthurvimond.oscletonsdk.sample.databinding.MainActivityBinding
-import fr.arthurvimond.oscletonsdk.sample.receiver.ReceiverActivity
+import com.oscleton.sdk.sample.configuration.ConfigurationActivity
+import com.oscleton.sdk.sample.controller.ControllerActivity
+import com.oscleton.sdk.sample.databinding.MainActivityBinding
+import com.oscleton.sdk.sample.receiver.ReceiverActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

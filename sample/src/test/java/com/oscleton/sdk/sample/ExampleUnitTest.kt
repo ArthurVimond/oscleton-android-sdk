@@ -1,4 +1,4 @@
-package fr.arthurvimond.oscletonsdk
+package com.oscleton.sdk
 
 import org.junit.Test
 

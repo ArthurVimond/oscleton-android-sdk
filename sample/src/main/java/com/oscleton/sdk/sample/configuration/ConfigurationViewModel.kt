@@ -1,11 +1,11 @@
-package fr.arthurvimond.oscletonsdk.sample.configuration
+package com.oscleton.sdk.sample.configuration
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
-import fr.arthurvimond.oscletonsdk.OscletonSDK
-import fr.arthurvimond.oscletonsdk.utils.Empty
+import com.oscleton.sdk.OscletonSDK
+import com.oscleton.sdk.utils.Empty
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 

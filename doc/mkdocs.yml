@@ -46,8 +46,8 @@ pages:
       - OscletonSDKException: api-reference/fr.arthurvimond.oscletonsdk.exceptions/-oscleton-s-d-k-exception/index.md
     - Listeners:
       - Overview: api-reference/fr.arthurvimond.oscletonsdk.listeners/index.md
-      - OnTempoChangedListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-tempo-change-listener/index.md
-#      - OnVolumeChangedListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-volume-change-listener/index.md
+      - OnTempoChangeListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-tempo-change-listener/index.md
+#      - OnVolumeChangeListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-volume-change-listener/index.md
     - Models:
       - Overview: api-reference/fr.arthurvimond.oscletonsdk.models/index.md
 #      - Clip: api-reference/fr.arthurvimond.oscletonsdk.models/-clip/index.md

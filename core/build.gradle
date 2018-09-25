@@ -7,9 +7,9 @@ ext {
     bintrayRepo = 'oscleton-android-sdk'
     bintrayName = 'core'
 
-    publishedGroupId = 'fr.arthurvimond.oscletonsdk'
+    publishedGroupId = 'com.oscleton.sdk'
     artifact = 'core'
-    libraryVersion = "0.2.0"
+    libraryVersion = '0.3.0'
 
     libraryName = 'oscleton-android-sdk'
     libraryDescription = 'Ableton Live companion SDK for Android'

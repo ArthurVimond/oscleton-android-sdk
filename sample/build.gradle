@@ -43,7 +43,7 @@ dependencies {
 
     // Oscleton SDK
     implementation project(':core')
-//    implementation 'fr.arthurvimond.oscletonsdk:core:0.2.0'
+//    implementation 'com.oscleton.sdk:core:0.3.0'
 
     // Support
     implementation "com.android.support:appcompat-v7:$support_version"

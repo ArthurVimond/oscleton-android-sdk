@@ -6,7 +6,7 @@ Include the dependency in your module's `build.gradle` file:
 
 ``` groovy
 dependencies {
-   compile "fr.arthurvimond.oscletonsdk:core:0.1.0"
+   compile "fr.arthurvimond.oscletonsdk:core:0.3.0"
 }
 ```
 

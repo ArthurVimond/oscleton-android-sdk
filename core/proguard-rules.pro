@@ -1,17 +1,17 @@
 # Oscleton SDK consumer ProGuard rules
 
--keepclasseswithmembers class fr.arthurvimond.oscletonsdk.* {
+-keepclasseswithmembers class com.oscleton.sdk.* {
     public <methods>;
 }
 
--keep class fr.arthurvimond.oscletonsdk.models.* { *; }
+-keep class com.oscleton.sdk.models.* { *; }
 
--keep class fr.arthurvimond.oscletonsdk.listeners.* { *; }
+-keep class com.oscleton.sdk.listeners.* { *; }
 
--keepclasseswithmembers class fr.arthurvimond.oscletonsdk.utils.* {
+-keepclasseswithmembers class com.oscleton.sdk.utils.* {
     public <methods>;
 }
 
--keep class fr.arthurvimond.oscletonsdk.exceptions.* { *; }
+-keep class com.oscleton.sdk.exceptions.* { *; }
 
--keep class fr.arthurvimond.oscletonsdk.enums.* { *; }
+-keep class com.oscleton.sdk.enums.* { *; }

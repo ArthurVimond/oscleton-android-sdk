@@ -2,6 +2,11 @@
 
 The format is based on [Keep a Changelog] and this project adheres to [Semantic Versioning].
 
+## [0.3.0] - 2018-09-25
+
+### Changed
+- Core: rename package to com.oscleton.sdk 
+
 ## [0.2.0] - 2018-08-31
 
 ### Added
@@ -21,6 +26,7 @@ The format is based on [Keep a Changelog] and this project adheres to [Semantic 
 
 
 
+[0.3.0]: https://github.com/ArthurVimond/oscleton-android-sdk/releases/tag/0.3.0
 [0.2.0]: https://github.com/ArthurVimond/oscleton-android-sdk/releases/tag/0.2.0
 [0.1.0]: https://github.com/ArthurVimond/oscleton-android-sdk/releases/tag/0.1.0
 

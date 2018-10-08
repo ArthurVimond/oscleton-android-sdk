@@ -24,7 +24,7 @@ Add the dependency in your Module's `build.gradle` file:
 ```groovy
 dependencies {
     // ...
-    implementation 'fr.arthurvimond.oscletonsdk:core:0.3.0'
+    implementation 'com.oscleton.sdk:core:0.3.0'
 }
 ```
 

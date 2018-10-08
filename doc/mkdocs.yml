@@ -19,7 +19,7 @@ extra:
     - type: 'linkedin'
       link: 'https://linkedin.com/in/arthurvimond'
 
-pages:
+nav:
   - Introduction: index.md
   - Getting started:
     - Prerequisite: getting-started/prerequisite.md
@@ -30,39 +30,39 @@ pages:
   - API reference:
     - Package Index: api-reference/index.md
     - SDK:
-      - Overview: api-reference/fr.arthurvimond.oscletonsdk/index.md
-      - OscletonSDK: api-reference/fr.arthurvimond.oscletonsdk/-oscleton-s-d-k/index.md
-      - Configuration: api-reference/fr.arthurvimond.oscletonsdk/-configuration/index.md
-      - Controller: api-reference/fr.arthurvimond.oscletonsdk/-controller/index.md
-      - Receiver: api-reference/fr.arthurvimond.oscletonsdk/-receiver/index.md
-      - ReactiveReceiver: api-reference/fr.arthurvimond.oscletonsdk/-reactive-receiver/index.md
-      - CallbackReceiver: api-reference/fr.arthurvimond.oscletonsdk/-callback-receiver/index.md
+      - Overview: api-reference/com.oscleton.sdk/index.md
+      - OscletonSDK: api-reference/com.oscleton.sdk/-oscleton-s-d-k/index.md
+      - Configuration: api-reference/com.oscleton.sdk/-configuration/index.md
+      - Controller: api-reference/com.oscleton.sdk/-controller/index.md
+      - Receiver: api-reference/com.oscleton.sdk/-receiver/index.md
+      - ReactiveReceiver: api-reference/com.oscleton.sdk/-reactive-receiver/index.md
+      - CallbackReceiver: api-reference/com.oscleton.sdk/-callback-receiver/index.md
     - Enums:
-      - Overview: api-reference/fr.arthurvimond.oscletonsdk.enums/index.md
-#      - ClipState: api-reference/fr.arthurvimond.oscletonsdk.enums/-clip-state/index.md
-      - TrackType: api-reference/fr.arthurvimond.oscletonsdk.enums/-track-type/index.md
+      - Overview: api-reference/com.oscleton.sdk.enums/index.md
+#      - ClipState: api-reference/com.oscleton.sdk.enums/-clip-state/index.md
+      - TrackType: api-reference/com.oscleton.sdk.enums/-track-type/index.md
     - Exceptions:
-      - Overview: api-reference/fr.arthurvimond.oscletonsdk.exceptions/index.md
-      - OscletonSDKException: api-reference/fr.arthurvimond.oscletonsdk.exceptions/-oscleton-s-d-k-exception/index.md
+      - Overview: api-reference/com.oscleton.sdk.exceptions/index.md
+      - OscletonSDKException: api-reference/com.oscleton.sdk.exceptions/-oscleton-s-d-k-exception/index.md
     - Listeners:
-      - Overview: api-reference/fr.arthurvimond.oscletonsdk.listeners/index.md
-      - OnConnectionSuccessListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-connection-success-listener/index.md
-      - OnDeviceParameterChangeListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-device-parameter-change-listener/index.md
-      - OnTempoChangeListener: api-reference/fr.arthurvimond.oscletonsdk.listeners/-on-tempo-change-listener/index.md
+      - Overview: api-reference/com.oscleton.sdk.listeners/index.md
+      - OnConnectionSuccessListener: api-reference/com.oscleton.sdk.listeners/-on-connection-success-listener/index.md
+      - OnDeviceParameterChangeListener: api-reference/com.oscleton.sdk.listeners/-on-device-parameter-change-listener/index.md
+      - OnTempoChangeListener: api-reference/com.oscleton.sdk.listeners/-on-tempo-change-listener/index.md
     - Models:
-      - Overview: api-reference/fr.arthurvimond.oscletonsdk.models/index.md
-#      - Clip: api-reference/fr.arthurvimond.oscletonsdk.models/-clip/index.md
-#      - ClipSlot: api-reference/fr.arthurvimond.oscletonsdk.models/-clip-slot/index.md
-      - Device: api-reference/fr.arthurvimond.oscletonsdk.models/-device/index.md
-      - DeviceParameter: api-reference/fr.arthurvimond.oscletonsdk.models/-device-parameter/index.md
-#      - Scene: api-reference/fr.arthurvimond.oscletonsdk.models/-scene/index.md
-      - Track: api-reference/fr.arthurvimond.oscletonsdk.models/-track/index.md
+      - Overview: api-reference/com.oscleton.sdk.models/index.md
+#      - Clip: api-reference/com.oscleton.sdk.models/-clip/index.md
+#      - ClipSlot: api-reference/com.oscleton.sdk.models/-clip-slot/index.md
+      - Device: api-reference/com.oscleton.sdk.models/-device/index.md
+      - DeviceParameter: api-reference/com.oscleton.sdk.models/-device-parameter/index.md
+#      - Scene: api-reference/com.oscleton.sdk.models/-scene/index.md
+      - Track: api-reference/com.oscleton.sdk.models/-track/index.md
     - Utils:
-      - Overview: api-reference/fr.arthurvimond.oscletonsdk.utils/index.md
-      - Empty: api-reference/fr.arthurvimond.oscletonsdk.utils/-empty/index.md
-#      - FormatUtils: api-reference/fr.arthurvimond.oscletonsdk.utils/-format-utils/index.md
-#      - MathUtils: api-reference/fr.arthurvimond.oscletonsdk.utils/-math-utils/index.md
-      - NetworkUtils: api-reference/fr.arthurvimond.oscletonsdk.utils/-network-utils/index.md
+      - Overview: api-reference/com.oscleton.sdk.utils/index.md
+      - Empty: api-reference/com.oscleton.sdk.utils/-empty/index.md
+#      - FormatUtils: api-reference/com.oscleton.sdk.utils/-format-utils/index.md
+#      - MathUtils: api-reference/com.oscleton.sdk.utils/-math-utils/index.md
+      - NetworkUtils: api-reference/com.oscleton.sdk.utils/-network-utils/index.md
   - More:
     - Changelog: more/changelog.md
     - Feedback and issues: more/feedback-and-issues.md
@@ -81,5 +81,5 @@ extra_javascript:
   - js/tabhack.js
 
 extra_css:
-  - 'css/general.css'
+#  - 'css/general.css'
   - 'css/code-tabs.css'

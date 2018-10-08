@@ -7,14 +7,14 @@ ext {
     bintrayRepo = 'oscleton-android-sdk'
     bintrayName = 'core'
 
-    publishedGroupId = 'fr.arthurvimond.oscletonsdk'
+    publishedGroupId = 'com.oscleton.sdk'
     artifact = 'core'
     libraryVersion = '0.3.0'
 
     libraryName = 'oscleton-android-sdk'
     libraryDescription = 'Ableton Live companion SDK for Android'
 
-    siteUrl = 'https://github.com/ArthurVimond/oscleton-android-sdk'
+    siteUrl = 'https://sdk.oscleton.com/'
     gitUrl = 'https://github.com/ArthurVimond/oscleton-android-sdk.git'
 
     developerId = 'arthurvimond'

@@ -20,7 +20,7 @@ import org.koin.standalone.inject
  * - [Controller] lets you control a Live set from your Android device.
  * - [Receiver] lets you receive Live set events in real time on your Android device.
  *
- * @since 1.0
+ * @since 0.1
  */
 class OscletonSDK {
 

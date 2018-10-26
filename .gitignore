@@ -70,5 +70,8 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 
+# Mac
+.DS_Store
+
 # Doc (API reference)
 doc/android-reference

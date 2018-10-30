@@ -74,4 +74,4 @@ fastlane/readme.md
 .DS_Store
 
 # Doc (API reference)
-doc/android-reference
+doc/reference/android

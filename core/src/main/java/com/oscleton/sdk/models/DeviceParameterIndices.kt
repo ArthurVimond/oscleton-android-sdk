@@ -12,5 +12,5 @@ package com.oscleton.sdk.models
  * @since 0.1
  */
 internal data class DeviceParameterIndices(var trackIndex: Int,
-                           var deviceIndex: Int,
-                           var paramIndex: Int)
+                                           var deviceIndex: Int,
+                                           var paramIndex: Int)

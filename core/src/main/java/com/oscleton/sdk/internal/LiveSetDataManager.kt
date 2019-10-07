@@ -7,7 +7,6 @@ import com.oscleton.sdk.extensions.int
 import com.oscleton.sdk.extensions.string
 import com.oscleton.sdk.models.*
 import com.oscleton.sdk.utils.LiveVolumeUtils
-import com.oscleton.sdk.models.Track
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -57,7 +56,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     // RxJava
     private val compositeDisposable = CompositeDisposable()
 
-    private val tracks: MutableMap<Int, Track> = mutableMapOf()
+    private val trackParameters: MutableMap<Int, TrackParameter> = mutableMapOf()
     private val devices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
     private val deviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
 
@@ -114,13 +113,6 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 .filter { it.address == LiveAPI.trackDeviceParam }
                 .map { mapToDeviceParameter(it) }
                 .subscribe {
-
-                    // Create new track (if needed)
-                    if (tracks[it.trackIndex] == null) {
-                        tracks[it.trackIndex] = Track(it.trackIndex)
-                    }
-
-                    tracks[it.trackIndex]!!.index = it.trackIndex
 
                     // Create new device (if needed)
                     val pair = Pair(it.trackIndex, it.deviceIndex)

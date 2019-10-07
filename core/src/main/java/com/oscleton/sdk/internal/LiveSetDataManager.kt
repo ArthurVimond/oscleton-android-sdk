@@ -1,12 +1,12 @@
 package com.oscleton.sdk.internal
 
 import com.illposed.osc.OSCMessage
+import com.oscleton.sdk.enums.TrackParameterIndex
 import com.oscleton.sdk.extensions.float
 import com.oscleton.sdk.extensions.int
 import com.oscleton.sdk.extensions.string
-import com.oscleton.sdk.models.Device
-import com.oscleton.sdk.models.DeviceParameter
-import com.oscleton.sdk.models.DeviceParameterIndices
+import com.oscleton.sdk.models.*
+import com.oscleton.sdk.utils.LiveVolumeUtils
 import com.oscleton.sdk.models.Track
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.Observable
@@ -40,6 +40,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     val deviceParameter: Observable<DeviceParameter>
         get() = _deviceParameter
 
+    val trackParameter: Observable<TrackParameter>
+        get() = _trackParameter
+
     // Private properties
 
     private val _liveVersion: BehaviorSubject<String> = BehaviorSubject.create()
@@ -49,6 +52,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     private val _tempo: BehaviorSubject<Float> = BehaviorSubject.create()
 
     private val _deviceParameter: PublishSubject<DeviceParameter> = PublishSubject.create()
+    private val _trackParameter: PublishSubject<TrackParameter> = PublishSubject.create()
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()
@@ -58,11 +62,13 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     private val deviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
 
     private val currentDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
+    private val currentTrackParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
 
     init {
         observeConfigProperties()
         observeTransportProperties()
         observeDeviceParametersProperties()
+        observeVolumeProperties()
     }
 
     private fun observeConfigProperties() {
@@ -149,6 +155,59 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     }
 
+    private fun observeVolumeProperties() {
+
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.trackVolume }
+                .map { mapToTrackVolume(it) }
+                .subscribe {
+
+                    // Create new track parameter (if needed)
+                    if (trackParameters[it.trackIndex] == null) {
+                        trackParameters[it.trackIndex] = TrackParameter(
+                                trackIndex = it.trackIndex,
+                                paramIndex = TrackParameterIndex.VOLUME,
+                                trackName = it.trackName,
+                                min = 0f,
+                                max = 1f)
+                    }
+
+                    trackParameters[it.trackIndex]!!.trackIndex = it.trackIndex
+                    trackParameters[it.trackIndex]!!.trackName = it.trackName
+                    trackParameters[it.trackIndex]!!.value = it.volume
+                    trackParameters[it.trackIndex]!!.displayValue = it.displayVolume
+
+                }
+                .addTo(compositeDisposable)
+
+        // Current track volume index
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.trackVolume }
+                .map { mapToTrackParameterIndices(oscMessage = it, trackParamIndex = TrackParameterIndex.VOLUME) }
+                .subscribe { currentTrackParameterIndices.onNext(it) }
+                .addTo(compositeDisposable)
+
+        // Emit full track info from map
+        currentTrackParameterIndices
+                .subscribe {
+                    val trackParam = trackParameters[it.trackIndex]!!
+                    _trackParameter.onNext(trackParam)
+                }
+                .addTo(compositeDisposable)
+
+    }
+
+    private fun convertToTrackDisplayVolume(volume: Float): String {
+
+        val volumeDecibels = LiveVolumeUtils.trackVolumeDecibels(volume)
+
+        if (volumeDecibels == -70f) {
+            return "-inf dB"
+        }
+
+        return "$volumeDecibels dB"
+    }
+
     // Mapper functions
 
     private fun mapToDeviceParameter(oscMessage: OSCMessage): DeviceParameter {
@@ -177,6 +236,20 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 max = max)
     }
 
+    private fun mapToTrackVolume(oscMessage: OSCMessage): TrackVolume {
+
+        val trackIndex = oscMessage.arguments[0].int
+        val trackName = oscMessage.arguments[1].string
+        val volume = oscMessage.arguments[2].float
+        val displayVolume = convertToTrackDisplayVolume(volume)
+
+        return TrackVolume(
+                trackIndex = trackIndex,
+                trackName = trackName,
+                volume = volume,
+                displayVolume = displayVolume)
+    }
+
     private fun mapToDeviceParameterIndices(oscMessage: OSCMessage): DeviceParameterIndices {
 
         val trackIndex = oscMessage.arguments[0].int
@@ -187,6 +260,15 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 trackIndex = trackIndex,
                 deviceIndex = deviceIndex,
                 paramIndex = paramIndex)
+    }
+
+    private fun mapToTrackParameterIndices(oscMessage: OSCMessage, trackParamIndex: Int): TrackParameterIndices {
+
+        val trackIndex = oscMessage.arguments[0].int
+
+        return TrackParameterIndices(
+                trackIndex = trackIndex,
+                paramIndex = trackParamIndex)
     }
 
 }

@@ -1,7 +1,7 @@
 package com.oscleton.sdk.enums
 
 /**
- * Enum class representing a Live track parameter index.
+ * Constants class representing a Live track parameter index.
  *
  * @since 0.4
  */

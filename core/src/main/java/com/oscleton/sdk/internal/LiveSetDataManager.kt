@@ -6,8 +6,8 @@ import com.oscleton.sdk.extensions.float
 import com.oscleton.sdk.extensions.int
 import com.oscleton.sdk.extensions.string
 import com.oscleton.sdk.models.*
-import com.oscleton.sdk.utils.LiveVolumeUtils
 import com.oscleton.sdk.utils.Empty
+import com.oscleton.sdk.utils.LiveVolumeUtils
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -214,6 +214,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         val value = oscMessage.arguments[7].float
         val min = oscMessage.arguments[8].float
         val max = oscMessage.arguments[9].float
+        val automationState = oscMessage.arguments[10].int
 
         return DeviceParameter(
                 trackIndex = trackIndex,
@@ -225,7 +226,8 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 displayValue = displayValue,
                 value = value,
                 min = min,
-                max = max)
+                max = max,
+                automationState = automationState)
     }
 
     private fun mapToTrackVolume(oscMessage: OSCMessage): TrackVolume {

@@ -31,7 +31,7 @@ dependencies {
 ## License
 
 ```
-Copyright 2018 Arthur VIMOND
+Copyright 2018-2019 Arthur VIMOND
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -1,10 +1,10 @@
 package com.oscleton.sdk.sample
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.oscleton.sdk.sample.configuration.ConfigurationActivity
 import com.oscleton.sdk.sample.controller.ControllerActivity
 import com.oscleton.sdk.sample.databinding.MainActivityBinding

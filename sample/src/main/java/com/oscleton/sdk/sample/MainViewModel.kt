@@ -1,6 +1,6 @@
 package com.oscleton.sdk.sample
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.oscleton.sdk.OscletonSDK
 import com.oscleton.sdk.sample.utils.Logger
 import io.reactivex.disposables.CompositeDisposable

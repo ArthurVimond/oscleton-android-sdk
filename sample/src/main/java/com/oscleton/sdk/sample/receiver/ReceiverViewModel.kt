@@ -1,8 +1,8 @@
 package com.oscleton.sdk.sample.receiver
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.LiveDataReactiveStreams
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.ViewModel
 import com.oscleton.sdk.OscletonSDK
 import com.oscleton.sdk.listeners.OnTempoChangeListener
 import com.oscleton.sdk.sample.utils.Logger

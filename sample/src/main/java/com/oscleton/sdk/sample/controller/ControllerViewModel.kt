@@ -1,6 +1,6 @@
 package com.oscleton.sdk.sample.controller
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.oscleton.sdk.OscletonSDK
 
 class ControllerViewModel : ViewModel() {

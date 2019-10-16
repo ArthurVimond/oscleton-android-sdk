@@ -12,7 +12,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/controllerImageView"
             android:layout_width="@dimen/icon_24"
             android:layout_height="@dimen/icon_24"
@@ -45,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/controllerTextView" />
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/receiverImageView"
             android:layout_width="@dimen/icon_24"
             android:layout_height="@dimen/icon_24"
@@ -65,7 +65,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/receiverTextView" />
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/configurationImageView"
             android:layout_width="@dimen/icon_24"
             android:layout_height="@dimen/icon_24"
@@ -76,6 +76,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/configurationTextView"
             app:srcCompat="@drawable/ic_settings" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

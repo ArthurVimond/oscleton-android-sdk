@@ -1,4 +1,4 @@
-package com.oscleton.sdk
+package com.oscleton.sdk.sample
 
 import org.junit.Test
 

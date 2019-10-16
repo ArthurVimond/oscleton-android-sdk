@@ -1,6 +1,6 @@
 package com.oscleton.sdk
 
-import android.arch.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.oscleton.sdk.di.Injector
 import com.oscleton.sdk.di.oscletonSDKModule
 import com.oscleton.sdk.exceptions.OscletonSDKException

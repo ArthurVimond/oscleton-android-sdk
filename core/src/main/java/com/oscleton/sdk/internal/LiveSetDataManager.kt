@@ -1,6 +1,7 @@
 package com.oscleton.sdk.internal
 
 import com.illposed.osc.OSCMessage
+import com.oscleton.sdk.enums.LiveParameter
 import com.oscleton.sdk.enums.TrackParameterIndex
 import com.oscleton.sdk.extensions.float
 import com.oscleton.sdk.extensions.int
@@ -42,6 +43,15 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     val trackParameter: Observable<TrackParameter>
         get() = _trackParameter
 
+    fun disableParameters(parameters: List<String>) {
+        disabledParameters.clear()
+        disabledParameters.addAll(parameters)
+    }
+
+    fun enableAllParameters() {
+        disabledParameters.clear()
+    }
+
     // Private properties
 
     private val _liveVersion: BehaviorSubject<String> = BehaviorSubject.create()
@@ -62,6 +72,8 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     private val currentDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
     private val currentTrackParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
+
+    private val disabledParameters: MutableSet<String> = mutableSetOf()
 
     init {
         observeConfigProperties()
@@ -111,6 +123,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         // Fill the maps on device parameters changes
         messageManager.oscMessage
                 .filter { it.address == LiveAPI.trackDeviceParam }
+                .filter { block(LiveParameter.DEVICE_PARAMETER) }
                 .map { mapToDeviceParameter(it) }
                 .subscribe {
 
@@ -132,6 +145,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         // Current device parameter indices
         messageManager.oscMessage
                 .filter { it.address == LiveAPI.trackDeviceParam }
+                .filter { block(LiveParameter.DEVICE_PARAMETER) }
                 .map { mapToDeviceParameterIndices(it) }
                 .subscribe { currentDeviceParameterIndices.onNext(it) }
                 .addTo(compositeDisposable)
@@ -151,6 +165,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
         messageManager.oscMessage
                 .filter { it.address == LiveAPI.trackVolume }
+                .filter { block(LiveParameter.TRACK_VOLUME) }
                 .map { mapToTrackVolume(it) }
                 .subscribe {
 
@@ -175,6 +190,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         // Current track volume index
         messageManager.oscMessage
                 .filter { it.address == LiveAPI.trackVolume }
+                .filter { block(LiveParameter.TRACK_VOLUME) }
                 .map { mapToTrackParameterIndices(oscMessage = it, trackParamIndex = TrackParameterIndex.VOLUME) }
                 .subscribe { currentTrackParameterIndices.onNext(it) }
                 .addTo(compositeDisposable)
@@ -187,6 +203,10 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 }
                 .addTo(compositeDisposable)
 
+    }
+
+    private fun block(parameter: String): Boolean {
+        return !disabledParameters.contains(parameter)
     }
 
     private fun convertToTrackDisplayVolume(volume: Float): String {

@@ -102,6 +102,37 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
         onConnectionSuccessDisp?.dispose()
     }
 
+    /**
+     * Disable a list of [LiveParameter][com.oscleton.sdk.enums.LiveParameter] so they won't be emitted by
+     * [ReactiveReceiver][com.oscleton.sdk.ReactiveReceiver] or [CallbackReceiver][com.oscleton.sdk.CallbackReceiver].
+     * Useful in case of breaking changes due to Oscleton SDK / MIDI Remote Script version incompatibility
+     * to avoid unstable SDK behaviors.
+     *
+     * Updating the Oscleton SDK or MIDI Remote Script to the corresponding version will provide a full compatibility.
+     * Please refer to the [Oscleton API](https://oscleton.herokuapp.com) to find the compatible versions.
+     *
+     * @since 0.5
+     * @see enableAllLiveParameters
+     */
+    fun disableLiveParameters(parameters: List<String>) {
+        liveSetDataManager.disableParameters(parameters)
+    }
+
+    /**
+     * Enable all [LiveParameter][com.oscleton.sdk.enums.LiveParameter]s so they will be emitted by
+     * [ReactiveReceiver][com.oscleton.sdk.ReactiveReceiver] or [CallbackReceiver][com.oscleton.sdk.CallbackReceiver].
+     * Useful after having been disabled in case of breaking changes due to
+     * Oscleton SDK / MIDI Remote Script version incompatibility.
+     *
+     * All parameters are enabled by default.
+     *
+     * @since 0.5
+     * @see disableLiveParameters
+     */
+    fun enableAllLiveParameters() {
+        liveSetDataManager.enableAllParameters()
+    }
+
     @JvmSynthetic
     internal fun disposeObservers() {
         compositeDisposable.clear()

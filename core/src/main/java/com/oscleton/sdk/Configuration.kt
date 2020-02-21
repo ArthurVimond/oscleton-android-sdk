@@ -4,6 +4,7 @@ import com.oscleton.sdk.enums.SDKResult
 import com.oscleton.sdk.internal.LiveSetDataManager
 import com.oscleton.sdk.internal.MessageManager
 import com.oscleton.sdk.listeners.OnConnectionSuccessListener
+import com.oscleton.sdk.listeners.OnStartListener
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -62,6 +63,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     // RxJava
     private val compositeDisposable = CompositeDisposable()
 
+    private var onStartDisp: Disposable? = null
     private var onConnectionSuccessDisp: Disposable? = null
 
     init {
@@ -82,6 +84,28 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun setComputerIP(ip: String): SDKResult {
         return messageManager.initSender(ip)
+    /**
+     * Register a callback to be invoked when Ableton Live starts
+     *
+     * @param listener The callback that will run
+     * @since 0.6
+     */
+    fun set(listener: OnStartListener) {
+        onStartDisp = liveSetDataManager.onStart
+                .subscribe {
+                    listener.onStart()
+                }
+
+        compositeDisposable.add(onStartDisp!!)
+    }
+
+    /**
+     * Remove the current [OnStartListener].
+     *
+     * @since 0.6
+     */
+    fun removeOnStartListener() {
+        onStartDisp?.dispose()
     }
 
     /**

@@ -4,6 +4,7 @@ import com.oscleton.sdk.enums.SDKResult
 import com.oscleton.sdk.internal.LiveSetDataManager
 import com.oscleton.sdk.internal.MessageManager
 import com.oscleton.sdk.listeners.OnConnectionSuccessListener
+import com.oscleton.sdk.listeners.OnQuitListener
 import com.oscleton.sdk.listeners.OnStartListener
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.Observable
@@ -73,6 +74,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     private val compositeDisposable = CompositeDisposable()
 
     private var onStartDisp: Disposable? = null
+    private var onQuitDisp: Disposable? = null
     private var onConnectionSuccessDisp: Disposable? = null
 
     init {
@@ -115,6 +117,30 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun removeOnStartListener() {
         onStartDisp?.dispose()
+    }
+
+    /**
+     * Register a callback to be invoked when Ableton Live quits
+     *
+     * @param listener The callback that will run
+     * @since 0.6
+     */
+    fun set(listener: OnQuitListener) {
+        onQuitDisp = liveSetDataManager.onQuit
+                .subscribe {
+                    listener.onQuit()
+                }
+
+        compositeDisposable.add(onQuitDisp!!)
+    }
+
+    /**
+     * Remove the current [OnQuitListener].
+     *
+     * @since 0.6
+     */
+    fun removeOnQuitListener() {
+        onQuitDisp?.dispose()
     }
 
     /**

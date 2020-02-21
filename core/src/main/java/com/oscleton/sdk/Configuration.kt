@@ -27,6 +27,15 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.6
      */
     val onStart: Observable<Empty> = liveSetDataManager.onStart
+
+    /**
+     * Message sent when Live quits.
+     *
+     * @return Quit message
+     * @since 0.6
+     */
+    val onQuit: Observable<Empty> = liveSetDataManager.onQuit
+
     /**
      * Oscleton SDK version
      *

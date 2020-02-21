@@ -20,6 +20,13 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
                                          private val messageManager: MessageManager) {
 
     /**
+     * Message sent when Live starts.
+     *
+     * @return Start message
+     * @since 0.6
+     */
+    val onStart: Observable<Empty> = liveSetDataManager.onStart
+    /**
      * Oscleton SDK version
      *
      * @return the Oscleton SDK version

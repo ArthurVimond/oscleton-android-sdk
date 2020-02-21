@@ -21,6 +21,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     // Config
 
+    val onStart: Observable<Empty>
+        get() = _onStart
+
     val liveVersion: Observable<String>
         get() = _liveVersion
 
@@ -54,6 +57,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     // Private properties
 
+    private val _onStart: PublishSubject<Empty> = PublishSubject.create()
     private val _liveVersion: BehaviorSubject<String> = BehaviorSubject.create()
     private val _scriptVersion: BehaviorSubject<String> = BehaviorSubject.create()
     private val _onSetPeerSuccess: PublishSubject<Empty> = PublishSubject.create()
@@ -84,6 +88,12 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     private fun observeConfigProperties() {
 
+        // Start
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.start }
+                .map { Empty.VOID }
+                .subscribe { _onStart.onNext(it) }
+                .addTo(compositeDisposable)
         // Live version
         messageManager.oscMessage
                 .filter { it.address == LiveAPI.liveVersion }

@@ -84,7 +84,6 @@ class OscletonSDK {
                 .subscribe {
                     Logger.i("APP IS FOREGROUND", this)
                     connect()
-                    startListening()
                 }
                 .addTo(lifecycleCompositeDisposable)
 

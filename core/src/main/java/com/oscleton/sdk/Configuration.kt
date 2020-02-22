@@ -3,6 +3,7 @@ package com.oscleton.sdk
 import com.oscleton.sdk.enums.SDKResult
 import com.oscleton.sdk.internal.LiveSetDataManager
 import com.oscleton.sdk.internal.MessageManager
+import com.oscleton.sdk.listeners.OnConnectionErrorListener
 import com.oscleton.sdk.listeners.OnConnectionSuccessListener
 import com.oscleton.sdk.listeners.OnQuitListener
 import com.oscleton.sdk.listeners.OnStartListener
@@ -122,6 +123,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     private var onStartDisp: Disposable? = null
     private var onQuitDisp: Disposable? = null
     private var onConnectionSuccessDisp: Disposable? = null
+    private var onConnectionErrorDisp: Disposable? = null
 
     init {
         observeProperties()
@@ -249,6 +251,31 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun removeOnConnectionSuccessListener() {
         onConnectionSuccessDisp?.dispose()
+    }
+
+    /**
+     * Register a callback to be invoked when the connection
+     * to the computer running Ableton Live failed.
+     *
+     * @param listener The callback that will run
+     * @since 0.6
+     */
+    fun set(listener: OnConnectionErrorListener) {
+        onConnectionErrorDisp = messageManager.onSetComputerIPError
+                .subscribe {
+                    listener.onConnectionError(it)
+                }
+
+        compositeDisposable.add(onConnectionErrorDisp!!)
+    }
+
+    /**
+     * Remove the current [OnConnectionErrorListener].
+     *
+     * @since 0.6
+     */
+    fun removeOnConnectionErrorListener() {
+        onConnectionErrorDisp?.dispose()
     }
 
     /**

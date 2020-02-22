@@ -155,7 +155,8 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @return the SDK result
      */
     fun setComputerIP(ip: String): SDKResult {
-        return messageManager.initSender(ip)
+        return messageManager.setComputerIP(ip)
+    }
 
     /**
      * Start the computer IP discovery in order to connect automatically

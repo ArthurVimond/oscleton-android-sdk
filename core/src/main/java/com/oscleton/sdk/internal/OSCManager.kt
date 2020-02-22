@@ -21,8 +21,8 @@ internal class OSCManager {
 
     val oscMessage: PublishSubject<OSCMessage> = PublishSubject.create()
 
-    private lateinit var receiver: OSCPortIn
-    private lateinit var sender: OSCPortOut
+    private var receiver: OSCPortIn? = null
+    private var sender: OSCPortOut? = null
 
     // Misc
     private var isConnected = false
@@ -43,6 +43,7 @@ internal class OSCManager {
 
         return if (isIpAddressValid) {
             try {
+                connect()
                 sender = OSCPortOut(InetAddress.getByName(ip), port)
                 SDKResult.SUCCESS
             } catch (e: SocketException) {
@@ -70,23 +71,27 @@ internal class OSCManager {
             receiver?.addListener("") { _, message ->
                 oscMessage.onNext(message)
             }
+
+            startListening()
         }
 
     }
 
     fun startListening() {
         Logger.d("startListening", this)
-        receiver.startListening()
+        receiver?.startListening()
     }
 
     fun stopListening() {
         Logger.d("stopListening", this)
-        receiver.stopListening()
+        receiver?.stopListening()
     }
 
     fun disconnect() {
         Logger.d("disconnect", this)
-        receiver.close()
+        stopListening()
+        sender?.close()
+        receiver?.close()
 
         isConnected = false
     }
@@ -106,7 +111,7 @@ internal class OSCManager {
     private fun sendOSCMessage(address: String, args: List<Any>?) {
         val msg = OSCMessage(address, args)
         try {
-            sender.send(msg)
+            sender?.send(msg)
         } catch (e: Exception) {
             e.printStackTrace()
         }

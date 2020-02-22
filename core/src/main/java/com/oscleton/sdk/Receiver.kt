@@ -1,7 +1,7 @@
 package com.oscleton.sdk
 
 import com.oscleton.sdk.di.Injector
-import org.koin.standalone.inject
+import org.koin.core.inject
 
 /**
  * Receiver is just a container class to access [ReactiveReceiver] and [CallbackReceiver].

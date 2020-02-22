@@ -9,8 +9,8 @@ import com.oscleton.sdk.internal.MessageManager
 import com.oscleton.sdk.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import org.koin.standalone.StandAloneContext.loadKoinModules
-import org.koin.standalone.inject
+import org.koin.core.context.loadKoinModules
+import org.koin.core.inject
 
 /**
  * The main entry point to use Oscleton SDK.

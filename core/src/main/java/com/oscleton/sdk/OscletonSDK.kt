@@ -90,7 +90,6 @@ class OscletonSDK {
         lifecycleObserver.rxOnAppBackground()
                 .subscribe {
                     Logger.i("APP IS BACKGROUND", this)
-                    stopListening()
                     disconnect()
                 }
                 .addTo(lifecycleCompositeDisposable)

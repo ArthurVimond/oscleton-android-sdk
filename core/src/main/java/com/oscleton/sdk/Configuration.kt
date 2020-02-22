@@ -3,10 +3,7 @@ package com.oscleton.sdk
 import com.oscleton.sdk.enums.SDKResult
 import com.oscleton.sdk.internal.LiveSetDataManager
 import com.oscleton.sdk.internal.MessageManager
-import com.oscleton.sdk.listeners.OnConnectionErrorListener
-import com.oscleton.sdk.listeners.OnConnectionSuccessListener
-import com.oscleton.sdk.listeners.OnQuitListener
-import com.oscleton.sdk.listeners.OnStartListener
+import com.oscleton.sdk.listeners.*
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -124,6 +121,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     private var onQuitDisp: Disposable? = null
     private var onConnectionSuccessDisp: Disposable? = null
     private var onConnectionErrorDisp: Disposable? = null
+    private var onComputerIPDiscoveryStartDisp: Disposable? = null
 
     init {
         observeProperties()
@@ -276,6 +274,31 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun removeOnConnectionErrorListener() {
         onConnectionErrorDisp?.dispose()
+    }
+
+    /**
+     * Register a callback to be invoked when the computer IP discovery starts
+     * in order to connect automatically to the computer running Ableton Live.
+     *
+     * @param listener The callback that will run
+     * @since 0.6
+     */
+    fun set(listener: OnComputerIPDiscoveryStartListener) {
+        onComputerIPDiscoveryStartDisp = messageManager.onComputerIPDiscoveryStart
+                .subscribe {
+                    listener.onComputerIPDiscoveryStart()
+                }
+
+        compositeDisposable.add(onComputerIPDiscoveryStartDisp!!)
+    }
+
+    /**
+     * Remove the current [OnComputerIPDiscoveryStartListener].
+     *
+     * @since 0.6
+     */
+    fun removeOnComputerIPDiscoveryStartListener() {
+        onComputerIPDiscoveryStartDisp?.dispose()
     }
 
     /**

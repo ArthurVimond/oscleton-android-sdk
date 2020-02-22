@@ -122,6 +122,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     private var onConnectionSuccessDisp: Disposable? = null
     private var onConnectionErrorDisp: Disposable? = null
     private var onComputerIPDiscoveryStartDisp: Disposable? = null
+    private var onComputerIPDiscoverySuccessDisp: Disposable? = null
 
     init {
         observeProperties()
@@ -299,6 +300,32 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun removeOnComputerIPDiscoveryStartListener() {
         onComputerIPDiscoveryStartDisp?.dispose()
+    }
+
+
+    /**
+     * Register a callback to be invoked when the computer IP discovery succeeded
+     * to connect automatically to the computer running Ableton Live.
+     *
+     * @param listener The callback that will run
+     * @since 0.6
+     */
+    fun set(listener: OnComputerIPDiscoverySuccessListener) {
+        onComputerIPDiscoverySuccessDisp = liveSetDataManager.onComputerIPDiscoverySuccess
+                .subscribe {
+                    listener.onComputerIPDiscoverySuccess(it)
+                }
+
+        compositeDisposable.add(onComputerIPDiscoverySuccessDisp!!)
+    }
+
+    /**
+     * Remove the current [OnComputerIPDiscoverySuccessListener].
+     *
+     * @since 0.6
+     */
+    fun removeOnComputerIPDiscoverySuccessListener() {
+        onComputerIPDiscoverySuccessDisp?.dispose()
     }
 
     /**

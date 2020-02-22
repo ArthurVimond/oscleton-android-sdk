@@ -67,7 +67,7 @@ class ConfigurationActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
-        // Back arrow
+            // Back arrow
             android.R.id.home -> {
                 finish()
                 true

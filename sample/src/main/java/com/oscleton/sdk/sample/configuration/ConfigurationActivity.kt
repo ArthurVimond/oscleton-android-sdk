@@ -1,13 +1,14 @@
 package com.oscleton.sdk.sample.configuration
 
-import androidx.lifecycle.ViewModelProviders
-import androidx.databinding.DataBindingUtil
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.oscleton.sdk.sample.R
 import com.oscleton.sdk.sample.databinding.ConfigurationActivityBinding
 import com.oscleton.sdk.sample.utils.SnackbarUtils
+import com.oscleton.sdk.utils.Empty
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -43,8 +44,9 @@ class ConfigurationActivity : AppCompatActivity() {
 
     private fun observeProperties() {
 
-        // Connection success message
+        // Connection / Discovery success message
         viewModel.onConnectionSuccess
+                .mergeWith(viewModel.onComputerIPDiscoverySuccess.map { Empty.VOID })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connectedToLive) }
                 .addTo(compositeDisposable)
@@ -54,6 +56,13 @@ class ConfigurationActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connection_error) }
                 .addTo(compositeDisposable)
+
+        // Discovery error message
+        viewModel.onComputerIPDiscoveryError
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.ip_discovery_error) }
+                .addTo(compositeDisposable)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

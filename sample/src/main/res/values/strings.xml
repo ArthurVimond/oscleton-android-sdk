@@ -25,10 +25,13 @@
     <!-- Configuration -->
     <string name="computer_ip_address">Computer IP address</string>
     <string name="set">Set</string>
+    <string name="start_discover_ip">Start discover IP</string>
+    <string name="stop_discover_ip">Stop discover IP</string>
     <string name="ableton_live_version_title">Ableton Live version:</string>
     <string name="midi_remote_script_version_title">MIDI Remote Script version:</string>
     <string name="sdk_version_title">SDK version:</string>
     <string name="connectedToLive">Connected to Live</string>
     <string name="connection_error">Connection error</string>
+    <string name="ip_discovery_error">IP discovery error</string>
 
 </resources>

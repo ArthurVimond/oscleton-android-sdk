@@ -24,9 +24,9 @@
                 android:id="@+id/computerIpAddressTextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:hint="@string/computer_ip_address"
                 app:layout_constraintEnd_toStartOf="@id/setComputerIPAddressButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,12 +45,55 @@
                 android:id="@+id/setComputerIPAddressButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:onClick="@{() -> viewModel.setComputerIPAddress()}"
                 android:text="@string/set"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/discoverIPAddressButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{() -> viewModel.discoverComputerIPAddress()}"
+                android:text="@string/start_discover_ip"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/setComputerIPAddressButton"
+                app:visibility="@{viewModel.discoveryIPButtonVisibility}" />
+
+            <Button
+                android:id="@+id/stopDiscoverIPAddressButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{() -> viewModel.stopDiscoverComputerIP()}"
+                android:text="@string/stop_discover_ip"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/setComputerIPAddressButton"
+                app:visibility="@{viewModel.stopDiscoveryButtonVisibility}"
+                tools:visibility="gone" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/discoverIPBarrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="discoverIPAddressButton,stopDiscoverIPAddressButton" />
+
+            <ProgressBar
+                android:id="@+id/discoverIPAddressProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/stopDiscoverIPAddressButton"
+                app:layout_constraintStart_toStartOf="@+id/stopDiscoverIPAddressButton"
+                app:layout_constraintTop_toBottomOf="@+id/discoverIPBarrier"
+                app:visibility="@{viewModel.ipDiscoveryProgressBarVisibility}"
+                tools:visibility="gone" />
 
             <TextView
                 android:id="@+id/liveVersionTitleTextView"

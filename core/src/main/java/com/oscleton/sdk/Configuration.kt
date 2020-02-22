@@ -122,6 +122,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     private var onConnectionSuccessDisp: Disposable? = null
     private var onConnectionErrorDisp: Disposable? = null
     private var onComputerIPDiscoveryStartDisp: Disposable? = null
+    private var onComputerIPDiscoveryProgressDisp: Disposable? = null
     private var onComputerIPDiscoverySuccessDisp: Disposable? = null
     private var onComputerIPDiscoveryErrorDisp: Disposable? = null
 
@@ -301,6 +302,31 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun removeOnComputerIPDiscoveryStartListener() {
         onComputerIPDiscoveryStartDisp?.dispose()
+    }
+
+    /**
+     * Register a callback to be invoked when the computer IP discovery progress updates,
+     * from 0 to 1.
+     *
+     * @param listener The callback that will run
+     * @since 0.6
+     */
+    fun set(listener: OnComputerIPDiscoveryProgressListener) {
+        onComputerIPDiscoveryProgressDisp = messageManager.onComputerIPDiscoveryProgress
+                .subscribe {
+                    listener.onComputerIPDiscoveryProgress(it)
+                }
+
+        compositeDisposable.add(onComputerIPDiscoveryProgressDisp!!)
+    }
+
+    /**
+     * Remove the current [OnComputerIPDiscoveryProgressListener].
+     *
+     * @since 0.6
+     */
+    fun removeOnComputerIPDiscoveryProgressListener() {
+        onComputerIPDiscoveryProgressDisp?.dispose()
     }
 
 

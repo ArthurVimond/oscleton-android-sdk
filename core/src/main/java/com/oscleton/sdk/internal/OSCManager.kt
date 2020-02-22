@@ -67,14 +67,7 @@ internal class OSCManager {
                 e.printStackTrace()
             }
 
-            receiver.addListener("") { _, message ->
-
-                //                var string = "oscMessage - address: ${message.address}"
-//                message.arguments.forEachIndexed { index, arg ->
-//                    string += " - arg[$index]: $arg"
-//                }
-//                Logger.d(string, this)
-
+            receiver?.addListener("") { _, message ->
                 oscMessage.onNext(message)
             }
         }

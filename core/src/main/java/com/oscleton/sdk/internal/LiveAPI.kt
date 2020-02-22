@@ -12,6 +12,8 @@ internal object LiveAPI {
     const val scriptVersion = live + "config/script_version"
     const val setPeer = live + "set_peer"
     const val setPeerSuccess = live + "set_peer/success"
+    const val discoverIP = live + "config/discover_ip"
+    const val discoverIPSuccess = live + "config/discover_ip/success"
 
     // Transport
 

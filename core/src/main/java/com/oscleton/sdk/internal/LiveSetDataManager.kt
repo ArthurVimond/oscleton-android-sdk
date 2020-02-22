@@ -36,6 +36,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     val onSetPeerSuccess: Observable<Empty>
         get() = _onSetPeerSuccess
 
+    val onComputerIPDiscoverySuccess: Observable<String>
+        get() = _onComputerIPDiscoverySuccess
+
     // Transport
 
     val tempo: Observable<Float>
@@ -65,6 +68,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     private val _liveVersion: BehaviorSubject<String> = BehaviorSubject.create()
     private val _scriptVersion: BehaviorSubject<String> = BehaviorSubject.create()
     private val _onSetPeerSuccess: PublishSubject<Empty> = PublishSubject.create()
+    private val _onComputerIPDiscoverySuccess: PublishSubject<String> = PublishSubject.create()
 
     private val _tempo: BehaviorSubject<Float> = BehaviorSubject.create()
 
@@ -132,6 +136,15 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                     messageManager.cancelSetComputerIPTimeout()
                 }
                 .addTo(compositeDisposable)
+
+        // DiscoverIP success
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.discoverIPSuccess }
+                .map { it.arguments.first().string }
+                .subscribe { _onComputerIPDiscoverySuccess.onNext(it) }
+                .addTo(compositeDisposable)
+
+    }
 
     private fun observeTransportProperties() {
 

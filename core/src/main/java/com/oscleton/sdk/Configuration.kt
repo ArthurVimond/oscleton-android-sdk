@@ -10,6 +10,7 @@ import com.oscleton.sdk.utils.Empty
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.addTo
 
 /**
  * Configuration is responsible for the SDK settings,
@@ -78,6 +79,43 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @see setComputerIP
      */
     val onConnectionError: Observable<String> = messageManager.onSetComputerIPError
+
+    /**
+     * Discovery start message in response of [startComputerIPDiscovery] call.
+     *
+     * @return Discovery start message
+     * @since 0.6
+     * @see startComputerIPDiscovery
+     */
+    val onComputerIPDiscoveryStart: Observable<Empty> = messageManager.onComputerIPDiscoveryStart
+
+    /**
+     * Discovery progress indicator in response of [startComputerIPDiscovery] call, from 0 to 1.
+     *
+     * @return Discovery progress message
+     * @since 0.6
+     * @see startComputerIPDiscovery
+     */
+    val onComputerIPDiscoveryProgress: Observable<Float> = messageManager.onComputerIPDiscoveryProgress
+
+    /**
+     * Discovery success message in response of [startComputerIPDiscovery] call.
+     *
+     * @return Discovery success message
+     * @since 0.6
+     * @see startComputerIPDiscovery
+     */
+    val onComputerIPDiscoverySuccess: Observable<String> = liveSetDataManager.onComputerIPDiscoverySuccess
+
+    /**
+     * Discovery error message in response of [startComputerIPDiscovery] call.
+     *
+     * @return Discovery error message
+     * @since 0.6
+     * @see startComputerIPDiscovery
+     */
+    val onComputerIPDiscoveryError: Observable<String> = messageManager.onComputerIPDiscoveryError
+
     // RxJava
     private val compositeDisposable = CompositeDisposable()
 
@@ -91,6 +129,21 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
 
     private fun observeProperties() {
 
+        // SetPeer success
+        liveSetDataManager.onSetPeerSuccess
+                .subscribe {
+                    messageManager.requestCurrentState()
+                }
+                .addTo(compositeDisposable)
+
+        // IP Discovery
+        liveSetDataManager.onComputerIPDiscoverySuccess
+                .subscribe {
+                    messageManager.cancelIPDiscovery()
+                    messageManager.requestCurrentState()
+                }
+                .addTo(compositeDisposable)
+
     }
 
     /**
@@ -103,6 +156,27 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun setComputerIP(ip: String): SDKResult {
         return messageManager.initSender(ip)
+
+    /**
+     * Start the computer IP discovery in order to connect automatically
+     * to the computer running Ableton Live.
+     *
+     * @since 0.6
+     * @return the SDK result
+     */
+    fun startComputerIPDiscovery(): SDKResult {
+        return messageManager.startIPDiscovery()
+    }
+
+    /**
+     * Cancel the current computer IP discovery.
+     *
+     * @since 0.6
+     */
+    fun cancelComputerIPDiscovery() {
+        return messageManager.cancelIPDiscovery()
+    }
+
     /**
      * Register a callback to be invoked when Ableton Live starts
      *

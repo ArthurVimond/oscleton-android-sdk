@@ -49,6 +49,11 @@ class ConfigurationActivity : AppCompatActivity() {
                 .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connectedToLive) }
                 .addTo(compositeDisposable)
 
+        // Connection error message
+        viewModel.onConnectionError
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connection_error) }
+                .addTo(compositeDisposable)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -11,6 +11,8 @@ import io.reactivex.Observable
 
 class ConfigurationViewModel : ViewModel() {
 
+    // Public properties
+
     val computerIPAddress: ObservableField<String> = ObservableField("")
 
     val liveVersion: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
@@ -22,6 +24,7 @@ class ConfigurationViewModel : ViewModel() {
     val sdkVersion: ObservableField<String> = ObservableField(OscletonSDK.instance.config.sdkVersion)
 
     val onConnectionSuccess: Observable<Empty> = OscletonSDK.instance.config.onConnectionSuccess
+    val onConnectionError: Observable<String> = OscletonSDK.instance.config.onConnectionError
 
     fun setComputerIPAddress() {
         val computerIP = computerIPAddress.get()

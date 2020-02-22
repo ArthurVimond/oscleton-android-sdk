@@ -127,7 +127,11 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 .subscribe { _onSetPeerSuccess.onNext(Empty.VOID) }
                 .addTo(compositeDisposable)
 
-    }
+        _onSetPeerSuccess
+                .subscribe {
+                    messageManager.cancelSetComputerIPTimeout()
+                }
+                .addTo(compositeDisposable)
 
     private fun observeTransportProperties() {
 

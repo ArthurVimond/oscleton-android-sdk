@@ -70,6 +70,14 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     val onConnectionSuccess: Observable<Empty> = liveSetDataManager.onSetPeerSuccess
 
+    /**
+     * Connection error message in response of [setComputerIP] call.
+     *
+     * @return Connection error message
+     * @since 0.6
+     * @see setComputerIP
+     */
+    val onConnectionError: Observable<String> = messageManager.onSetComputerIPError
     // RxJava
     private val compositeDisposable = CompositeDisposable()
 

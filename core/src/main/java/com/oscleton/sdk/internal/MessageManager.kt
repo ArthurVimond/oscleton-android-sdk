@@ -12,29 +12,62 @@ import io.reactivex.disposables.CompositeDisposable
  */
 internal class MessageManager internal constructor(private val oscManager: OSCManager) {
 
+    // Public properties
+
     val oscMessage: Observable<OSCMessage> = oscManager.oscMessage
 
+    val onSetComputerIPError: Observable<String>
+        get() = _onSetComputerIPError
+
+    // Private properties
+
+    private val _onSetComputerIPError: PublishSubject<String> = PublishSubject.create()
     // RxJava
     private var compositeDisposable = CompositeDisposable()
+    private var setComputerIPCompositeDisposable = CompositeDisposable()
 
     init {
         Logger.d("init", this)
     }
 
     fun setComputerIP(ip: String, port: Int = 9000): SDKResult {
+        val isConnected = NetworkUtils.isConnected(context)
+        if (!isConnected) {
+            _onSetComputerIPError.onNext("no_network_connection")
+            return SDKResult.ERROR
+        }
+
         val result = oscManager.initSender(ip, port)
 
         if (result != SDKResult.SUCCESS) {
+            _onSetComputerIPError.onNext("connection_error")
             return result
         }
 
         // Set peer
         setPeer()
 
-        // Request current state
+        startSetComputerIPTimer()
         requestCurrentState()
 
         return result
+    }
+
+    private fun startSetComputerIPTimer() {
+
+        cancelSetComputerIPTimeout()
+
+        setComputerIPCompositeDisposable = CompositeDisposable()
+
+        Observable.timer(1, TimeUnit.SECONDS)
+                .subscribe {
+                    _onSetComputerIPError.onNext("timeout")
+                }
+                .addTo(setComputerIPCompositeDisposable)
+    }
+
+    fun cancelSetComputerIPTimeout() {
+        setComputerIPCompositeDisposable.clear()
     }
 
     private fun setPeer() {

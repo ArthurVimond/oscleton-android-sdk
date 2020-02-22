@@ -21,8 +21,7 @@ internal class MessageManager internal constructor(private val oscManager: OSCMa
         Logger.d("init", this)
     }
 
-    // Sender
-    fun initSender(ip: String, port: Int = 9000): SDKResult {
+    fun setComputerIP(ip: String, port: Int = 9000): SDKResult {
         val result = oscManager.initSender(ip, port)
 
         if (result != SDKResult.SUCCESS) {

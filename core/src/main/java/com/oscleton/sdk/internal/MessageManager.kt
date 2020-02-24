@@ -175,9 +175,6 @@ internal class MessageManager internal constructor(private val context: Context,
 
         sendMessage(LiveAPI.tempo)
 
-        sendMessage(LiveAPI.masterVolume)
-        sendMessage(LiveAPI.masterPanning)
-
     }
 
     fun sendMessage(address: String, args: List<Any>? = null) {

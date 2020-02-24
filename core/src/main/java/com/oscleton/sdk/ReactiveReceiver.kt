@@ -2,6 +2,7 @@ package com.oscleton.sdk
 
 import com.oscleton.sdk.internal.LiveSetDataManager
 import com.oscleton.sdk.models.DeviceParameter
+import com.oscleton.sdk.models.ReturnParameter
 import com.oscleton.sdk.models.TrackParameter
 import io.reactivex.Observable
 
@@ -38,5 +39,13 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @since 0.4
      */
     val trackParameter: Observable<TrackParameter> = liveSetDataManager.trackParameter
+
+    /**
+     * Returns the last changing return parameter as Observable.
+     *
+     * @return the last changing return parameter as Observable
+     * @since 0.7
+     */
+    val returnParameter: Observable<ReturnParameter> = liveSetDataManager.returnParameter
 
 }

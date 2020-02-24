@@ -2,6 +2,7 @@ package com.oscleton.sdk.internal
 
 import com.illposed.osc.OSCMessage
 import com.oscleton.sdk.enums.LiveParameter
+import com.oscleton.sdk.enums.ReturnParameterIndex
 import com.oscleton.sdk.enums.TrackParameterIndex
 import com.oscleton.sdk.extensions.float
 import com.oscleton.sdk.extensions.int
@@ -52,6 +53,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     val trackParameter: Observable<TrackParameter>
         get() = _trackParameter
 
+    val returnParameter: Observable<ReturnParameter>
+        get() = _returnParameter
+
     fun disableParameters(parameters: List<String>) {
         disabledParameters.clear()
         disabledParameters.addAll(parameters)
@@ -74,16 +78,19 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     private val _deviceParameter: PublishSubject<DeviceParameter> = PublishSubject.create()
     private val _trackParameter: PublishSubject<TrackParameter> = PublishSubject.create()
+    private val _returnParameter: PublishSubject<ReturnParameter> = PublishSubject.create()
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()
 
     private val trackParameters: MutableMap<Int, TrackParameter> = mutableMapOf()
+    private val returnParameters: MutableMap<Int, ReturnParameter> = mutableMapOf()
     private val devices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
     private val deviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
 
     private val currentDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
     private val currentTrackParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
+    private val currentReturnParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
 
     private val disabledParameters: MutableSet<String> = mutableSetOf()
 
@@ -91,7 +98,8 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         observeConfigProperties()
         observeTransportProperties()
         observeDeviceParametersProperties()
-        observeVolumeProperties()
+        observeTrackVolumeProperties()
+        observeReturnVolumeProperties()
     }
 
     private fun observeConfigProperties() {
@@ -200,7 +208,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     }
 
-    private fun observeVolumeProperties() {
+    private fun observeTrackVolumeProperties() {
 
         messageManager.oscMessage
                 .filter { it.address == LiveAPI.trackVolume }
@@ -241,6 +249,91 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                     _trackParameter.onNext(trackParam)
                 }
                 .addTo(compositeDisposable)
+
+    }
+
+    private fun observeReturnVolumeProperties() {
+
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.returnVolume }
+                .filter { block(LiveParameter.TRACK_VOLUME) }
+                .map { mapToTrackVolume(it) }
+                .subscribe {
+
+                    // Create new return parameter (if needed)
+                    if (returnParameters[it.trackIndex] == null) {
+                        returnParameters[it.trackIndex] = ReturnParameter(
+                                trackIndex = it.trackIndex,
+                                paramIndex = ReturnParameterIndex.VOLUME,
+                                trackName = it.trackName,
+                                min = 0f,
+                                max = 1f)
+                    }
+
+                    returnParameters[it.trackIndex]!!.trackIndex = it.trackIndex
+                    returnParameters[it.trackIndex]!!.trackName = it.trackName
+                    returnParameters[it.trackIndex]!!.value = it.volume
+                    returnParameters[it.trackIndex]!!.displayValue = it.displayVolume
+
+                }
+                .addTo(compositeDisposable)
+
+        // Current return volume index
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.returnVolume }
+                .filter { block(LiveParameter.TRACK_VOLUME) }
+                .map { mapToTrackParameterIndices(oscMessage = it, trackParamIndex = TrackParameterIndex.VOLUME) }
+                .subscribe { currentReturnParameterIndices.onNext(it) }
+                .addTo(compositeDisposable)
+
+        // Emit full return info from map
+        currentReturnParameterIndices
+                .subscribe {
+                    val returnParam = returnParameters[it.trackIndex]!!
+                    _returnParameter.onNext(returnParam)
+                }
+                .addTo(compositeDisposable)
+
+    }
+
+    private fun observeMasterVolumeProperties() {
+
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.masterVolume }
+                .filter { block(LiveParameter.TRACK_VOLUME) }
+                .map { mapToMasterVolume(it) }
+                .subscribe {
+
+                    // Create new master parameter (if needed)
+                    if (masterParameters[MasterParameterIndex.VOLUME] == null) {
+                        masterParameters[MasterParameterIndex.VOLUME] = MasterParameter(
+                                paramIndex = MasterParameterIndex.VOLUME,
+                                min = 0f,
+                                max = 1f)
+                    }
+
+                    masterParameters[MasterParameterIndex.VOLUME]!!.value = it.volume
+                    masterParameters[MasterParameterIndex.VOLUME]!!.displayValue = it.displayVolume
+
+                }
+                .addTo(compositeDisposable)
+
+        // Current master volume index
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.masterVolume}
+                .filter { block(LiveParameter.TRACK_VOLUME) }
+                .map { MasterParameterIndex.VOLUME }
+                .subscribe { currentMasterParameterIndex.onNext(it) }
+                .addTo(compositeDisposable)
+
+        // Emit full master info from map
+        currentMasterParameterIndex
+                .subscribe {
+                    val masterParam = masterParameters[it]!!
+                    _masterParameter.onNext(masterParam)
+                }
+                .addTo(compositeDisposable)
+
 
     }
 

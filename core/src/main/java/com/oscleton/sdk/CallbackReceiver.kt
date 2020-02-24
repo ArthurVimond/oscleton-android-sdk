@@ -1,7 +1,7 @@
 package com.oscleton.sdk
 
 import com.oscleton.sdk.internal.LiveSetDataManager
-import com.oscleton.sdk.listeners.OnDeviceParameterChangeListener
+import com.oscleton.sdk.listeners.*
 import com.oscleton.sdk.listeners.OnTempoChangeListener
 import com.oscleton.sdk.listeners.OnTrackParameterChangeListener
 import io.reactivex.disposables.CompositeDisposable
@@ -22,6 +22,7 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     private var tempoDisp: Disposable? = null
     private var deviceParameterDisp: Disposable? = null
     private var trackParameterDisp: Disposable? = null
+    private var returnParameterDisp: Disposable? = null
 
     /**
      * Register a callback to be invoked when the general tempo changes.
@@ -69,6 +70,21 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     }
 
     /**
+     * Register a callback to be invoked when return parameter changes.
+     *
+     * @param listener The callback that will run
+     * @since 0.7
+     */
+    fun set(listener: OnReturnParameterChangeListener) {
+        returnParameterDisp = liveSetDataManager.returnParameter
+                .subscribe {
+                    listener.onReturnParameterChange(it)
+                }
+
+        compositeDisposable.add(returnParameterDisp!!)
+    }
+
+    /**
      * Remove all listeners.
      *
      * @since 0.1
@@ -104,4 +120,11 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
         trackParameterDisp?.dispose()
     }
 
-}
+    /**
+     * Remove the current [OnReturnParameterChangeListener].
+     *
+     * @since 0.7
+     */
+    fun removeOnReturnParameterChangeListener() {
+        returnParameterDisp?.dispose()
+    }

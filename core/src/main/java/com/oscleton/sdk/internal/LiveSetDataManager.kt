@@ -2,6 +2,7 @@ package com.oscleton.sdk.internal
 
 import com.illposed.osc.OSCMessage
 import com.oscleton.sdk.enums.LiveParameter
+import com.oscleton.sdk.enums.MasterParameterIndex
 import com.oscleton.sdk.enums.ReturnParameterIndex
 import com.oscleton.sdk.enums.TrackParameterIndex
 import com.oscleton.sdk.extensions.float
@@ -56,6 +57,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     val returnParameter: Observable<ReturnParameter>
         get() = _returnParameter
 
+    val masterParameter: Observable<MasterParameter>
+        get() = _masterParameter
+
     fun disableParameters(parameters: List<String>) {
         disabledParameters.clear()
         disabledParameters.addAll(parameters)
@@ -79,18 +83,21 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     private val _deviceParameter: PublishSubject<DeviceParameter> = PublishSubject.create()
     private val _trackParameter: PublishSubject<TrackParameter> = PublishSubject.create()
     private val _returnParameter: PublishSubject<ReturnParameter> = PublishSubject.create()
+    private val _masterParameter: PublishSubject<MasterParameter> = PublishSubject.create()
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()
 
     private val trackParameters: MutableMap<Int, TrackParameter> = mutableMapOf()
     private val returnParameters: MutableMap<Int, ReturnParameter> = mutableMapOf()
+    private val masterParameters: MutableMap<Int, MasterParameter> = mutableMapOf()
     private val devices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
     private val deviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
 
     private val currentDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
     private val currentTrackParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
     private val currentReturnParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
+    private val currentMasterParameterIndex: PublishSubject<Int> = PublishSubject.create()
 
     private val disabledParameters: MutableSet<String> = mutableSetOf()
 
@@ -100,6 +107,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         observeDeviceParametersProperties()
         observeTrackVolumeProperties()
         observeReturnVolumeProperties()
+        observeMasterVolumeProperties()
     }
 
     private fun observeConfigProperties() {
@@ -392,6 +400,20 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         return TrackVolume(
                 trackIndex = trackIndex,
                 trackName = trackName,
+                volume = volume,
+                displayVolume = displayVolume)
+    }
+
+    private fun mapToMasterVolume(oscMessage: OSCMessage): MasterVolume {
+
+        val volume = if (oscMessage.arguments.size == 1) {
+            oscMessage.arguments[0].float
+        } else {
+            oscMessage.arguments[2].float
+        }
+        val displayVolume = convertToTrackDisplayVolume(volume)
+
+        return MasterVolume(
                 volume = volume,
                 displayVolume = displayVolume)
     }

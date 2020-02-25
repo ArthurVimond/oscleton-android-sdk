@@ -134,6 +134,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     private var onComputerIPDiscoveryProgressDisp: Disposable? = null
     private var onComputerIPDiscoverySuccessDisp: Disposable? = null
     private var onComputerIPDiscoveryErrorDisp: Disposable? = null
+    private var onComputerIPDiscoveryCancelDisp: Disposable? = null
 
     init {
         observeProperties()
@@ -387,6 +388,30 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun removeOnComputerIPDiscoveryErrorListener() {
         onComputerIPDiscoveryErrorDisp?.dispose()
+    }
+
+    /**
+     * Register a callback to be invoked when the computer IP discovery is cancelled.
+     *
+     * @param listener The callback that will run
+     * @since 0.7
+     */
+    fun set(listener: OnComputerIPDiscoveryCancelListener) {
+        onComputerIPDiscoveryCancelDisp = messageManager.onComputerIPDiscoveryCancel
+                .subscribe {
+                    listener.onComputerIPDiscoveryCancel()
+                }
+
+        compositeDisposable.add(onComputerIPDiscoveryErrorDisp!!)
+    }
+
+    /**
+     * Remove the current [OnComputerIPDiscoveryCancelListener].
+     *
+     * @since 0.7
+     */
+    fun removeOnComputerIPDiscoveryCancelListener() {
+        onComputerIPDiscoveryCancelDisp?.dispose()
     }
 
     /**

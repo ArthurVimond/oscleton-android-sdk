@@ -32,6 +32,7 @@ class ConfigurationViewModel : ViewModel() {
 
     val onComputerIPDiscoverySuccess: Observable<String> = OscletonSDK.instance.config.onComputerIPDiscoverySuccess
     val onComputerIPDiscoveryError: Observable<String> = OscletonSDK.instance.config.onComputerIPDiscoveryError
+    val onComputerIPDiscoveryCancel: Observable<Empty> = OscletonSDK.instance.config.onComputerIPDiscoveryCancel
 
     val discoveryIPButtonVisibility: LiveData<Int>
         get() = _discoveryIPButtonVisibility
@@ -76,8 +77,9 @@ class ConfigurationViewModel : ViewModel() {
                 .addTo(compositeDisposable)
 
         // Hide progress after discovery finish
-        config.onComputerIPDiscoverySuccess
-                .mergeWith(config.onComputerIPDiscoveryError)
+        config.onComputerIPDiscoverySuccess.map { true }
+                .mergeWith(config.onComputerIPDiscoveryError.map { true })
+                .mergeWith(config.onComputerIPDiscoveryCancel.map { true })
                 .subscribe {
                     _discoveryIPButtonVisibility.postValue(View.VISIBLE)
                     _stopDiscoveryButtonVisibility.postValue(View.GONE)

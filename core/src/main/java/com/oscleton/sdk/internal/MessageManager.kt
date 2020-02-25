@@ -109,22 +109,20 @@ internal class MessageManager internal constructor(private val context: Context,
             return SDKResult.ERROR
         }
 
-        cancelIPDiscovery()
+        resetIPDiscovery()
 
         _onComputerIPDiscoveryStart.onNext(Empty.VOID)
         _onComputerIPDiscoveryProgress.onNext(0f)
 
         ipDiscoveryCompositeDisposable = CompositeDisposable()
 
-        var ip3rdIndex = 0
-        var ip4thIndex = 1
+        val deviceIPAddress = NetworkUtils.deviceIPAddress()
+        val ipFirstPart = deviceIPAddress.substringBeforeLast(".")
+        val ipIndexLimit = 100
 
-        val ipIndexLimit = 40
-        var ipTriedCount = 0
-
-        Observable.interval(100, TimeUnit.MILLISECONDS)
-                .subscribe {
-                    val ip = "192.168.$ip3rdIndex.$ip4thIndex"
+        Observable.intervalRange(1, 100, 0,100, TimeUnit.MILLISECONDS)
+                .subscribe({ ip4thIndex ->
+                    val ip = "$ipFirstPart.$ip4thIndex"
                     val port = 9000
                     oscManager.initSender(ip, port)
 
@@ -132,24 +130,16 @@ internal class MessageManager internal constructor(private val context: Context,
                     discoverIP(ip)
 
                     // Progress
-                    val progress = ipTriedCount / (ipIndexLimit.toFloat() * 2f)
+                    val progress = ip4thIndex / ipIndexLimit.toFloat()
                     _onComputerIPDiscoveryProgress.onNext(progress)
-                    ipTriedCount++
-
-                    // Jump to next IP range
-                    if (ip3rdIndex == 0 && ip4thIndex == ipIndexLimit) {
-                        ip3rdIndex++
-                        ip4thIndex = 0
-                    }
-
-                    // Timeout
-                    if (ip3rdIndex == 1 && ip4thIndex == ipIndexLimit) {
-                        cancelIPDiscovery()
-                        _onComputerIPDiscoveryError.onNext("discovery_timeout")
-                    }
-
-                    ip4thIndex++
-                }
+                }, {
+                    // onError
+                    _onComputerIPDiscoveryError.onNext("discovery_error")
+                }, {
+                    // onComplete
+                    resetIPDiscovery()
+                    _onComputerIPDiscoveryError.onNext("discovery_timeout")
+                })
                 .addTo(ipDiscoveryCompositeDisposable)
 
         ipDiscoveryInProgress = true
@@ -158,6 +148,11 @@ internal class MessageManager internal constructor(private val context: Context,
     }
 
     fun cancelIPDiscovery() {
+        _onComputerIPDiscoveryError.onNext("discovery_cancelled")
+        resetIPDiscovery()
+    }
+
+    fun resetIPDiscovery() {
         ipDiscoveryInProgress = false
         ipDiscoveryCompositeDisposable.clear()
     }

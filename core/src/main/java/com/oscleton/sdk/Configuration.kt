@@ -142,7 +142,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
         // IP Discovery
         liveSetDataManager.onComputerIPDiscoverySuccess
                 .subscribe {
-                    messageManager.cancelIPDiscovery()
+                    messageManager.resetIPDiscovery()
                     messageManager.requestCurrentState()
                 }
                 .addTo(compositeDisposable)

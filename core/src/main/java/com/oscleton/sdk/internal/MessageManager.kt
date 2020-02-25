@@ -34,6 +34,9 @@ internal class MessageManager internal constructor(private val context: Context,
     val onComputerIPDiscoveryError: Observable<String>
         get() = _onComputerIPDiscoveryError
 
+    val onComputerIPDiscoveryCancel: Observable<Empty>
+        get() = _onComputerIPDiscoveryCancel
+
     // Private properties
 
     private val _onSetComputerIPError: PublishSubject<String> = PublishSubject.create()
@@ -41,6 +44,7 @@ internal class MessageManager internal constructor(private val context: Context,
     private val _onComputerIPDiscoveryStart: PublishSubject<Empty> = PublishSubject.create()
     private val _onComputerIPDiscoveryProgress: PublishSubject<Float> = PublishSubject.create()
     private val _onComputerIPDiscoveryError: PublishSubject<String> = PublishSubject.create()
+    private val _onComputerIPDiscoveryCancel: PublishSubject<Empty> = PublishSubject.create()
 
     // RxJava
     private var compositeDisposable = CompositeDisposable()
@@ -148,7 +152,7 @@ internal class MessageManager internal constructor(private val context: Context,
     }
 
     fun cancelIPDiscovery() {
-        _onComputerIPDiscoveryError.onNext("discovery_cancelled")
+        _onComputerIPDiscoveryCancel.onNext(Empty.VOID)
         resetIPDiscovery()
     }
 

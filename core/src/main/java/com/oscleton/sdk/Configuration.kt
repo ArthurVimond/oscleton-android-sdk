@@ -114,6 +114,15 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     val onComputerIPDiscoveryError: Observable<String> = messageManager.onComputerIPDiscoveryError
 
+    /**
+     * Discovery cancel message in response of [cancelComputerIPDiscovery] call.
+     *
+     * @return Discovery cancel message
+     * @since 0.7
+     * @see cancelComputerIPDiscovery
+     */
+    val onComputerIPDiscoveryCancel: Observable<Empty> = messageManager.onComputerIPDiscoveryCancel
+
     // RxJava
     private val compositeDisposable = CompositeDisposable()
 

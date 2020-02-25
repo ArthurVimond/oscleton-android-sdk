@@ -16,6 +16,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
 internal class LiveSetDataManager internal constructor(private val messageManager: MessageManager) {
 
@@ -157,6 +158,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         messageManager.oscMessage
                 .filter { it.address == LiveAPI.discoverIPSuccess }
                 .map { it.arguments.first().string }
+                .debounce(250, TimeUnit.MILLISECONDS) // needed to avoid duplicates on multi-link sometimes
                 .subscribe { _onComputerIPDiscoverySuccess.onNext(it) }
                 .addTo(compositeDisposable)
 

@@ -1,5 +1,6 @@
 package com.oscleton.sdk
 
+import com.oscleton.sdk.enums.AppTrack
 import com.oscleton.sdk.enums.SDKResult
 import com.oscleton.sdk.internal.LiveSetDataManager
 import com.oscleton.sdk.internal.MessageManager
@@ -189,6 +190,18 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      */
     fun cancelComputerIPDiscovery() {
         return messageManager.cancelIPDiscovery()
+    }
+
+    /**
+     * Set the application track used for the Oscleton MIDI Remote Script auto-update process.
+     * This also sets the application platform as "android".
+     *
+     * @param appTrack the application track
+     * @see AppTrack
+     */
+    fun setAppTrack(appTrack: String) {
+        messageManager.setAppTrack(appTrack)
+        messageManager.setAppPlatform("android")
     }
 
     /**

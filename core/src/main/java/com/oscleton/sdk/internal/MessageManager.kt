@@ -161,6 +161,10 @@ internal class MessageManager internal constructor(private val context: Context,
         ipDiscoveryCompositeDisposable.clear()
     }
 
+    fun setAppTrack(appTrack: String) {
+        sendMessage(LiveAPI.setAppTrack, listOf(appTrack))
+    }
+
     fun setAppPlatform(appPlatform: String) {
         sendMessage(LiveAPI.setAppPlatform, listOf(appPlatform))
     }

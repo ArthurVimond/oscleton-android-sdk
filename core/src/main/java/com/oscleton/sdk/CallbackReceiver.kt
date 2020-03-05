@@ -19,6 +19,7 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     private val compositeDisposable = CompositeDisposable()
     private var tempoDisp: Disposable? = null
     private var deviceParameterDisp: Disposable? = null
+    private var trackDeviceParameterDisp: Disposable? = null
     private var trackParameterDisp: Disposable? = null
     private var returnParameterDisp: Disposable? = null
     private var masterParameterDisp: Disposable? = null
@@ -44,13 +45,29 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @param listener The callback that will run
      * @since 0.1
      */
+    @Deprecated(message = "use set(OnTrackDeviceParameterChangeListener {}) instead")
     fun set(listener: OnDeviceParameterChangeListener) {
-        deviceParameterDisp = liveSetDataManager.deviceParameter
+        deviceParameterDisp = liveSetDataManager.trackDeviceParameter
                 .subscribe {
                     listener.onDeviceParameterChange(it)
                 }
 
         compositeDisposable.add(deviceParameterDisp!!)
+    }
+
+    /**
+     * Register a callback to be invoked when track device parameter changes.
+     *
+     * @param listener The callback that will run
+     * @since 0.8
+     */
+    fun set(listener: OnTrackDeviceParameterChangeListener) {
+        trackDeviceParameterDisp = liveSetDataManager.trackDeviceParameter
+                .subscribe {
+                    listener.onTrackDeviceParameterChange(it)
+                }
+
+        compositeDisposable.add(trackDeviceParameterDisp!!)
     }
 
     /**
@@ -121,8 +138,19 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.1
      */
+    @Deprecated(message = "use removeOnTrackDeviceParameterChangeListener() instead",
+            replaceWith = ReplaceWith("removeOnTrackDeviceParameterChangeListener()"))
     fun removeOnDeviceParameterChangeListener() {
         deviceParameterDisp?.dispose()
+    }
+
+    /**
+     * Remove the current [OnTrackDeviceParameterChangeListener].
+     *
+     * @since 0.8
+     */
+    fun removeOnTrackDeviceParameterChangeListener() {
+        trackDeviceParameterDisp?.dispose()
     }
 
     /**

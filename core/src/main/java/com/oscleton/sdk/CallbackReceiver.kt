@@ -23,6 +23,7 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     private var trackParameterDisp: Disposable? = null
     private var returnParameterDisp: Disposable? = null
     private var masterParameterDisp: Disposable? = null
+    private var trackSendDisp: Disposable? = null
 
     /**
      * Register a callback to be invoked when the general tempo changes.
@@ -116,6 +117,21 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     }
 
     /**
+     * Register a callback to be invoked when track send changes.
+     *
+     * @param listener The callback that will run
+     * @since 0.4
+     */
+    fun set(listener: OnTrackSendChangeListener) {
+        trackSendDisp = liveSetDataManager.trackSend
+                .subscribe {
+                    listener.onTrackSendChange(it)
+                }
+
+        compositeDisposable.add(trackSendDisp!!)
+    }
+
+    /**
      * Remove all listeners.
      *
      * @since 0.1
@@ -178,6 +194,15 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      */
     fun removeOnMasterParameterChangeListener() {
         masterParameterDisp?.dispose()
+    }
+
+    /**
+     * Remove the current [OnTrackSendChangeListener].
+     *
+     * @since 0.8
+     */
+    fun removeOnTrackSendChangeListener() {
+        trackSendDisp?.dispose()
     }
 
 }

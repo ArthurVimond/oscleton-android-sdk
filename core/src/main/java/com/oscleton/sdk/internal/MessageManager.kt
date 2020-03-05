@@ -161,6 +161,10 @@ internal class MessageManager internal constructor(private val context: Context,
         ipDiscoveryCompositeDisposable.clear()
     }
 
+    fun setAppPlatform(appPlatform: String) {
+        sendMessage(LiveAPI.setAppPlatform, listOf(appPlatform))
+    }
+
     private fun discoverIP(computerIP: String) {
         val mobileIPAddress = NetworkUtils.deviceIPAddress()
         val args: List<Any> = listOf(mobileIPAddress, 9001, computerIP)

@@ -1,5 +1,7 @@
 package com.oscleton.sdk.models
 
+import com.oscleton.sdk.enums.AutomationState
+
 /**
  * Data class representing a Live device parameter.
  *
@@ -28,4 +30,4 @@ data class DeviceParameter(var trackIndex: Int,
                            var value: Float = 0f,
                            var min: Float = 0f,
                            var max: Float = 1f,
-                           var automationState: Int = 0)
+                           var automationState: AutomationState = AutomationState.NONE)

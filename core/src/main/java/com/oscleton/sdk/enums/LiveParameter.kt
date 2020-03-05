@@ -21,5 +21,6 @@ object LiveParameter {
     const val TRACK_PANNING = "TRACK_PANNING"
     const val TRACK_MUTE = "TRACK_MUTE"
     const val TRACK_ARM = "TRACK_ARM"
+    const val TRACK_SEND = "TRACK_SEND"
     const val DEVICE_PARAMETER = "DEVICE_PARAMETER"
 }

@@ -1,13 +1,8 @@
 package com.oscleton.sdk.internal
 
 import com.illposed.osc.OSCMessage
-import com.oscleton.sdk.enums.LiveParameter
-import com.oscleton.sdk.enums.MasterParameterIndex
-import com.oscleton.sdk.enums.ReturnParameterIndex
-import com.oscleton.sdk.enums.TrackParameterIndex
-import com.oscleton.sdk.extensions.float
-import com.oscleton.sdk.extensions.int
-import com.oscleton.sdk.extensions.string
+import com.oscleton.sdk.enums.*
+import com.oscleton.sdk.extensions.*
 import com.oscleton.sdk.models.*
 import com.oscleton.sdk.utils.Empty
 import com.oscleton.sdk.utils.LiveVolumeUtils
@@ -56,6 +51,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     val trackParameter: Observable<TrackParameter>
         get() = _trackParameter
 
+    val trackSend: Observable<Send>
+        get() = _trackSend
+
     val returnParameter: Observable<ReturnParameter>
         get() = _returnParameter
 
@@ -84,6 +82,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     private val _trackDeviceParameter: PublishSubject<DeviceParameter> = PublishSubject.create()
     private val _trackParameter: PublishSubject<TrackParameter> = PublishSubject.create()
+    private val _trackSend: PublishSubject<Send> = PublishSubject.create()
     private val _returnParameter: PublishSubject<ReturnParameter> = PublishSubject.create()
     private val _masterParameter: PublishSubject<MasterParameter> = PublishSubject.create()
 
@@ -91,6 +90,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     private val compositeDisposable = CompositeDisposable()
 
     private val trackParameters: MutableMap<Int, TrackParameter> = mutableMapOf()
+    private val trackSends: MutableMap<Pair<Int, Int>, Send> = mutableMapOf()
     private val returnParameters: MutableMap<Int, ReturnParameter> = mutableMapOf()
     private val masterParameters: MutableMap<Int, MasterParameter> = mutableMapOf()
     private val devices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
@@ -98,6 +98,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     private val currentTrackDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
     private val currentTrackParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
+    private val currentTrackSendIndices: PublishSubject<SendIndices> = PublishSubject.create()
     private val currentReturnParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
     private val currentMasterParameterIndex: PublishSubject<Int> = PublishSubject.create()
 
@@ -109,7 +110,10 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
         observeTrackDeviceParametersProperties()
         observeTrackVolumeProperties()
+        observeTrackSendProperties()
+
         observeReturnVolumeProperties()
+
         observeMasterVolumeProperties()
     }
 
@@ -264,6 +268,53 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     }
 
+    private fun observeTrackSendProperties() {
+
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.trackSend }
+                .filter { block(LiveParameter.TRACK_SEND) }
+                .map { mapToSend(it) }
+                .subscribe {
+
+                    // Create new send (if needed)
+                    val pair = Pair(it.trackIndex, it.sendIndex)
+                    if (trackSends[pair] == null) {
+                        trackSends[pair] = Send(
+                                trackIndex = it.trackIndex,
+                                sendIndex = it.sendIndex)
+                    }
+
+                    trackSends[pair]!!.trackIndex = it.trackIndex
+                    trackSends[pair]!!.trackName = it.trackName
+                    trackSends[pair]!!.sendIndex = it.sendIndex
+                    trackSends[pair]!!.sendName = it.sendName
+                    trackSends[pair]!!.sendType = SendType.TRACK
+                    trackSends[pair]!!.volume = it.volume
+                    trackSends[pair]!!.displayVolume = it.displayVolume
+                    trackSends[pair]!!.sendState = it.sendState
+                    trackSends[pair]!!.automationState = it.automationState
+                }
+                .addTo(compositeDisposable)
+
+        // Current track send index
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.trackSend }
+                .filter { block(LiveParameter.TRACK_SEND) }
+                .map { mapToSendIndices(oscMessage = it) }
+                .subscribe { currentTrackSendIndices.onNext(it) }
+                .addTo(compositeDisposable)
+
+        // Emit full track send info from map
+        currentTrackSendIndices
+                .subscribe {
+                    val pair = Pair(it.trackIndex, it.sendIndex)
+                    val trackSend = trackSends.getValue(pair)
+                    _trackSend.onNext(trackSend)
+                }
+                .addTo(compositeDisposable)
+
+    }
+
     private fun observeReturnVolumeProperties() {
 
         messageManager.oscMessage
@@ -332,7 +383,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
         // Current master volume index
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.masterVolume}
+                .filter { it.address == LiveAPI.masterVolume }
                 .filter { block(LiveParameter.TRACK_VOLUME) }
                 .map { MasterParameterIndex.VOLUME }
                 .subscribe { currentMasterParameterIndex.onNext(it) }
@@ -378,7 +429,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         val value = oscMessage.arguments[7].float
         val min = oscMessage.arguments[8].float
         val max = oscMessage.arguments[9].float
-        val automationState = oscMessage.arguments[10].int
+        val automationState = oscMessage.arguments[10].int.automationState
 
         return DeviceParameter(
                 trackIndex = trackIndex,
@@ -422,6 +473,28 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 displayVolume = displayVolume)
     }
 
+    private fun mapToSend(oscMessage: OSCMessage): Send {
+
+        val trackIndex = oscMessage.arguments[0].int
+        val trackName = oscMessage.arguments[1].string
+        val sendIndex = oscMessage.arguments[2].int
+        val sendName = oscMessage.arguments[3].string
+        val volume = oscMessage.arguments[4].float
+        val displayVolume = oscMessage.arguments[5].string
+        val sendState = oscMessage.arguments[6].int.sendState
+        val automationState = oscMessage.arguments[7].int.automationState
+
+        return Send(
+                trackIndex = trackIndex,
+                trackName = trackName,
+                sendIndex = sendIndex,
+                sendName = sendName,
+                volume = volume,
+                displayVolume = displayVolume,
+                sendState = sendState,
+                automationState = automationState)
+    }
+
     private fun mapToDeviceParameterIndices(oscMessage: OSCMessage): DeviceParameterIndices {
 
         val trackIndex = oscMessage.arguments[0].int
@@ -441,6 +514,16 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         return TrackParameterIndices(
                 trackIndex = trackIndex,
                 paramIndex = trackParamIndex)
+    }
+
+    private fun mapToSendIndices(oscMessage: OSCMessage): SendIndices {
+
+        val trackIndex = oscMessage.arguments[0].int
+        val sendIndex = oscMessage.arguments[2].int
+
+        return SendIndices(
+                trackIndex = trackIndex,
+                sendIndex = sendIndex)
     }
 
 }

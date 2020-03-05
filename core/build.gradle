@@ -9,7 +9,7 @@ ext {
 
     publishedGroupId = 'com.oscleton.sdk'
     artifact = 'core'
-    libraryVersion = '0.7.0'
+    libraryVersion = '0.8.0'
 
     libraryName = 'oscleton-android-sdk'
     libraryDescription = 'Ableton Live companion SDK for Android'

@@ -26,12 +26,21 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
     val tempo: Observable<Float> = liveSetDataManager.tempo
 
     /**
+     * Returns the last changing track device parameter as Observable.
+     *
+     * @return the last changing track device parameter as Observable
+     * @since 0.8
+     */
+    val trackDeviceParameter: Observable<DeviceParameter> = liveSetDataManager.trackDeviceParameter
+
+    /**
      * Returns the last changing device parameter as Observable.
      *
      * @return the last changing device parameter as Observable
      * @since 0.1
      */
-    val deviceParameter: Observable<DeviceParameter> = liveSetDataManager.deviceParameter
+    @Deprecated(message = "use trackDeviceParameter", replaceWith = ReplaceWith("trackDeviceParameter"))
+    val deviceParameter: Observable<DeviceParameter> = liveSetDataManager.trackDeviceParameter
 
     /**
      * Returns the last changing track parameter as Observable.

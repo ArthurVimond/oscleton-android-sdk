@@ -415,6 +415,17 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         return "$volumeDecibels dB"
     }
 
+    private fun formattedDisplayVolume(volume: String): String {
+
+        if (volume == "-inf dB") {
+            return volume
+        }
+
+        val digitsVolume = volume.removeSuffix(" dB").toFloat()
+        val roundedVolume = digitsVolume.round(1)
+        return "$roundedVolume dB"
+    }
+
     // Mapper functions
 
     private fun mapToDeviceParameter(oscMessage: OSCMessage): DeviceParameter {
@@ -480,7 +491,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         val sendIndex = oscMessage.arguments[2].int
         val sendName = oscMessage.arguments[3].string
         val volume = oscMessage.arguments[4].float
-        val displayVolume = oscMessage.arguments[5].string
+        val displayVolume = formattedDisplayVolume(oscMessage.arguments[5].string)
         val sendState = oscMessage.arguments[6].int.sendState
         val automationState = oscMessage.arguments[7].int.automationState
 

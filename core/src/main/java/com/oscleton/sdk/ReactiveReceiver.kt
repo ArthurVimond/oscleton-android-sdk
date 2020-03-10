@@ -56,6 +56,14 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
     val trackSend: Observable<Send> = liveSetDataManager.trackSend
 
     /**
+     * Returns the last changing return device parameter as Observable.
+     *
+     * @return the last changing return device parameter as Observable
+     * @since 0.9
+     */
+    val returnDeviceParameter: Observable<DeviceParameter> = liveSetDataManager.returnDeviceParameter
+
+    /**
      * Returns the last changing return parameter as Observable.
      *
      * @return the last changing return parameter as Observable

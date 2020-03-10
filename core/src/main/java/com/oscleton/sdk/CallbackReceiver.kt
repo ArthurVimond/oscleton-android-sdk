@@ -19,12 +19,13 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     private val compositeDisposable = CompositeDisposable()
     private var tempoDisp: Disposable? = null
     private var deviceParameterDisp: Disposable? = null
+    private var trackSendDisp: Disposable? = null
     private var trackDeviceParameterDisp: Disposable? = null
     private var trackParameterDisp: Disposable? = null
     private var returnDeviceParameterDisp: Disposable? = null
     private var returnParameterDisp: Disposable? = null
     private var masterParameterDisp: Disposable? = null
-    private var trackSendDisp: Disposable? = null
+    private var masterDeviceParameterDisp: Disposable? = null
 
     /**
      * Register a callback to be invoked when the general tempo changes.
@@ -133,6 +134,21 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     }
 
     /**
+     * Register a callback to be invoked when master device parameter changes.
+     *
+     * @param listener The callback that will run
+     * @since 0.9
+     */
+    fun set(listener: OnMasterDeviceParameterChangeListener) {
+        masterDeviceParameterDisp = liveSetDataManager.masterDeviceParameter
+                .subscribe {
+                    listener.onMasterDeviceParameterChange(it)
+                }
+
+        compositeDisposable.add(returnDeviceParameterDisp!!)
+    }
+
+    /**
      * Register a callback to be invoked when track send changes.
      *
      * @param listener The callback that will run
@@ -177,21 +193,30 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     }
 
     /**
-     * Remove the current [OnTrackDeviceParameterChangeListener].
-     *
-     * @since 0.8
-     */
-    fun removeOnTrackDeviceParameterChangeListener() {
-        trackDeviceParameterDisp?.dispose()
-    }
-
-    /**
      * Remove the current [OnTrackParameterChangeListener].
      *
      * @since 0.4
      */
     fun removeOnTrackParameterChangeListener() {
         trackParameterDisp?.dispose()
+    }
+
+    /**
+     * Remove the current [OnTrackSendChangeListener].
+     *
+     * @since 0.8
+     */
+    fun removeOnTrackSendChangeListener() {
+        trackSendDisp?.dispose()
+    }
+
+    /**
+     * Remove the current [OnTrackDeviceParameterChangeListener].
+     *
+     * @since 0.8
+     */
+    fun removeOnTrackDeviceParameterChangeListener() {
+        trackDeviceParameterDisp?.dispose()
     }
 
     /**
@@ -222,12 +247,12 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     }
 
     /**
-     * Remove the current [OnTrackSendChangeListener].
+     * Remove the current [OnMasterDeviceParameterChangeListener].
      *
-     * @since 0.8
+     * @since 0.9
      */
-    fun removeOnTrackSendChangeListener() {
-        trackSendDisp?.dispose()
+    fun removeOnMasterDeviceParameterChangeListener() {
+        masterDeviceParameterDisp?.dispose()
     }
 
 }

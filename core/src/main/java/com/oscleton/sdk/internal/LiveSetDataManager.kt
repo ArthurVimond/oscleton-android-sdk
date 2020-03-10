@@ -54,6 +54,9 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     val trackSend: Observable<Send>
         get() = _trackSend
 
+    val returnDeviceParameter: Observable<DeviceParameter>
+        get() = _returnDeviceParameter
+
     val returnParameter: Observable<ReturnParameter>
         get() = _returnParameter
 
@@ -83,6 +86,7 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     private val _trackDeviceParameter: PublishSubject<DeviceParameter> = PublishSubject.create()
     private val _trackParameter: PublishSubject<TrackParameter> = PublishSubject.create()
     private val _trackSend: PublishSubject<Send> = PublishSubject.create()
+    private val _returnDeviceParameter: PublishSubject<DeviceParameter> = PublishSubject.create()
     private val _returnParameter: PublishSubject<ReturnParameter> = PublishSubject.create()
     private val _masterParameter: PublishSubject<MasterParameter> = PublishSubject.create()
 
@@ -91,12 +95,15 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
     private val trackParameters: MutableMap<Int, TrackParameter> = mutableMapOf()
     private val trackDevices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
+    private val trackDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
     private val trackSends: MutableMap<Pair<Int, Int>, Send> = mutableMapOf()
+    private val returnDevices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
+    private val returnDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
     private val returnParameters: MutableMap<Int, ReturnParameter> = mutableMapOf()
     private val masterParameters: MutableMap<Int, MasterParameter> = mutableMapOf()
-    private val trackDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
 
     private val currentTrackDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
+    private val currentReturnDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
     private val currentTrackParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
     private val currentTrackSendIndices: PublishSubject<SendIndices> = PublishSubject.create()
     private val currentReturnParameterIndices: PublishSubject<TrackParameterIndices> = PublishSubject.create()
@@ -108,11 +115,12 @@ internal class LiveSetDataManager internal constructor(private val messageManage
         observeConfigProperties()
         observeTransportProperties()
 
-        observeTrackDeviceParametersProperties()
         observeTrackVolumeProperties()
         observeTrackSendProperties()
+        observeTrackDeviceParametersProperties()
 
         observeReturnVolumeProperties()
+        observeReturnDeviceParametersProperties()
 
         observeMasterVolumeProperties()
     }
@@ -357,6 +365,48 @@ internal class LiveSetDataManager internal constructor(private val messageManage
                 }
                 .addTo(compositeDisposable)
 
+    }
+
+    private fun observeReturnDeviceParametersProperties() {
+
+        // Fill the maps on return device parameters changes
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.returnDeviceParam }
+                .filter { block(LiveParameter.DEVICE_PARAMETER) }
+                .map { mapToDeviceParameter(it) }
+                .subscribe {
+
+                    // Create new device (if needed)
+                    val pair = Pair(it.trackIndex, it.deviceIndex)
+                    if (returnDevices[pair] == null) {
+                        returnDevices[pair] = Device(it.trackIndex, it.deviceIndex)
+                    }
+
+                    returnDevices[pair]!!.trackIndex = it.trackIndex
+                    returnDevices[pair]!!.deviceIndex = it.deviceIndex
+
+                    // Return device parameter
+                    val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
+                    returnDeviceParameters[triple] = it
+
+                }.addTo(compositeDisposable)
+
+        // Current return device parameter indices
+        messageManager.oscMessage
+                .filter { it.address == LiveAPI.returnDeviceParam }
+                .filter { block(LiveParameter.DEVICE_PARAMETER) }
+                .map { mapToDeviceParameterIndices(it) }
+                .subscribe { currentReturnDeviceParameterIndices.onNext(it) }
+                .addTo(compositeDisposable)
+
+        // Emit full return device parameter info from map
+        currentReturnDeviceParameterIndices
+                .subscribe {
+                    val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
+                    val deviceParam = returnDeviceParameters.getValue(triple)
+                    _returnDeviceParameter.onNext(deviceParam)
+                }
+                .addTo(compositeDisposable)
     }
 
     private fun observeMasterVolumeProperties() {

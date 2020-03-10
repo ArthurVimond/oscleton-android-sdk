@@ -79,4 +79,12 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      */
     val masterParameter: Observable<MasterParameter> = liveSetDataManager.masterParameter
 
+    /**
+     * Returns the last changing master device parameter as Observable.
+     *
+     * @return the last changing master device parameter as Observable
+     * @since 0.9
+     */
+    val masterDeviceParameter: Observable<DeviceParameter> = liveSetDataManager.masterDeviceParameter
+
 }

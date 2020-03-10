@@ -90,10 +90,10 @@ internal class LiveSetDataManager internal constructor(private val messageManage
     private val compositeDisposable = CompositeDisposable()
 
     private val trackParameters: MutableMap<Int, TrackParameter> = mutableMapOf()
+    private val trackDevices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
     private val trackSends: MutableMap<Pair<Int, Int>, Send> = mutableMapOf()
     private val returnParameters: MutableMap<Int, ReturnParameter> = mutableMapOf()
     private val masterParameters: MutableMap<Int, MasterParameter> = mutableMapOf()
-    private val devices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
     private val trackDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
 
     private val currentTrackDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
@@ -192,12 +192,12 @@ internal class LiveSetDataManager internal constructor(private val messageManage
 
                     // Create new device (if needed)
                     val pair = Pair(it.trackIndex, it.deviceIndex)
-                    if (devices[pair] == null) {
-                        devices[pair] = Device(it.trackIndex, it.deviceIndex)
+                    if (trackDevices[pair] == null) {
+                        trackDevices[pair] = Device(it.trackIndex, it.deviceIndex)
                     }
 
-                    devices[pair]!!.trackIndex = it.trackIndex
-                    devices[pair]!!.deviceIndex = it.deviceIndex
+                    trackDevices[pair]!!.trackIndex = it.trackIndex
+                    trackDevices[pair]!!.deviceIndex = it.deviceIndex
 
                     // Track device parameter
                     val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)

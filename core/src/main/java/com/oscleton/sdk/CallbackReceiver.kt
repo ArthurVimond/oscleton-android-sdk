@@ -21,6 +21,7 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     private var deviceParameterDisp: Disposable? = null
     private var trackDeviceParameterDisp: Disposable? = null
     private var trackParameterDisp: Disposable? = null
+    private var returnDeviceParameterDisp: Disposable? = null
     private var returnParameterDisp: Disposable? = null
     private var masterParameterDisp: Disposable? = null
     private var trackSendDisp: Disposable? = null
@@ -84,6 +85,21 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
                 }
 
         compositeDisposable.add(trackParameterDisp!!)
+    }
+
+    /**
+     * Register a callback to be invoked when return device parameter changes.
+     *
+     * @param listener The callback that will run
+     * @since 0.9
+     */
+    fun set(listener: OnReturnDeviceParameterChangeListener) {
+        returnDeviceParameterDisp = liveSetDataManager.trackDeviceParameter
+                .subscribe {
+                    listener.onReturnDeviceParameterChange(it)
+                }
+
+        compositeDisposable.add(returnDeviceParameterDisp!!)
     }
 
     /**
@@ -176,6 +192,15 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      */
     fun removeOnTrackParameterChangeListener() {
         trackParameterDisp?.dispose()
+    }
+
+    /**
+     * Remove the current [OnReturnDeviceParameterChangeListener].
+     *
+     * @since 0.9
+     */
+    fun removeOnReturnDeviceParameterChangeListener() {
+        returnDeviceParameterDisp?.dispose()
     }
 
     /**

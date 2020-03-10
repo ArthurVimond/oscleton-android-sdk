@@ -94,7 +94,7 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @since 0.9
      */
     fun set(listener: OnReturnDeviceParameterChangeListener) {
-        returnDeviceParameterDisp = liveSetDataManager.trackDeviceParameter
+        returnDeviceParameterDisp = liveSetDataManager.returnDeviceParameter
                 .subscribe {
                     listener.onReturnDeviceParameterChange(it)
                 }

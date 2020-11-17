@@ -1,4 +1,4 @@
-package com.oscleton.sdk.models
+package com.oscleton.sdk.browser.models
 
 import com.oscleton.sdk.utils.BrowserItemUtils
 

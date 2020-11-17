@@ -1,8 +1,8 @@
 package com.oscleton.sdk.browser
 
+import com.oscleton.sdk.browser.models.BrowserItem
 import com.oscleton.sdk.internal.LiveAPI
 import com.oscleton.sdk.internal.MessageManager
-import com.oscleton.sdk.models.BrowserItem
 
 /**
  * Browser contains the methods to browse the Live library.

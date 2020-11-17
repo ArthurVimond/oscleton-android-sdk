@@ -1,10 +1,10 @@
 package com.oscleton.sdk.browser
 
 import com.google.gson.Gson
+import com.oscleton.sdk.browser.models.BrowserItem
 import com.oscleton.sdk.extensions.string
 import com.oscleton.sdk.internal.LiveAPI
 import com.oscleton.sdk.internal.MessageManager
-import com.oscleton.sdk.models.BrowserItem
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import java.util.concurrent.TimeUnit

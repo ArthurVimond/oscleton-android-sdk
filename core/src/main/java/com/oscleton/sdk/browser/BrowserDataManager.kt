@@ -18,7 +18,7 @@ internal class BrowserDataManager internal constructor(private val messageManage
     private val getBrowserItemCompositeDisposable = CompositeDisposable()
 
     fun getBrowserItems(uri: String, afterUri: String): List<BrowserItem> {
-        
+
         val browserItemsResult = mutableListOf<BrowserItem>()
 
         getBrowserItemCompositeDisposable.clear()

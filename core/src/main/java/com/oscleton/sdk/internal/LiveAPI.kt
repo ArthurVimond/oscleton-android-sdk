@@ -129,4 +129,11 @@ internal object LiveAPI {
     const val createClip = live + "clip/create"
     const val deleteClip = live + "clip/delete"
 
+    // Browser
+    const val browserLoadBrowserItem = live + "browser/load_browser_item"
+    const val browserGetBrowserItemChildren = live + "browser/get_browser_item_children"
+    const val browserBrowserItemChildren = live + "browser/browser_item_children"
+    const val browserPreviewBrowserItem = live + "browser/preview_browser_item"
+    const val browserStopPreview = live + "browser/stop_preview"
+
 }

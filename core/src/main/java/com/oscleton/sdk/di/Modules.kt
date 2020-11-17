@@ -1,6 +1,8 @@
 package com.oscleton.sdk.di
 
+import com.google.gson.GsonBuilder
 import com.oscleton.sdk.*
+import com.oscleton.sdk.browser.BrowserDataManager
 import com.oscleton.sdk.internal.AppLifecycleObserver
 import com.oscleton.sdk.internal.LiveSetDataManager
 import com.oscleton.sdk.internal.MessageManager
@@ -15,6 +17,16 @@ internal val oscletonSDKModule = module {
     single { CallbackReceiver(get()) }
     single { MessageManager(get(), get()) }
     single { OSCManager() }
-    single { LiveSetDataManager(get()) }
     single { AppLifecycleObserver() }
+    single {
+        val builder = GsonBuilder()
+        return@single builder.create()
+    }
+}
+
+    single { LiveSetDataManager(get()) }
+}
+
+internal val browserModule = module {
+    single { BrowserDataManager(get(), get()) }
 }

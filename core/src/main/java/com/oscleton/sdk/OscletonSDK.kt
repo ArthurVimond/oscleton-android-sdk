@@ -1,7 +1,9 @@
 package com.oscleton.sdk
 
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.oscleton.sdk.browser.Browser
 import com.oscleton.sdk.di.Injector
+import com.oscleton.sdk.di.browserModule
 import com.oscleton.sdk.di.oscletonSDKModule
 import com.oscleton.sdk.exceptions.OscletonSDKException
 import com.oscleton.sdk.internal.AppLifecycleObserver
@@ -45,6 +47,7 @@ class OscletonSDK {
     val config: Configuration by injector.inject()
     val controller: Controller by injector.inject()
     val receiver: Receiver by injector.inject()
+    val browser: Browser by injector.inject()
 
     // Public methods
 
@@ -58,7 +61,7 @@ class OscletonSDK {
      */
     fun initialize() {
         Logger.i("initialize", this)
-        loadKoinModules(listOf(oscletonSDKModule))
+        loadKoinModules(listOf(oscletonSDKModule, browserModule))
 
         observeLifecycleObserverProperties()
         attachApplicationLifecycle()

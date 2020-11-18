@@ -2,6 +2,7 @@ package com.oscleton.sdk.di
 
 import com.google.gson.GsonBuilder
 import com.oscleton.sdk.*
+import com.oscleton.sdk.browser.Browser
 import com.oscleton.sdk.browser.BrowserDataManager
 import com.oscleton.sdk.internal.AppLifecycleObserver
 import com.oscleton.sdk.internal.LiveSetDataManager
@@ -28,5 +29,6 @@ internal val oscletonSDKModule = module {
 }
 
 internal val browserModule = module {
+    single { Browser(get(), get()) }
     single { BrowserDataManager(get(), get()) }
 }

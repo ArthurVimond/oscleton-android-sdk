@@ -101,7 +101,7 @@ internal object LiveAPI {
     // Scenes
     const val sceneCount = live + "scenes"
     const val sceneName = live + "scene/name"
-    const val sceneNameBlock = live + "scene/nameblock"
+    const val sceneNameBlock = live + "scene/name/block"
     const val sceneColor = live + "scene/color"
     const val sceneState = live + "scene/state"
 

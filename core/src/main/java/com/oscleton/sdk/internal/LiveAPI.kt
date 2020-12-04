@@ -35,6 +35,8 @@ internal object LiveAPI {
 
     const val overdub = live + "overdub"
     const val metronome = live + "metronome"
+    const val captureMidi = live + "capture_midi"
+    const val canCaptureMidi = live + "can_capture_midi"
     const val loop = live + "loop"
     const val signature = live + "signature"
 

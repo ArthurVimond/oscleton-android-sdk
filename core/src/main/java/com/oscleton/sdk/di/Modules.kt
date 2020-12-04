@@ -4,6 +4,8 @@ import com.google.gson.GsonBuilder
 import com.oscleton.sdk.*
 import com.oscleton.sdk.browser.Browser
 import com.oscleton.sdk.browser.BrowserDataManager
+import com.oscleton.sdk.configuration.Configuration
+import com.oscleton.sdk.configuration.ConfigurationDataManager
 import com.oscleton.sdk.devices.Devices
 import com.oscleton.sdk.devices.DevicesDataManager
 import com.oscleton.sdk.internal.AppLifecycleObserver
@@ -44,6 +46,11 @@ internal val tracksModule = module {
 internal val devicesModule = module {
     single { Devices(get(), get()) }
     single { DevicesDataManager(get(), get()) }
+}
+
+internal val configurationModule = module {
+    single { Configuration(get(), get(), get()) }
+    single { ConfigurationDataManager(get()) }
 }
 
 internal val browserModule = module {

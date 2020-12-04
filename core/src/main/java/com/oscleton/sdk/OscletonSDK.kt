@@ -2,7 +2,7 @@ package com.oscleton.sdk
 
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.oscleton.sdk.browser.Browser
-import com.oscleton.sdk.di.Injector
+import com.oscleton.sdk.configuration.Configuration
 import com.oscleton.sdk.devices.Devices
 import com.oscleton.sdk.di.*
 import com.oscleton.sdk.exceptions.OscletonSDKException

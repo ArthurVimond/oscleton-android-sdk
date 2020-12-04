@@ -9,7 +9,7 @@ import com.oscleton.sdk.configuration.ConfigurationDataManager
 import com.oscleton.sdk.devices.Devices
 import com.oscleton.sdk.devices.DevicesDataManager
 import com.oscleton.sdk.internal.AppLifecycleObserver
-import com.oscleton.sdk.internal.LiveSetDataManager
+import com.oscleton.sdk.internal.CommonDataManager
 import com.oscleton.sdk.liveset.LiveSetDataManager
 import com.oscleton.sdk.internal.MessageManager
 import com.oscleton.sdk.internal.OSCManager
@@ -19,7 +19,7 @@ import com.oscleton.sdk.tracks.TracksDataManager
 import org.koin.dsl.module
 
 internal val oscletonSDKModule = module {
-    single { Configuration(get(), get()) }
+    single { CommonDataManager() }
     single { Controller(get()) }
     single { Receiver() }
     single { ReactiveReceiver(get()) }

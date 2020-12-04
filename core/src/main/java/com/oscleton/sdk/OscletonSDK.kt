@@ -3,7 +3,7 @@ package com.oscleton.sdk
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.oscleton.sdk.browser.Browser
 import com.oscleton.sdk.di.Injector
-import com.oscleton.sdk.di.browserModule
+import com.oscleton.sdk.devices.Devices
 import com.oscleton.sdk.di.*
 import com.oscleton.sdk.exceptions.OscletonSDKException
 import com.oscleton.sdk.internal.AppLifecycleObserver
@@ -51,6 +51,7 @@ class OscletonSDK {
     val receiver: Receiver by injector.inject()
     val liveSet: LiveSet by injector.inject()
     val tracks: Tracks by injector.inject()
+    val devices: Devices by injector.inject()
     val browser: Browser by injector.inject()
 
     // Public methods

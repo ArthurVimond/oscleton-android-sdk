@@ -1,8 +1,9 @@
-package com.oscleton.sdk
+package com.oscleton.sdk.configuration
 
+import com.oscleton.sdk.BuildConfig
 import com.oscleton.sdk.enums.AppTrack
 import com.oscleton.sdk.enums.SDKResult
-import com.oscleton.sdk.internal.LiveSetDataManager
+import com.oscleton.sdk.internal.CommonDataManager
 import com.oscleton.sdk.internal.MessageManager
 import com.oscleton.sdk.listeners.*
 import com.oscleton.sdk.utils.Empty
@@ -18,7 +19,8 @@ import io.reactivex.rxkotlin.addTo
  *
  * @since 0.1
  */
-class Configuration internal constructor(private val liveSetDataManager: LiveSetDataManager,
+class Configuration internal constructor(private val configurationDataManager: ConfigurationDataManager,
+                                         private val commonDataManager: CommonDataManager,
                                          private val messageManager: MessageManager) {
 
     /**
@@ -27,7 +29,10 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @return Start message
      * @since 0.6
      */
-    val onStart: Observable<Empty> = liveSetDataManager.onStart
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onStart instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onStart"))
+    val onStart: Observable<Empty> = configurationDataManager.onStart
 
     /**
      * Message sent when Live quits.
@@ -35,7 +40,10 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @return Quit message
      * @since 0.6
      */
-    val onQuit: Observable<Empty> = liveSetDataManager.onQuit
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onQuit instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onQuit"))
+    val onQuit: Observable<Empty> = configurationDataManager.onQuit
 
     /**
      * Oscleton SDK version
@@ -43,6 +51,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @return the Oscleton SDK version
      * @since 0.1
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().sdkVersion instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().sdkVersion"))
     val sdkVersion: String by lazy { BuildConfig.VERSION_NAME }
 
     /**
@@ -51,7 +62,10 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @return the Live software version
      * @since 0.1
      */
-    val liveVersion: Observable<String> = liveSetDataManager.liveVersion
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().liveVersion instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().liveVersion"))
+    val liveVersion: Observable<String> = configurationDataManager.liveVersion
 
     /**
      * Oscleton MIDI Remote Script version in Live
@@ -59,7 +73,10 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @return Oscleton MIDI Remote Script version
      * @since 0.1
      */
-    val scriptVersion: Observable<String> = liveSetDataManager.scriptVersion
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().scriptVersion instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().scriptVersion"))
+    val scriptVersion: Observable<String> = configurationDataManager.scriptVersion
 
     /**
      * Connection success message in response of [setComputerIP] call.
@@ -68,7 +85,10 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.2
      * @see setComputerIP
      */
-    val onConnectionSuccess: Observable<Empty> = liveSetDataManager.onSetPeerSuccess
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onConnectionSuccess instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onConnectionSuccess"))
+    val onConnectionSuccess: Observable<Empty> = configurationDataManager.onSetPeerSuccess
 
     /**
      * Connection error message in response of [setComputerIP] call.
@@ -77,6 +97,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.6
      * @see setComputerIP
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onConnectionError instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onConnectionError"))
     val onConnectionError: Observable<String> = messageManager.onSetComputerIPError
 
     /**
@@ -86,6 +109,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.6
      * @see startComputerIPDiscovery
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onComputerIPDiscoveryStart instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onComputerIPDiscoveryStart"))
     val onComputerIPDiscoveryStart: Observable<Empty> = messageManager.onComputerIPDiscoveryStart
 
     /**
@@ -95,6 +121,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.6
      * @see startComputerIPDiscovery
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onComputerIPDiscoveryProgress instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onComputerIPDiscoveryProgress"))
     val onComputerIPDiscoveryProgress: Observable<Float> = messageManager.onComputerIPDiscoveryProgress
 
     /**
@@ -104,7 +133,10 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.6
      * @see startComputerIPDiscovery
      */
-    val onComputerIPDiscoverySuccess: Observable<String> = liveSetDataManager.onComputerIPDiscoverySuccess
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onComputerIPDiscoverySuccess instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onComputerIPDiscoverySuccess"))
+    val onComputerIPDiscoverySuccess: Observable<String> = configurationDataManager.onComputerIPDiscoverySuccess
 
     /**
      * Discovery error message in response of [startComputerIPDiscovery] call.
@@ -113,6 +145,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.6
      * @see startComputerIPDiscovery
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onComputerIPDiscoveryError instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onComputerIPDiscoveryError"))
     val onComputerIPDiscoveryError: Observable<String> = messageManager.onComputerIPDiscoveryError
 
     /**
@@ -122,6 +157,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @since 0.7
      * @see cancelComputerIPDiscovery
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.rx().onComputerIPDiscoveryCancel instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.rx().onComputerIPDiscoveryCancel"))
     val onComputerIPDiscoveryCancel: Observable<Empty> = messageManager.onComputerIPDiscoveryCancel
 
     // RxJava
@@ -144,14 +182,14 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
     private fun observeProperties() {
 
         // SetPeer success
-        liveSetDataManager.onSetPeerSuccess
+        configurationDataManager.onSetPeerSuccess
                 .subscribe {
                     messageManager.requestCurrentState()
                 }
                 .addTo(compositeDisposable)
 
         // IP Discovery
-        liveSetDataManager.onComputerIPDiscoverySuccess
+        configurationDataManager.onComputerIPDiscoverySuccess
                 .subscribe {
                     messageManager.resetIPDiscovery()
                     messageManager.requestCurrentState()
@@ -210,8 +248,11 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnStartListener) {
-        onStartDisp = liveSetDataManager.onStart
+        onStartDisp = configurationDataManager.onStart
                 .subscribe {
                     listener.onStart()
                 }
@@ -224,6 +265,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnStartListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnStartListener()"))
     fun removeOnStartListener() {
         onStartDisp?.dispose()
     }
@@ -234,8 +278,11 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnQuitListener) {
-        onQuitDisp = liveSetDataManager.onQuit
+        onQuitDisp = configurationDataManager.onQuit
                 .subscribe {
                     listener.onQuit()
                 }
@@ -248,6 +295,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnQuitListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnQuitListener()"))
     fun removeOnQuitListener() {
         onQuitDisp?.dispose()
     }
@@ -259,8 +309,11 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.2
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnConnectionSuccessListener) {
-        onConnectionSuccessDisp = liveSetDataManager.onSetPeerSuccess
+        onConnectionSuccessDisp = configurationDataManager.onSetPeerSuccess
                 .subscribe {
                     listener.onConnectionSuccess()
                 }
@@ -273,6 +326,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.2
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnConnectionSuccessListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnConnectionSuccessListener()"))
     fun removeOnConnectionSuccessListener() {
         onConnectionSuccessDisp?.dispose()
     }
@@ -284,6 +340,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnConnectionErrorListener) {
         onConnectionErrorDisp = messageManager.onSetComputerIPError
                 .subscribe {
@@ -298,6 +357,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnConnectionErrorListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnConnectionErrorListener()"))
     fun removeOnConnectionErrorListener() {
         onConnectionErrorDisp?.dispose()
     }
@@ -309,6 +371,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnComputerIPDiscoveryStartListener) {
         onComputerIPDiscoveryStartDisp = messageManager.onComputerIPDiscoveryStart
                 .subscribe {
@@ -323,6 +388,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnComputerIPDiscoveryStartListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnComputerIPDiscoveryStartListener()"))
     fun removeOnComputerIPDiscoveryStartListener() {
         onComputerIPDiscoveryStartDisp?.dispose()
     }
@@ -334,6 +402,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnComputerIPDiscoveryProgressListener) {
         onComputerIPDiscoveryProgressDisp = messageManager.onComputerIPDiscoveryProgress
                 .subscribe {
@@ -348,6 +419,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnComputerIPDiscoveryProgressListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnComputerIPDiscoveryProgressListener()"))
     fun removeOnComputerIPDiscoveryProgressListener() {
         onComputerIPDiscoveryProgressDisp?.dispose()
     }
@@ -360,8 +434,11 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnComputerIPDiscoverySuccessListener) {
-        onComputerIPDiscoverySuccessDisp = liveSetDataManager.onComputerIPDiscoverySuccess
+        onComputerIPDiscoverySuccessDisp = configurationDataManager.onComputerIPDiscoverySuccess
                 .subscribe {
                     listener.onComputerIPDiscoverySuccess(it)
                 }
@@ -374,6 +451,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnComputerIPDiscoverySuccessListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnComputerIPDiscoverySuccessListener()"))
     fun removeOnComputerIPDiscoverySuccessListener() {
         onComputerIPDiscoverySuccessDisp?.dispose()
     }
@@ -385,6 +465,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnComputerIPDiscoveryErrorListener) {
         onComputerIPDiscoveryErrorDisp = messageManager.onComputerIPDiscoveryError
                 .subscribe {
@@ -399,6 +482,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.6
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnComputerIPDiscoveryErrorListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnComputerIPDiscoveryErrorListener()"))
     fun removeOnComputerIPDiscoveryErrorListener() {
         onComputerIPDiscoveryErrorDisp?.dispose()
     }
@@ -409,6 +495,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @param listener The callback that will run
      * @since 0.7
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().set(listener)"))
     fun set(listener: OnComputerIPDiscoveryCancelListener) {
         onComputerIPDiscoveryCancelDisp = messageManager.onComputerIPDiscoveryCancel
                 .subscribe {
@@ -423,6 +512,9 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      *
      * @since 0.7
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.config.cb().removeOnComputerIPDiscoveryCancelListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.config.cb().removeOnComputerIPDiscoveryCancelListener()"))
     fun removeOnComputerIPDiscoveryCancelListener() {
         onComputerIPDiscoveryCancelDisp?.dispose()
     }
@@ -440,7 +532,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @see enableAllLiveParameters
      */
     fun disableLiveParameters(parameters: List<String>) {
-        liveSetDataManager.disableParameters(parameters)
+        commonDataManager.disableParameters(parameters)
     }
 
     /**
@@ -455,7 +547,7 @@ class Configuration internal constructor(private val liveSetDataManager: LiveSet
      * @see disableLiveParameters
      */
     fun enableAllLiveParameters() {
-        liveSetDataManager.enableAllParameters()
+        commonDataManager.enableAllParameters()
     }
 
     @JvmSynthetic

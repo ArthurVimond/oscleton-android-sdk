@@ -4,7 +4,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.oscleton.sdk.browser.Browser
 import com.oscleton.sdk.di.Injector
 import com.oscleton.sdk.di.browserModule
-import com.oscleton.sdk.di.oscletonSDKModule
+import com.oscleton.sdk.di.*
 import com.oscleton.sdk.exceptions.OscletonSDKException
 import com.oscleton.sdk.internal.AppLifecycleObserver
 import com.oscleton.sdk.internal.MessageManager
@@ -65,6 +65,14 @@ class OscletonSDK {
         if (sdkInitialized) {
             return
         }
+
+        loadKoinModules(listOf(
+                oscletonSDKModule,
+                liveSetModule,
+                tracksModule,
+                devicesModule,
+                configurationModule,
+                browserModule))
 
         observeLifecycleObserverProperties()
         attachApplicationLifecycle()

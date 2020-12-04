@@ -18,7 +18,6 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     // RxJava
     private val compositeDisposable = CompositeDisposable()
     private var tempoDisp: Disposable? = null
-    private var deviceParameterDisp: Disposable? = null
     private var trackSendDisp: Disposable? = null
     private var trackDeviceParameterDisp: Disposable? = null
     private var trackParameterDisp: Disposable? = null
@@ -43,29 +42,16 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
     }
 
     /**
-     * Register a callback to be invoked when device parameter changes.
-     *
-     * @param listener The callback that will run
-     * @since 0.1
-     */
-    @Deprecated(message = "use set(OnTrackDeviceParameterChangeListener {}) instead")
-    fun set(listener: OnDeviceParameterChangeListener) {
-        deviceParameterDisp = liveSetDataManager.trackDeviceParameter
-                .subscribe {
-                    listener.onDeviceParameterChange(it)
-                }
-
-        compositeDisposable.add(deviceParameterDisp!!)
-    }
-
-    /**
      * Register a callback to be invoked when track device parameter changes.
      *
      * @param listener The callback that will run
      * @since 0.8
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.cb().set(listener)"))
     fun set(listener: OnTrackDeviceParameterChangeListener) {
-        trackDeviceParameterDisp = liveSetDataManager.trackDeviceParameter
+        trackDeviceParameterDisp = devicesDataManager.trackDeviceParameter
                 .subscribe {
                     listener.onTrackDeviceParameterChange(it)
                 }
@@ -179,17 +165,6 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      */
     fun removeOnTempoChangeListener() {
         tempoDisp?.dispose()
-    }
-
-    /**
-     * Remove the current [OnDeviceParameterChangeListener].
-     *
-     * @since 0.1
-     */
-    @Deprecated(message = "use removeOnTrackDeviceParameterChangeListener() instead",
-            replaceWith = ReplaceWith("removeOnTrackDeviceParameterChangeListener()"))
-    fun removeOnDeviceParameterChangeListener() {
-        deviceParameterDisp?.dispose()
     }
 
     /**

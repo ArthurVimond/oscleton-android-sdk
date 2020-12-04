@@ -61,7 +61,10 @@ class OscletonSDK {
      */
     fun initialize() {
         Logger.i("initialize", this)
-        loadKoinModules(listOf(oscletonSDKModule, browserModule))
+
+        if (sdkInitialized) {
+            return
+        }
 
         observeLifecycleObserverProperties()
         attachApplicationLifecycle()

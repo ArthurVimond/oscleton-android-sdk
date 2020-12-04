@@ -6,8 +6,10 @@ import com.oscleton.sdk.browser.Browser
 import com.oscleton.sdk.browser.BrowserDataManager
 import com.oscleton.sdk.internal.AppLifecycleObserver
 import com.oscleton.sdk.internal.LiveSetDataManager
+import com.oscleton.sdk.liveset.LiveSetDataManager
 import com.oscleton.sdk.internal.MessageManager
 import com.oscleton.sdk.internal.OSCManager
+import com.oscleton.sdk.liveset.LiveSet
 import org.koin.dsl.module
 
 internal val oscletonSDKModule = module {
@@ -25,7 +27,9 @@ internal val oscletonSDKModule = module {
     }
 }
 
-    single { LiveSetDataManager(get()) }
+internal val liveSetModule = module {
+    single { LiveSet(get(), get()) }
+    single { LiveSetDataManager(get(), get()) }
 }
 
 internal val browserModule = module {

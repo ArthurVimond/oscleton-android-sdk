@@ -9,6 +9,7 @@ import com.oscleton.sdk.exceptions.OscletonSDKException
 import com.oscleton.sdk.internal.AppLifecycleObserver
 import com.oscleton.sdk.internal.MessageManager
 import com.oscleton.sdk.liveset.LiveSet
+import com.oscleton.sdk.tracks.Tracks
 import com.oscleton.sdk.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -49,6 +50,7 @@ class OscletonSDK {
     val controller: Controller by injector.inject()
     val receiver: Receiver by injector.inject()
     val liveSet: LiveSet by injector.inject()
+    val tracks: Tracks by injector.inject()
     val browser: Browser by injector.inject()
 
     // Public methods

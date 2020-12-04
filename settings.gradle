@@ -1,1 +1,4 @@
-include ':sample', ':core'
+include ':core'
+include ':core-rxjava2'
+include ':core-callbacks'
+include ':sample'

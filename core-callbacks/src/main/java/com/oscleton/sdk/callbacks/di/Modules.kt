@@ -1,7 +1,7 @@
 package com.oscleton.sdk.callbacks.di
 
 import com.oscleton.sdk.callbacks.configuration.ConfigurationCallbacks
-import com.oscleton.sdk.callbacks.LiveSetCallbacks
+import com.oscleton.sdk.callbacks.liveset.LiveSetCallbacks
 import com.oscleton.sdk.callbacks.TracksCallbacks
 import org.koin.dsl.module
 

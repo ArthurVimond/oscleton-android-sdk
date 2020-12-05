@@ -4,6 +4,7 @@ package com.oscleton.sdk.callbacks
 
 import com.oscleton.sdk.callbacks.configuration.ConfigurationCallbacks
 import com.oscleton.sdk.callbacks.di.callbacksModule
+import com.oscleton.sdk.callbacks.liveset.LiveSetCallbacks
 import com.oscleton.sdk.configuration.Configuration
 import com.oscleton.sdk.devices.Devices
 import com.oscleton.sdk.di.Injector

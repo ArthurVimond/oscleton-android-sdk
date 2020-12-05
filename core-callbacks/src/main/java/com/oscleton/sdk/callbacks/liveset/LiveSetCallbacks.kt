@@ -1,4 +1,4 @@
-package com.oscleton.sdk.callbacks
+package com.oscleton.sdk.callbacks.liveset
 
 import com.oscleton.sdk.liveset.LiveSetDataManager
 import com.oscleton.sdk.callbacks.liveset.listeners.OnTempoChangeListener

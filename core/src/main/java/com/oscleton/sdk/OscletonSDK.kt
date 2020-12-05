@@ -52,7 +52,10 @@ class OscletonSDK {
             message = "Use OscletonSDK.instance.liveSet instead",
             replaceWith = ReplaceWith("OscletonSDK.instance.liveSet"))
     val controller: Controller by injector.inject()
+
+    @Deprecated(message = "Use corresponding rx() or cb() extension functions from the 'core-rxjava2' or 'core-callbacks' artifacts instead")
     val receiver: Receiver by injector.inject()
+
     val liveSet: LiveSet by injector.inject()
     val tracks: Tracks by injector.inject()
     val devices: Devices by injector.inject()

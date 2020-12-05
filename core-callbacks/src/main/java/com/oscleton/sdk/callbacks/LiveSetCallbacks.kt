@@ -1,7 +1,7 @@
 package com.oscleton.sdk.callbacks
 
 import com.oscleton.sdk.liveset.LiveSetDataManager
-import com.oscleton.sdk.callbacks.listeners.OnTempoChangeListener
+import com.oscleton.sdk.callbacks.liveset.listeners.OnTempoChangeListener
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 

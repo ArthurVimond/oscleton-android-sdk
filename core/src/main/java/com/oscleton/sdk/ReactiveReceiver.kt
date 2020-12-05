@@ -1,7 +1,9 @@
 package com.oscleton.sdk
 
-import com.oscleton.sdk.internal.LiveSetDataManager
+import com.oscleton.sdk.devices.DevicesDataManager
+import com.oscleton.sdk.liveset.LiveSetDataManager
 import com.oscleton.sdk.models.*
+import com.oscleton.sdk.tracks.TracksDataManager
 import io.reactivex.Observable
 
 /**
@@ -12,7 +14,10 @@ import io.reactivex.Observable
  * @since 0.1
  * @see CallbackReceiver
  */
-class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManager) {
+@Deprecated(message = "Use corresponding rx() extension functions from the 'core-rxjava2' artifact instead")
+class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManager,
+                                            tracksDataManager: TracksDataManager,
+                                            devicesDataManager: DevicesDataManager) {
 
     /**
      * Returns the Live set global tempo as Observable.
@@ -20,7 +25,21 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @return the Live set global tempo as Observable
      * @since 0.1
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.liveSet.rx().tempo instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.liveSet.rx().tempo"))
     val tempo: Observable<Float> = liveSetDataManager.tempo
+
+    /**
+     * Indicates if Live can capture MIDI as Observable.
+     *
+     * @return indicates if Live can capture MIDI as Observable
+     * @since 1.0
+     */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.liveSet.rx().canCaptureMidi instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.liveSet.rx().canCaptureMidi"))
+    val canCaptureMidi: Observable<Boolean> = liveSetDataManager.canCaptureMidi
 
     /**
      * Returns the last changing track device parameter as Observable.
@@ -28,16 +47,10 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @return the last changing track device parameter as Observable
      * @since 0.8
      */
-    val trackDeviceParameter: Observable<DeviceParameter> = liveSetDataManager.trackDeviceParameter
-
-    /**
-     * Returns the last changing device parameter as Observable.
-     *
-     * @return the last changing device parameter as Observable
-     * @since 0.1
-     */
-    @Deprecated(message = "use trackDeviceParameter", replaceWith = ReplaceWith("trackDeviceParameter"))
-    val deviceParameter: Observable<DeviceParameter> = liveSetDataManager.trackDeviceParameter
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.rx().trackDeviceParameter instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.rx().trackDeviceParameter"))
+    val trackDeviceParameter: Observable<DeviceParameter> = devicesDataManager.trackDeviceParameter
 
     /**
      * Returns the last changing track parameter as Observable.
@@ -45,7 +58,10 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @return the last changing track parameter as Observable
      * @since 0.4
      */
-    val trackParameter: Observable<TrackParameter> = liveSetDataManager.trackParameter
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.rx().trackParameter instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.rx().trackParameter"))
+    val trackParameter: Observable<TrackParameter> = tracksDataManager.trackParameter
 
     /**
      * Returns the last changing track send as Observable.
@@ -53,7 +69,10 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @return the last changing track send as Observable
      * @since 0.8
      */
-    val trackSend: Observable<Send> = liveSetDataManager.trackSend
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.rx().trackSend instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.rx().trackSend"))
+    val trackSend: Observable<Send> = tracksDataManager.trackSend
 
     /**
      * Returns the last changing return device parameter as Observable.
@@ -61,7 +80,10 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @return the last changing return device parameter as Observable
      * @since 0.9
      */
-    val returnDeviceParameter: Observable<DeviceParameter> = liveSetDataManager.returnDeviceParameter
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.rx().returnDeviceParameter instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.rx().returnDeviceParameter"))
+    val returnDeviceParameter: Observable<DeviceParameter> = devicesDataManager.returnDeviceParameter
 
     /**
      * Returns the last changing return parameter as Observable.
@@ -69,7 +91,10 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @return the last changing return parameter as Observable
      * @since 0.7
      */
-    val returnParameter: Observable<ReturnParameter> = liveSetDataManager.returnParameter
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.rx().returnParameter instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.rx().returnParameter"))
+    val returnParameter: Observable<ReturnParameter> = tracksDataManager.returnParameter
 
     /**
      * Returns the last changing master parameter as Observable.
@@ -77,7 +102,10 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @return the last changing master parameter as Observable
      * @since 0.7
      */
-    val masterParameter: Observable<MasterParameter> = liveSetDataManager.masterParameter
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.rx().masterParameter instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.rx().masterParameter"))
+    val masterParameter: Observable<MasterParameter> = tracksDataManager.masterParameter
 
     /**
      * Returns the last changing master device parameter as Observable.
@@ -85,6 +113,9 @@ class ReactiveReceiver internal constructor(liveSetDataManager: LiveSetDataManag
      * @return the last changing master device parameter as Observable
      * @since 0.9
      */
-    val masterDeviceParameter: Observable<DeviceParameter> = liveSetDataManager.masterDeviceParameter
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.rx().masterDeviceParameter instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.rx().masterDeviceParameter"))
+    val masterDeviceParameter: Observable<DeviceParameter> = devicesDataManager.masterDeviceParameter
 
 }

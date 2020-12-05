@@ -22,7 +22,7 @@ internal val oscletonSDKModule = module {
     single { CommonDataManager() }
     single { Controller(get()) }
     single { Receiver() }
-    single { ReactiveReceiver(get()) }
+    single { ReactiveReceiver(get(), get(), get()) }
     single { CallbackReceiver(get()) }
     single { MessageManager(get(), get()) }
     single { OSCManager() }

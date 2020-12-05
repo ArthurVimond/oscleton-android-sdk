@@ -1,7 +1,9 @@
 package com.oscleton.sdk
 
-import com.oscleton.sdk.internal.LiveSetDataManager
+import com.oscleton.sdk.devices.DevicesDataManager
 import com.oscleton.sdk.listeners.*
+import com.oscleton.sdk.liveset.LiveSetDataManager
+import com.oscleton.sdk.tracks.TracksDataManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -13,7 +15,10 @@ import io.reactivex.disposables.Disposable
  * @since 0.1
  * @see ReactiveReceiver
  */
-class CallbackReceiver internal constructor(private val liveSetDataManager: LiveSetDataManager) {
+@Deprecated(message = "Use corresponding cb() extension functions from the 'core-callbacks' artifact instead")
+class CallbackReceiver internal constructor(private val liveSetDataManager: LiveSetDataManager,
+                                            private val tracksDataManager: TracksDataManager,
+                                            private val devicesDataManager: DevicesDataManager) {
 
     // RxJava
     private val compositeDisposable = CompositeDisposable()
@@ -32,6 +37,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @param listener The callback that will run
      * @since 0.1
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.liveSet.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.liveSet.cb().set(listener)"))
     fun set(listener: OnTempoChangeListener) {
         tempoDisp = liveSetDataManager.tempo
                 .subscribe {
@@ -65,8 +73,11 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @param listener The callback that will run
      * @since 0.4
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.cb().set(listener)"))
     fun set(listener: OnTrackParameterChangeListener) {
-        trackParameterDisp = liveSetDataManager.trackParameter
+        trackParameterDisp = tracksDataManager.trackParameter
                 .subscribe {
                     listener.onTrackParameterChange(it)
                 }
@@ -80,8 +91,11 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @param listener The callback that will run
      * @since 0.9
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.cb().set(listener)"))
     fun set(listener: OnReturnDeviceParameterChangeListener) {
-        returnDeviceParameterDisp = liveSetDataManager.returnDeviceParameter
+        returnDeviceParameterDisp = devicesDataManager.returnDeviceParameter
                 .subscribe {
                     listener.onReturnDeviceParameterChange(it)
                 }
@@ -95,8 +109,11 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @param listener The callback that will run
      * @since 0.7
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.cb().set(listener)"))
     fun set(listener: OnReturnParameterChangeListener) {
-        returnParameterDisp = liveSetDataManager.returnParameter
+        returnParameterDisp = tracksDataManager.returnParameter
                 .subscribe {
                     listener.onReturnParameterChange(it)
                 }
@@ -110,8 +127,11 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @param listener The callback that will run
      * @since 0.7
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.cb().set(listener)"))
     fun set(listener: OnMasterParameterChangeListener) {
-        masterParameterDisp = liveSetDataManager.masterParameter
+        masterParameterDisp = tracksDataManager.masterParameter
                 .subscribe {
                     listener.onMasterParameterChange(it)
                 }
@@ -125,8 +145,11 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @param listener The callback that will run
      * @since 0.9
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.cb().set(listener)"))
     fun set(listener: OnMasterDeviceParameterChangeListener) {
-        masterDeviceParameterDisp = liveSetDataManager.masterDeviceParameter
+        masterDeviceParameterDisp = devicesDataManager.masterDeviceParameter
                 .subscribe {
                     listener.onMasterDeviceParameterChange(it)
                 }
@@ -140,8 +163,11 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      * @param listener The callback that will run
      * @since 0.4
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.cb().set(listener) instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.cb().set(listener)"))
     fun set(listener: OnTrackSendChangeListener) {
-        trackSendDisp = liveSetDataManager.trackSend
+        trackSendDisp = tracksDataManager.trackSend
                 .subscribe {
                     listener.onTrackSendChange(it)
                 }
@@ -154,6 +180,8 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.1
      */
+    @Deprecated(
+            message = "Use removeAllListeners() in corresponding cb() extension functions from the 'core-callbacks' artifacts instead")
     fun removeAllListeners() {
         compositeDisposable.clear()
     }
@@ -163,6 +191,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.1
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.liveSet.cb().removeOnTempoChangeListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.liveSet.cb().removeOnTempoChangeListener()"))
     fun removeOnTempoChangeListener() {
         tempoDisp?.dispose()
     }
@@ -172,6 +203,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.4
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.cb().removeOnTrackParameterChangeListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.cb().removeOnTrackParameterChangeListener()"))
     fun removeOnTrackParameterChangeListener() {
         trackParameterDisp?.dispose()
     }
@@ -181,6 +215,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.8
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.cb().removeOnTrackSendChangeListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.cb().removeOnTrackSendChangeListener()"))
     fun removeOnTrackSendChangeListener() {
         trackSendDisp?.dispose()
     }
@@ -190,6 +227,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.8
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.cb().removeOnTrackDeviceParameterChangeListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.cb().removeOnTrackDeviceParameterChangeListener()"))
     fun removeOnTrackDeviceParameterChangeListener() {
         trackDeviceParameterDisp?.dispose()
     }
@@ -199,6 +239,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.9
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.cb().removeOnReturnDeviceParameterChangeListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.cb().removeOnReturnDeviceParameterChangeListener()"))
     fun removeOnReturnDeviceParameterChangeListener() {
         returnDeviceParameterDisp?.dispose()
     }
@@ -208,6 +251,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.7
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.cb().removeOnReturnParameterChangeListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.cb().removeOnReturnParameterChangeListener()"))
     fun removeOnReturnParameterChangeListener() {
         returnParameterDisp?.dispose()
     }
@@ -217,6 +263,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.7
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.tracks.cb().removeOnMasterParameterChangeListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.tracks.cb().removeOnMasterParameterChangeListener()"))
     fun removeOnMasterParameterChangeListener() {
         masterParameterDisp?.dispose()
     }
@@ -226,6 +275,9 @@ class CallbackReceiver internal constructor(private val liveSetDataManager: Live
      *
      * @since 0.9
      */
+    @Deprecated(
+            message = "Use OscletonSDK.instance.devices.cb().removeOnMasterDeviceParameterChangeListener() instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.devices.cb().removeOnMasterDeviceParameterChangeListener()"))
     fun removeOnMasterDeviceParameterChangeListener() {
         masterDeviceParameterDisp?.dispose()
     }

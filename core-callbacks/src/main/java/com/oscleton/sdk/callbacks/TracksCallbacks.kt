@@ -1,9 +1,9 @@
 package com.oscleton.sdk.callbacks
 
-import com.oscleton.sdk.callbacks.listeners.OnMasterParameterChangeListener
-import com.oscleton.sdk.callbacks.listeners.OnReturnParameterChangeListener
-import com.oscleton.sdk.callbacks.listeners.OnTrackParameterChangeListener
-import com.oscleton.sdk.callbacks.listeners.OnTrackSendChangeListener
+import com.oscleton.sdk.callbacks.tracks.listeners.OnMasterParameterChangeListener
+import com.oscleton.sdk.callbacks.tracks.listeners.OnReturnParameterChangeListener
+import com.oscleton.sdk.callbacks.tracks.listeners.OnTrackParameterChangeListener
+import com.oscleton.sdk.callbacks.tracks.listeners.OnTrackSendChangeListener
 import com.oscleton.sdk.tracks.TracksDataManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

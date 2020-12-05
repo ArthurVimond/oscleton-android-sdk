@@ -1,4 +1,4 @@
-package com.oscleton.sdk.callbacks
+package com.oscleton.sdk.callbacks.devices
 
 import com.oscleton.sdk.callbacks.devices.listeners.OnMasterDeviceParameterChangeListener
 import com.oscleton.sdk.callbacks.devices.listeners.OnReturnDeviceParameterChangeListener

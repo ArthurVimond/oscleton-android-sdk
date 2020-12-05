@@ -3,6 +3,7 @@
 package com.oscleton.sdk.callbacks
 
 import com.oscleton.sdk.callbacks.configuration.ConfigurationCallbacks
+import com.oscleton.sdk.callbacks.devices.DevicesCallbacks
 import com.oscleton.sdk.callbacks.di.callbacksModule
 import com.oscleton.sdk.callbacks.liveset.LiveSetCallbacks
 import com.oscleton.sdk.callbacks.tracks.TracksCallbacks

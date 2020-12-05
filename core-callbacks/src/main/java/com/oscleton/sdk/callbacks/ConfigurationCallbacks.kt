@@ -1,6 +1,6 @@
 package com.oscleton.sdk.callbacks
 
-import com.oscleton.sdk.callbacks.listeners.*
+import com.oscleton.sdk.callbacks.configuration.listeners.*
 import com.oscleton.sdk.configuration.ConfigurationDataManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

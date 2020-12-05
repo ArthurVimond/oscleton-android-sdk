@@ -1,8 +1,8 @@
 package com.oscleton.sdk.callbacks
 
-import com.oscleton.sdk.callbacks.listeners.OnMasterDeviceParameterChangeListener
-import com.oscleton.sdk.callbacks.listeners.OnReturnDeviceParameterChangeListener
-import com.oscleton.sdk.callbacks.listeners.OnTrackDeviceParameterChangeListener
+import com.oscleton.sdk.callbacks.devices.listeners.OnMasterDeviceParameterChangeListener
+import com.oscleton.sdk.callbacks.devices.listeners.OnReturnDeviceParameterChangeListener
+import com.oscleton.sdk.callbacks.devices.listeners.OnTrackDeviceParameterChangeListener
 import com.oscleton.sdk.devices.DevicesDataManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

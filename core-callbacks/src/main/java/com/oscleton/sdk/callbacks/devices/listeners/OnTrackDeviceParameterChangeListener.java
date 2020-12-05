@@ -1,4 +1,4 @@
-package com.oscleton.sdk.callbacks.listeners;
+package com.oscleton.sdk.callbacks.devices.listeners;
 
 import com.oscleton.sdk.models.DeviceParameter;
 

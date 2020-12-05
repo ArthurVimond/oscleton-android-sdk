@@ -47,6 +47,10 @@ class OscletonSDK {
     // Public properties
 
     val config: Configuration by injector.inject()
+
+    @Deprecated(
+            message = "Use OscletonSDK.instance.liveSet instead",
+            replaceWith = ReplaceWith("OscletonSDK.instance.liveSet"))
     val controller: Controller by injector.inject()
     val receiver: Receiver by injector.inject()
     val liveSet: LiveSet by injector.inject()

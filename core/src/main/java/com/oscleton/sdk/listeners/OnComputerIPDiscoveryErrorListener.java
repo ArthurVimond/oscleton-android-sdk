@@ -6,7 +6,14 @@ package com.oscleton.sdk.listeners;
  * to the computer running Ableton Live.
  *
  * @since 0.6
+ *
+ * @deprecated Use the corresponding OnComputerIPDiscoveryErrorListener from the 'core-callbacks' artifact instead as follow:
+ * <p>
+ *     import com.oscleton.sdk.callbacks.configuration.listeners.OnComputerIPDiscoveryErrorListener<br>
+ *     Oscleton.instance.liveSet.cb().set(OnComputerIPDiscoveryErrorListener { })
+ * </p>
  */
+@Deprecated
 public interface OnComputerIPDiscoveryErrorListener {
     void onComputerIPDiscoveryError(String message);
 }

@@ -6,7 +6,14 @@ package com.oscleton.sdk.listeners;
  * to the computer running Ableton Live.
  *
  * @since 0.6
+ *
+ * @deprecated Use the corresponding OnComputerIPDiscoveryStartListener from the 'core-callbacks' artifact instead as follow:
+ * <p>
+ *     import com.oscleton.sdk.callbacks.configuration.listeners.OnComputerIPDiscoveryStartListener<br>
+ *     Oscleton.instance.liveSet.cb().set(OnComputerIPDiscoveryStartListener { })
+ * </p>
  */
+@Deprecated
 public interface OnComputerIPDiscoveryStartListener {
     void onComputerIPDiscoveryStart();
 }

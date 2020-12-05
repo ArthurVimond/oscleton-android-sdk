@@ -1,4 +1,4 @@
-package com.oscleton.sdk.callbacks
+package com.oscleton.sdk.callbacks.configuration
 
 import com.oscleton.sdk.callbacks.configuration.listeners.*
 import com.oscleton.sdk.configuration.ConfigurationDataManager

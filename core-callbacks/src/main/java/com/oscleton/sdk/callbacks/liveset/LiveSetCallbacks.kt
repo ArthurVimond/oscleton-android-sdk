@@ -5,6 +5,13 @@ import com.oscleton.sdk.callbacks.liveset.listeners.OnTempoChangeListener
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
+/**
+ * LiveSetCallbacks contains callbacks triggered by the Live set changes.
+ *
+ * If you prefer using a reactive approach, consider using LiveSetRx from the 'core-rxjava2' artifact instead.
+ *
+ * @since 1.0
+ */
 class LiveSetCallbacks internal constructor(private val liveSetDataManager: LiveSetDataManager) {
 
     // Rx

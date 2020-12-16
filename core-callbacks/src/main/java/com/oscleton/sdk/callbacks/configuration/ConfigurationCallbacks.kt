@@ -5,6 +5,13 @@ import com.oscleton.sdk.configuration.ConfigurationDataManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
+/**
+ * ConfigurationCallbacks contains callbacks triggered by the Live configuration changes.
+ *
+ * If you prefer using a reactive approach, consider using `ConfigurationRx` from the 'core-rxjava2' artifact instead.
+ *
+ * @since 1.0
+ */
 class ConfigurationCallbacks internal constructor(private val configurationDataManager: ConfigurationDataManager) {
 
     // Rx

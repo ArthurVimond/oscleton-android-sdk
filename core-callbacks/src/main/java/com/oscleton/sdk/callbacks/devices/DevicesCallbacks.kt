@@ -7,6 +7,13 @@ import com.oscleton.sdk.devices.DevicesDataManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
+/**
+ * DevicesCallbacks contains callbacks triggered by the Live devices changes.
+ *
+ * If you prefer using a reactive approach, consider using `DevicesRx` from the 'core-rxjava2' artifact instead.
+ *
+ * @since 1.0
+ */
 class DevicesCallbacks internal constructor(private val devicesDataManager: DevicesDataManager) {
 
     // Rx

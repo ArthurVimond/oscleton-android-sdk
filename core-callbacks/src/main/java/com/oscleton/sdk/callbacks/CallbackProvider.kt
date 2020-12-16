@@ -18,6 +18,14 @@ import org.koin.core.inject
 private val injector by lazy { Injector() }
 private var koinModulesLoaded = false
 
+/**
+ * Extension function providing the ConfigurationCallbacks class.
+ * In Kotlin, you can directly call `cb()` to access [ConfigurationCallbacks].
+ * In Java, you have to call `CallbackProvider.from(Configuration)` to access [ConfigurationCallbacks].
+ *
+ * @return ConfigurationCallbacks
+ * @since 1.0
+ */
 @JvmName("from")
 fun Configuration.cb(): ConfigurationCallbacks {
     loadKoinModulesIfNeeded()
@@ -25,6 +33,14 @@ fun Configuration.cb(): ConfigurationCallbacks {
     return configurationCallbacks
 }
 
+/**
+ * Extension function providing the LiveSetCallbacks class.
+ * In Kotlin, you can directly call `cb()` to access [LiveSetCallbacks].
+ * In Java, you have to call `CallbackProvider.from(LiveSet)` to access [LiveSetCallbacks].
+ *
+ * @return LiveSetCallbacks
+ * @since 1.0
+ */
 @JvmName("from")
 fun LiveSet.cb(): LiveSetCallbacks {
     loadKoinModulesIfNeeded()
@@ -32,6 +48,14 @@ fun LiveSet.cb(): LiveSetCallbacks {
     return liveSetCallbacks
 }
 
+/**
+ * Extension function providing the TracksCallbacks class.
+ * In Kotlin, you can directly call `cb()` to access [TracksCallbacks].
+ * In Java, you have to call `CallbackProvider.from(Tracks)` to access [TracksCallbacks].
+ *
+ * @return TracksCallbacks
+ * @since 1.0
+ */
 @JvmName("from")
 fun Tracks.cb(): TracksCallbacks {
     loadKoinModulesIfNeeded()
@@ -39,6 +63,14 @@ fun Tracks.cb(): TracksCallbacks {
     return tracksCallbacks
 }
 
+/**
+ * Extension function providing the DevicesCallbacks class.
+ * In Kotlin, you can directly call `cb()` to access [DevicesCallbacks].
+ * In Java, you have to call `CallbackProvider.from(Devices)` to access [DevicesCallbacks].
+ *
+ * @return DevicesCallbacks
+ * @since 1.0
+ */
 @JvmName("from")
 fun Devices.cb(): DevicesCallbacks {
     loadKoinModulesIfNeeded()

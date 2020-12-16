@@ -51,3 +51,14 @@ dependencies {
 
     implementation project(':core')
 }
+
+task dokka(overwrite: true, type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
+    outputFormat = 'gfm'
+    outputDirectory = "$projectDir/../doc/reference/android/core-callbacks"
+    // Do not create index pages for empty packages
+    skipEmptyPackages = true
+    // Do not output deprecated members. Applies globally, can be overridden by packageOptions
+    skipDeprecated = false
+    // No default documentation link to kotlin-stdlib
+    noStdlibLink = false
+}

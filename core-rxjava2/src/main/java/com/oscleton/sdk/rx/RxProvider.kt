@@ -14,6 +14,14 @@ import org.koin.core.inject
 private val injector by lazy { Injector() }
 private var koinModulesLoaded = false
 
+/**
+ * Extension function providing the ConfigurationRx class.
+ * In Kotlin, you can directly call `rx()` to access [ConfigurationRx].
+ * In Java, you have to call `CallbackProvider.from(Configuration)` to access [ConfigurationRx].
+ *
+ * @return ConfigurationRx
+ * @since 1.0
+ */
 @JvmName("from")
 fun Configuration.rx(): ConfigurationRx {
     loadKoinModulesIfNeeded()
@@ -21,6 +29,14 @@ fun Configuration.rx(): ConfigurationRx {
     return configurationRx
 }
 
+/**
+ * Extension function providing the LiveSet class.
+ * In Kotlin, you can directly call `rx()` to access [LiveSetRx].
+ * In Java, you have to call `CallbackProvider.from(LiveSet)` to access [LiveSetRx].
+ *
+ * @return LiveSet
+ * @since 1.0
+ */
 @JvmName("from")
 fun LiveSet.rx(): LiveSetRx {
     loadKoinModulesIfNeeded()
@@ -28,6 +44,14 @@ fun LiveSet.rx(): LiveSetRx {
     return liveSetRx
 }
 
+/**
+ * Extension function providing the TracksRx class.
+ * In Kotlin, you can directly call `rx()` to access [TracksRx].
+ * In Java, you have to call `CallbackProvider.from(Tracks)` to access [TracksRx].
+ *
+ * @return TracksRx
+ * @since 1.0
+ */
 @JvmName("from")
 fun Tracks.rx(): TracksRx {
     loadKoinModulesIfNeeded()
@@ -35,6 +59,14 @@ fun Tracks.rx(): TracksRx {
     return tracksRx
 }
 
+/**
+ * Extension function providing the DevicesRx class.
+ * In Kotlin, you can directly call `rx()` to access [DevicesRx].
+ * In Java, you have to call `CallbackProvider.from(Devices)` to access [DevicesRx].
+ *
+ * @return DevicesRx
+ * @since 1.0
+ */
 @JvmName("from")
 fun Devices.rx(): DevicesRx {
     loadKoinModulesIfNeeded()

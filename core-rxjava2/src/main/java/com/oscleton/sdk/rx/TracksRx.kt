@@ -7,6 +7,13 @@ import com.oscleton.sdk.models.TrackParameter
 import com.oscleton.sdk.tracks.TracksDataManager
 import io.reactivex.Observable
 
+/**
+ * TracksRx contains RxJava Observables reacting to the Live tracks changes.
+ *
+ * If a reactive approach doesn't fit your needs, consider using `TracksCallbacks` from the 'core-callbacks' artifact instead.
+ *
+ * @since 1.0
+ */
 class TracksRx internal constructor(tracksDataManager: TracksDataManager) {
 
     /**

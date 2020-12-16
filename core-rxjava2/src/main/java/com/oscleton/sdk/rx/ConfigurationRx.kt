@@ -1,10 +1,18 @@
 package com.oscleton.sdk.rx
 
 import com.oscleton.sdk.BuildConfig
+import com.oscleton.sdk.CallbackReceiver
 import com.oscleton.sdk.configuration.ConfigurationDataManager
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.Observable
 
+/**
+ * ConfigurationRx contains RxJava Observables reacting to the Live configuration changes.
+ *
+ * If a reactive approach doesn't fit your needs, consider using `ConfigurationCallbacks` from the 'core-callbacks' artifact instead.
+ *
+ * @since 1.0
+ */
 class ConfigurationRx internal constructor(private val configurationDataManager: ConfigurationDataManager) {
 
     /**

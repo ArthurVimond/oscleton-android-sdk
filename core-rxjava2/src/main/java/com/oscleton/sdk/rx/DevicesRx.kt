@@ -4,6 +4,13 @@ import com.oscleton.sdk.devices.DevicesDataManager
 import com.oscleton.sdk.models.DeviceParameter
 import io.reactivex.Observable
 
+/**
+ * DevicesRx contains RxJava Observables reacting to the Live devices changes.
+ *
+ * If a reactive approach doesn't fit your needs, consider using `DevicesCallbacks` from the 'core-callbacks' artifact instead.
+ *
+ * @since 1.0
+ */
 class DevicesRx internal constructor(devicesDataManager: DevicesDataManager) {
 
     /**

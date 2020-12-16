@@ -205,6 +205,7 @@ class Configuration internal constructor(private val configurationDataManager: C
      *
      * @param ip the IP address of the computer running Ableton Live
      * @return the SDK result
+     * @since 0.1
      */
     fun setComputerIP(ip: String): SDKResult {
         return messageManager.setComputerIP(ip)

@@ -2,6 +2,21 @@ package com.oscleton.sdk.browser.models
 
 import com.oscleton.sdk.utils.BrowserItemUtils
 
+/**
+ * Data class representing an item in the Live browser.
+ *
+ * @constructor
+ *
+ * @property name The device name displayed in the Live browser
+ * @property uri The device unique identifier
+ * @property source Specifies where does the item come from
+ * @property isDevice Indicates if the browser item represents a device
+ * @property isFolder Indicates if the browser item represents a folder
+ * @property isLoadable Indicates if the browser item can be loaded
+ * @property hasChildren Indicates if the browser item has children
+ *
+ * @since 1.0
+ */
 data class BrowserItem(val name: String,
                        val uri: String,
                        val source: String,

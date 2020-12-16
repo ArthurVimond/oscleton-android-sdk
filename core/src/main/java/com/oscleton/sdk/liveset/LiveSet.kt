@@ -4,6 +4,11 @@ import com.oscleton.sdk.extensions.int
 import com.oscleton.sdk.internal.LiveAPI
 import com.oscleton.sdk.internal.MessageManager
 
+/**
+ * LiveSet contains the methods related to the Live set.
+ *
+ * @since 1.0
+ */
 class LiveSet internal constructor(private val liveSetDataManager: LiveSetDataManager,
                                    private val messageManager: MessageManager) {
 

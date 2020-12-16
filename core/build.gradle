@@ -80,7 +80,7 @@ dependencies {
 
 task dokka(overwrite: true, type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
     outputFormat = 'gfm'
-    outputDirectory = "$projectDir/../doc/reference/android"
+    outputDirectory = "$projectDir/../doc/reference/android/core"
     // Do not create index pages for empty packages
     skipEmptyPackages = true
     // Do not output deprecated members. Applies globally, can be overridden by packageOptions

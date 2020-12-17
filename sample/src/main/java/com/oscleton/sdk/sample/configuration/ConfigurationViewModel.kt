@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.oscleton.sdk.OscletonSDK
+import com.oscleton.sdk.rx.rx
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
@@ -15,24 +16,27 @@ import io.reactivex.rxkotlin.addTo
 
 class ConfigurationViewModel : ViewModel() {
 
+    private val config = OscletonSDK.instance.config
+
     // Public properties
 
     val computerIPAddress: ObservableField<String> = ObservableField("")
 
     val liveVersion: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
-            OscletonSDK.instance.config.liveVersion.toFlowable(BackpressureStrategy.LATEST))
+            config.rx().liveVersion.toFlowable(BackpressureStrategy.LATEST))
 
     val scriptVersion: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
-            OscletonSDK.instance.config.scriptVersion.toFlowable(BackpressureStrategy.LATEST))
+            OscletonSDK.instance.config.rx().scriptVersion.toFlowable(BackpressureStrategy.LATEST))
 
-    val sdkVersion: ObservableField<String> = ObservableField(OscletonSDK.instance.config.sdkVersion)
+    val sdkVersion: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
+            config.rx().sdkVersion.toFlowable(BackpressureStrategy.LATEST))
 
-    val onConnectionSuccess: Observable<Empty> = OscletonSDK.instance.config.onConnectionSuccess
-    val onConnectionError: Observable<String> = OscletonSDK.instance.config.onConnectionError
+    val onConnectionSuccess: Observable<Empty> = config.rx().onConnectionSuccess
+    val onConnectionError: Observable<String> = config.rx().onConnectionError
 
-    val onComputerIPDiscoverySuccess: Observable<String> = OscletonSDK.instance.config.onComputerIPDiscoverySuccess
-    val onComputerIPDiscoveryError: Observable<String> = OscletonSDK.instance.config.onComputerIPDiscoveryError
-    val onComputerIPDiscoveryCancel: Observable<Empty> = OscletonSDK.instance.config.onComputerIPDiscoveryCancel
+    val onComputerIPDiscoverySuccess: Observable<String> = config.rx().onComputerIPDiscoverySuccess
+    val onComputerIPDiscoveryError: Observable<String> = config.rx().onComputerIPDiscoveryError
+    val onComputerIPDiscoveryCancel: Observable<Empty> = config.rx().onComputerIPDiscoveryCancel
 
     val discoveryIPButtonVisibility: LiveData<Int>
         get() = _discoveryIPButtonVisibility
@@ -57,10 +61,8 @@ class ConfigurationViewModel : ViewModel() {
 
     private fun observeProperties() {
 
-        val config = OscletonSDK.instance.config
-
         // IP discovery start
-        config.onComputerIPDiscoveryStart
+        config.rx().onComputerIPDiscoveryStart
                 .subscribe {
                     _discoveryIPButtonVisibility.postValue(View.GONE)
                     _stopDiscoveryButtonVisibility.postValue(View.VISIBLE)
@@ -69,7 +71,7 @@ class ConfigurationViewModel : ViewModel() {
                 .addTo(compositeDisposable)
 
         // Auto set computer IP after discovery success
-        config.onComputerIPDiscoverySuccess
+        config.rx().onComputerIPDiscoverySuccess
                 .subscribe { computerIP ->
                     computerIPAddress.set(computerIP)
                     _ipDiscoveryProgressBarVisibility.postValue(View.GONE)
@@ -77,9 +79,9 @@ class ConfigurationViewModel : ViewModel() {
                 .addTo(compositeDisposable)
 
         // Hide progress after discovery finish
-        config.onComputerIPDiscoverySuccess.map { true }
-                .mergeWith(config.onComputerIPDiscoveryError.map { true })
-                .mergeWith(config.onComputerIPDiscoveryCancel.map { true })
+        config.rx().onComputerIPDiscoverySuccess.map { true }
+                .mergeWith(config.rx().onComputerIPDiscoveryError.map { true })
+                .mergeWith(config.rx().onComputerIPDiscoveryCancel.map { true })
                 .subscribe {
                     _discoveryIPButtonVisibility.postValue(View.VISIBLE)
                     _stopDiscoveryButtonVisibility.postValue(View.GONE)
@@ -93,17 +95,17 @@ class ConfigurationViewModel : ViewModel() {
         val computerIP = computerIPAddress.get()
         computerIP?.let {
             if (!it.isEmpty()) {
-                OscletonSDK.instance.config.setComputerIP(computerIP)
+                config.setComputerIP(computerIP)
             }
         }
     }
 
     fun discoverComputerIPAddress() {
-        OscletonSDK.instance.config.startComputerIPDiscovery()
+        config.startComputerIPDiscovery()
     }
 
     fun stopDiscoverComputerIP() {
-        OscletonSDK.instance.config.cancelComputerIPDiscovery()
+        config.cancelComputerIPDiscovery()
     }
 
     override fun onCleared() {

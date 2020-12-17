@@ -6,27 +6,27 @@ import com.oscleton.sdk.OscletonSDK
 class ControllerViewModel : ViewModel() {
 
     fun play() {
-        OscletonSDK.instance.controller.play()
+        OscletonSDK.instance.liveSet.play()
     }
 
     fun stop() {
-        OscletonSDK.instance.controller.stop()
+        OscletonSDK.instance.liveSet.stop()
     }
 
     fun setMetronome(enabled: Boolean) {
-        OscletonSDK.instance.controller.setMetronome(enabled)
+        OscletonSDK.instance.liveSet.setMetronome(enabled)
     }
 
     fun setOverdub(enabled: Boolean) {
-        OscletonSDK.instance.controller.setOverdub(enabled)
+        OscletonSDK.instance.liveSet.setOverdub(enabled)
     }
 
     fun undo() {
-        OscletonSDK.instance.controller.undo()
+        OscletonSDK.instance.liveSet.undo()
     }
 
     fun redo() {
-        OscletonSDK.instance.controller.redo()
+        OscletonSDK.instance.liveSet.redo()
     }
 
     override fun onCleared() {

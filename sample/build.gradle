@@ -43,6 +43,8 @@ dependencies {
 
     // Oscleton SDK
     implementation project(':core')
+    implementation project(':core-callbacks')
+    implementation project(':core-rxjava2')
 //    implementation 'com.oscleton.sdk:core:0.3.0'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'

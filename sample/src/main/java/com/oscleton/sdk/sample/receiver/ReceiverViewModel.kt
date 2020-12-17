@@ -22,37 +22,37 @@ class ReceiverViewModel : ViewModel() {
     // Public properties
 
     val trackName: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
-            reactiveReceiver.deviceParameter
+            reactiveReceiver.trackDeviceParameter
                     .map { it.trackName }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     val deviceName: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
-            reactiveReceiver.deviceParameter
+            reactiveReceiver.trackDeviceParameter
                     .map { it.deviceName }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     val deviceParameterName: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
-            reactiveReceiver.deviceParameter
+            reactiveReceiver.trackDeviceParameter
                     .map { it.paramName }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     val deviceParameterValue: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
-            reactiveReceiver.deviceParameter
+            reactiveReceiver.trackDeviceParameter
                     .map { "${it.value}" }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     val deviceParameterDisplayValue: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
-            reactiveReceiver.deviceParameter
+            reactiveReceiver.trackDeviceParameter
                     .map { it.displayValue }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     val deviceParameterMin: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
-            reactiveReceiver.deviceParameter
+            reactiveReceiver.trackDeviceParameter
                     .map { "${it.min}" }
                     .toFlowable(BackpressureStrategy.LATEST))
 
     val deviceParameterMax: LiveData<String> = LiveDataReactiveStreams.fromPublisher<String>(
-            reactiveReceiver.deviceParameter
+            reactiveReceiver.trackDeviceParameter
                     .map { "${it.max}" }
                     .toFlowable(BackpressureStrategy.LATEST))
 
@@ -77,7 +77,7 @@ class ReceiverViewModel : ViewModel() {
         })
 
         // Listen for device parameter changes
-        reactiveReceiver.deviceParameter
+        reactiveReceiver.trackDeviceParameter
                 .subscribe {
                     Logger.d("deviceParameter.onNext: name: ${it.paramName} - value: ${it.value}" +
                             " - track: ${it.trackIndex} - device: ${it.deviceIndex} - param: ${it.paramIndex}", this)

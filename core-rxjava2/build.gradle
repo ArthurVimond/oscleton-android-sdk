@@ -4,6 +4,29 @@ plugins {
     id 'org.jetbrains.dokka'
 }
 
+ext {
+    bintrayRepo = 'oscleton-android-sdk'
+    bintrayName = 'core-rxjava2'
+
+    publishedGroupId = 'com.oscleton.sdk'
+    artifact = 'core-rxjava2'
+    libraryVersion = library_version
+
+    libraryName = 'oscleton-android-sdk'
+    libraryDescription = 'Ableton Live companion SDK for Android'
+
+    siteUrl = 'https://sdk.oscleton.com/'
+    gitUrl = 'https://github.com/ArthurVimond/oscleton-android-sdk.git'
+
+    developerId = 'arthurvimond'
+    developerName = 'Arthur Vimond'
+    developerEmail = 'contact@oscleton.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -61,4 +84,9 @@ task dokka(overwrite: true, type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
     skipDeprecated = false
     // No default documentation link to kotlin-stdlib
     noStdlibLink = false
+}
+
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/brightec/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/brightec/JCenter/master/bintrayv1.gradle'
 }

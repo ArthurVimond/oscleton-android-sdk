@@ -15,16 +15,34 @@ Check that you have the `jcenter` repository in your Project's `build.gradle` fi
 ```groovy
 repositories {
     // ...
-    jcenter()    
+    jcenter()
 }
 ```
 
-Add the dependency in your Module's `build.gradle` file:
+Add the base dependency in your Module's `build.gradle` file:
 
 ```groovy
 dependencies {
-    // ...
-    implementation 'com.oscleton.sdk:core:0.9.0'
+    // Base
+    implementation 'com.oscleton.sdk:core:1.0.0'
+}
+```
+
+Additionally to the 'core' artifact, add the 'core-rxjava2' artifact in order to listen for Live data changes with RxJava streams:
+
+```groovy
+dependencies {
+    implementation 'com.oscleton.sdk:core:1.0.0'
+    implementation 'com.oscleton.sdk:core-rxjava2:1.0.0'
+}
+```
+
+If you prefer to use callbacks, add the 'core-callbacks' artifact in order to listen for Live data changes with callbacks:
+
+```groovy
+dependencies {
+    implementation 'com.oscleton.sdk:core:1.0.0'
+    implementation 'com.oscleton.sdk:core-callbacks:1.0.0'
 }
 ```
 

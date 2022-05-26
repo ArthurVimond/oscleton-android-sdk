@@ -32,8 +32,8 @@ class ControllerActivity : AppCompatActivity() {
         supportActionBar?.title = resources.getString(R.string.controller)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
         // Back arrow
             android.R.id.home -> {
                 finish()

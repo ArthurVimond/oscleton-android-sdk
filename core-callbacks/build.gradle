@@ -87,15 +87,15 @@ dependencies {
     annotationProcessor "javax.xml.bind:jaxb-api:2.3.1"
 }
 
-task dokka(overwrite: true, type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
-    outputFormat = 'gfm'
-    outputDirectory = "$projectDir/../doc/reference/android/core-callbacks"
-    // Do not create index pages for empty packages
-    skipEmptyPackages = true
-    // Do not output deprecated members. Applies globally, can be overridden by packageOptions
-    skipDeprecated = false
-    // No default documentation link to kotlin-stdlib
-    noStdlibLink = false
+dokkaGfm.configure {
+    outputDirectory.set(file("${projectDir}/../doc/reference/android/core-callbacks"))
+    dokkaSourceSets {
+        configureEach {
+            skipEmptyPackages.set(true)
+            skipDeprecated.set(false)
+            noStdlibLink.set(false)
+        }
+    }
 }
 
 if (project.rootProject.file('local.properties').exists()) {

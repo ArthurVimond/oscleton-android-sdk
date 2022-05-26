@@ -8,8 +8,8 @@ import com.oscleton.sdk.di.Injector
 import com.oscleton.sdk.liveset.LiveSet
 import com.oscleton.sdk.rx.di.reactiveModule
 import com.oscleton.sdk.tracks.Tracks
+import org.koin.core.component.inject
 import org.koin.core.context.loadKoinModules
-import org.koin.core.inject
 
 private val injector by lazy { Injector() }
 private var koinModulesLoaded = false

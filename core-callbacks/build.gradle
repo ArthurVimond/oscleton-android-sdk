@@ -71,7 +71,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
 
     // Koin
-    implementation "org.koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
 
     implementation project(':core')
 

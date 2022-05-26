@@ -75,7 +75,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     // Koin
-    implementation "org.koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
 
     // OSC
     implementation 'com.illposed.osc:javaosc-core:0.4'

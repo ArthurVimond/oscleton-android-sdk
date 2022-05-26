@@ -13,8 +13,8 @@ import com.oscleton.sdk.tracks.Tracks
 import com.oscleton.sdk.utils.Logger
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import org.koin.core.component.inject
 import org.koin.core.context.loadKoinModules
-import org.koin.core.inject
 
 /**
  * The main entry point to use Oscleton SDK.

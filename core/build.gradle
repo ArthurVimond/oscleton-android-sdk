@@ -6,36 +6,13 @@ plugins {
     id 'org.jetbrains.dokka'
 }
 
-ext {
-    bintrayRepo = 'oscleton-android-sdk'
-    bintrayName = 'core'
-
-    publishedGroupId = 'com.oscleton.sdk'
-    artifact = 'core'
-    libraryVersion = library_version
-
-    libraryName = 'oscleton-android-sdk'
-    libraryDescription = 'Ableton Live companion SDK for Android'
-
-    siteUrl = 'https://sdk.oscleton.com/'
-    gitUrl = 'https://github.com/ArthurVimond/oscleton-android-sdk.git'
-
-    developerId = 'arthurvimond'
-    developerName = 'Arthur Vimond'
-    developerEmail = 'contact@oscleton.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
-    compileSdkVersion 31
+    compileSdkVersion Config.compileSdkVersion
     defaultConfig {
-        minSdkVersion 19
-        versionName "$libraryVersion"
-        buildConfigField 'String', 'VERSION_NAME', "\"$libraryVersion\""
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdkVersion Config.minSdkVersion
+        versionName Config.sdkVersionName
+        buildConfigField 'String', 'VERSION_NAME', "\"${Config.sdkVersionName}\""
+        testInstrumentationRunner Config.testInstrumentationRunner
         consumerProguardFiles 'proguard-rules.pro'
     }
 
@@ -47,53 +24,42 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility Config.sourceCompatibility
+        targetCompatibility Config.targetCompatibility
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = Config.jvmTarget
     }
 
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    // Support
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    // Base
+    implementation Libs.appCompat
+
+    // Tests
+    testImplementation Libs.jUnit
+    testImplementation Libs.testRunner
+    testImplementation Libs.espresso
 
     // Lifecycle
-    api 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    api Libs.lifecycleExtensions
 
     // RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    implementation Libs.rxJava
+    implementation Libs.rxAndroid
+    implementation Libs.rxKotlin
 
     // Gson
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation Libs.gson
+
+    // JavaOSC
+    implementation Libs.javaOsc
 
     // Koin
-    implementation "io.insert-koin:koin-android:$koin_version"
-
-    // OSC
-    implementation 'com.illposed.osc:javaosc-core:0.4'
-
-    // Add missing dependencies for JDK 9+
-    // If you're using Kotlin
-    kapt "com.sun.xml.bind:jaxb-core:2.3.0.1"
-    kapt "javax.xml.bind:jaxb-api:2.3.1"
-    kapt "com.sun.xml.bind:jaxb-impl:2.3.2"
-
-    // If you're using Java
-    annotationProcessor "com.sun.xml.bind:jaxb-core:2.3.0.1"
-    annotationProcessor "javax.xml.bind:jaxb-api:2.3.1"
-
+    implementation Libs.koinAndroid
 }
 
 dokkaGfm.configure {
@@ -105,9 +71,4 @@ dokkaGfm.configure {
             noStdlibLink.set(false)
         }
     }
-}
-
-if (project.rootProject.file('local.properties').exists()) {
-    apply from: 'https://raw.githubusercontent.com/brightec/JCenter/master/installv1.gradle'
-    apply from: 'https://raw.githubusercontent.com/brightec/JCenter/master/bintrayv1.gradle'
 }

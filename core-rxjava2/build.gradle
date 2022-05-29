@@ -5,86 +5,57 @@ plugins {
     id 'org.jetbrains.dokka'
 }
 
-ext {
-    bintrayRepo = 'oscleton-android-sdk'
-    bintrayName = 'core-rxjava2'
-
-    publishedGroupId = 'com.oscleton.sdk'
-    artifact = 'core-rxjava2'
-    libraryVersion = library_version
-
-    libraryName = 'oscleton-android-sdk'
-    libraryDescription = 'Ableton Live companion SDK for Android'
-
-    siteUrl = 'https://sdk.oscleton.com/'
-    gitUrl = 'https://github.com/ArthurVimond/oscleton-android-sdk.git'
-
-    developerId = 'arthurvimond'
-    developerName = 'Arthur Vimond'
-    developerEmail = 'contact@oscleton.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
-    compileSdkVersion 31
+    compileSdkVersion Config.compileSdkVersion
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        minSdkVersion Config.minSdkVersion
+        versionName Config.sdkVersionName
+        buildConfigField 'String', 'VERSION_NAME', "\"${Config.sdkVersionName}\""
+        testInstrumentationRunner Config.testInstrumentationRunner
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility Config.sourceCompatibility
+        targetCompatibility Config.targetCompatibility
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = Config.jvmTarget
     }
 }
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    // Modules
+    implementation project(Modules.core)
 
-    // RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    // Base
+    implementation Libs.appCompat
+    implementation Libs.coreKtx
+    implementation Libs.material
+
+    // Tests
+    testImplementation Libs.jUnit
+    testImplementation Libs.testRunner
+    testImplementation Libs.espresso
+    androidTestImplementation Libs.jUnitExt
 
     // Koin
-    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation Libs.koinAndroid
 
-    implementation project(':core')
-
-    // Add missing dependencies for JDK 9+
-    // If you're using Kotlin
-    kapt "com.sun.xml.bind:jaxb-core:2.3.0.1"
-    kapt "javax.xml.bind:jaxb-api:2.3.1"
-    kapt "com.sun.xml.bind:jaxb-impl:2.3.2"
-
-    // If you're using Java
-    annotationProcessor "com.sun.xml.bind:jaxb-core:2.3.0.1"
-    annotationProcessor "javax.xml.bind:jaxb-api:2.3.1"
+    // RxJava
+    implementation Libs.rxJava
+    implementation Libs.rxAndroid
+    implementation Libs.rxKotlin
+    implementation Libs.rxPreferences
 }
 
 dokkaGfm.configure {
@@ -96,9 +67,4 @@ dokkaGfm.configure {
             noStdlibLink.set(false)
         }
     }
-}
-
-if (project.rootProject.file('local.properties').exists()) {
-    apply from: 'https://raw.githubusercontent.com/brightec/JCenter/master/installv1.gradle'
-    apply from: 'https://raw.githubusercontent.com/brightec/JCenter/master/bintrayv1.gradle'
 }

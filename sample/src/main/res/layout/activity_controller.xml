@@ -85,6 +85,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/metronomeSwitch" />
 
+            <Button
+                android:id="@+id/setTrackVolumeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Set track volume"
+                android:onClick="@{() -> viewModel.setTrackVolume()}"
+                app:layout_constraintStart_toStartOf="@+id/metronomeSwitch"
+                app:layout_constraintTop_toBottomOf="@+id/metronomeSwitch" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

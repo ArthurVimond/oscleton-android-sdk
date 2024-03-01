@@ -122,7 +122,7 @@ internal class MessageManager internal constructor(private val context: Context,
 
         val deviceIPAddress = NetworkUtils.deviceIPAddress()
         val ipFirstPart = deviceIPAddress.substringBeforeLast(".")
-        val ipIndexLimit = 120
+        val ipIndexLimit = 255
 
         Observable.intervalRange(1, ipIndexLimit.toLong(), 0,100, TimeUnit.MILLISECONDS)
                 .subscribe({ ip4thIndex ->

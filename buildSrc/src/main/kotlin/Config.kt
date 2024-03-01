@@ -3,7 +3,7 @@ object Config {
     val sdkVersionCode = Versions.getSdkFullVersionCode()
     val sdkVersionName = Versions.getSdkFullVersionName()
 
-    const val compileSdkVersion = 31
+    const val compileSdk = 31
     const val minSdkVersion = 19
     const val targetSdkVersion = 31
 

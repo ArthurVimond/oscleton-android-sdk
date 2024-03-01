@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion Config.compileSdkVersion
+    compileSdk Config.compileSdk
     defaultConfig {
         applicationId "com.oscleton.sdk.sample"
         minSdkVersion Config.minSdkVersion

@@ -1,7 +1,6 @@
 package com.oscleton.sdk.sample.configuration
 
 import android.view.View
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
@@ -20,16 +19,19 @@ class ConfigurationViewModel : ViewModel() {
 
     // Public properties
 
-    val computerIPAddress: ObservableField<String> = ObservableField("")
+    val computerIPAddress: MutableLiveData<String> = MutableLiveData("")
 
     val liveVersion: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
-            config.rx().liveVersion.toFlowable(BackpressureStrategy.LATEST))
+        config.rx().liveVersion.toFlowable(BackpressureStrategy.LATEST)
+    )
 
     val scriptVersion: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
-            OscletonSDK.instance.config.rx().scriptVersion.toFlowable(BackpressureStrategy.LATEST))
+        OscletonSDK.instance.config.rx().scriptVersion.toFlowable(BackpressureStrategy.LATEST)
+    )
 
     val sdkVersion: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
-            config.rx().sdkVersion.toFlowable(BackpressureStrategy.LATEST))
+        config.rx().sdkVersion.toFlowable(BackpressureStrategy.LATEST)
+    )
 
     val onConnectionSuccess: Observable<Empty> = config.rx().onConnectionSuccess
     val onConnectionError: Observable<String> = config.rx().onConnectionError
@@ -63,36 +65,36 @@ class ConfigurationViewModel : ViewModel() {
 
         // IP discovery start
         config.rx().onComputerIPDiscoveryStart
-                .subscribe {
-                    _discoveryIPButtonVisibility.postValue(View.GONE)
-                    _stopDiscoveryButtonVisibility.postValue(View.VISIBLE)
-                    _ipDiscoveryProgressBarVisibility.postValue(View.VISIBLE)
-                }
-                .addTo(compositeDisposable)
+            .subscribe {
+                _discoveryIPButtonVisibility.postValue(View.GONE)
+                _stopDiscoveryButtonVisibility.postValue(View.VISIBLE)
+                _ipDiscoveryProgressBarVisibility.postValue(View.VISIBLE)
+            }
+            .addTo(compositeDisposable)
 
         // Auto set computer IP after discovery success
         config.rx().onComputerIPDiscoverySuccess
-                .subscribe { computerIP ->
-                    computerIPAddress.set(computerIP)
-                    _ipDiscoveryProgressBarVisibility.postValue(View.GONE)
-                }
-                .addTo(compositeDisposable)
+            .subscribe { computerIP ->
+                computerIPAddress.postValue(computerIP)
+                _ipDiscoveryProgressBarVisibility.postValue(View.GONE)
+            }
+            .addTo(compositeDisposable)
 
         // Hide progress after discovery finish
         config.rx().onComputerIPDiscoverySuccess.map { true }
-                .mergeWith(config.rx().onComputerIPDiscoveryError.map { true })
-                .mergeWith(config.rx().onComputerIPDiscoveryCancel.map { true })
-                .subscribe {
-                    _discoveryIPButtonVisibility.postValue(View.VISIBLE)
-                    _stopDiscoveryButtonVisibility.postValue(View.GONE)
-                    _ipDiscoveryProgressBarVisibility.postValue(View.GONE)
-                }
-                .addTo(compositeDisposable)
+            .mergeWith(config.rx().onComputerIPDiscoveryError.map { true })
+            .mergeWith(config.rx().onComputerIPDiscoveryCancel.map { true })
+            .subscribe {
+                _discoveryIPButtonVisibility.postValue(View.VISIBLE)
+                _stopDiscoveryButtonVisibility.postValue(View.GONE)
+                _ipDiscoveryProgressBarVisibility.postValue(View.GONE)
+            }
+            .addTo(compositeDisposable)
 
     }
 
     fun setComputerIPAddress() {
-        val computerIP = computerIPAddress.get()
+        val computerIP = computerIPAddress.value
         computerIP?.let {
             if (!it.isEmpty()) {
                 config.setComputerIP(computerIP)

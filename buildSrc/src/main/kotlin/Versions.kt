@@ -13,8 +13,8 @@ object Versions {
         return "$sdkMajor.$sdkMinor.$sdkPatch"
     }
 
-    const val gradleBuildTools = "4.2.2"
-    const val kotlin = "1.5.30"
+    const val gradleBuildTools = "8.2.2"
+    const val kotlin = "1.8.20"
     const val dokka = "1.6.21"
     const val firebaseCrashlyticsGradlePlugin = "2.8.1"
 

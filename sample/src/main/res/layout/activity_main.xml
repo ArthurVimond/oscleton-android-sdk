@@ -1,81 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <data class="MainActivityBinding">
+    <TextView
+        android:id="@+id/controllerTextView"
+        style="@style/ListTextView"
+        android:layout_width="0dp"
+        android:text="@string/controller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <variable
-            name="viewModel"
-            type="com.oscleton.sdk.sample.MainViewModel" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/controllerImageView"
+        android:layout_width="@dimen/icon_24"
+        android:layout_height="@dimen/icon_24"
+        android:layout_marginStart="16dp"
+        android:tint="@color/secondaryIcon"
+        app:layout_constraintBottom_toBottomOf="@+id/controllerTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/controllerTextView"
+        app:srcCompat="@drawable/ic_controller" />
 
-    </data>
+    <TextView
+        android:id="@+id/receiverTextView"
+        style="@style/ListTextView"
+        android:layout_width="0dp"
+        android:text="@string/receiver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/controllerTextView" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/receiverImageView"
+        android:layout_width="@dimen/icon_24"
+        android:layout_height="@dimen/icon_24"
+        android:layout_marginStart="16dp"
+        android:tint="@color/secondaryIcon"
+        app:layout_constraintBottom_toBottomOf="@+id/receiverTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/receiverTextView"
+        app:srcCompat="@drawable/ic_receiver" />
 
-        <TextView
-            android:id="@+id/controllerTextView"
-            style="@style/ListTextView"
-            android:layout_width="0dp"
-            android:text="@string/controller"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/configurationTextView"
+        style="@style/ListTextView"
+        android:layout_width="0dp"
+        android:text="@string/configuration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/receiverTextView" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/controllerImageView"
-            android:layout_width="@dimen/icon_24"
-            android:layout_height="@dimen/icon_24"
-            android:layout_marginStart="16dp"
-            android:tint="@color/secondaryIcon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/controllerTextView"
-            app:layout_constraintBottom_toBottomOf="@+id/controllerTextView"
-            app:srcCompat="@drawable/ic_controller" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/configurationImageView"
+        android:layout_width="@dimen/icon_24"
+        android:layout_height="@dimen/icon_24"
+        android:layout_marginStart="16dp"
+        android:tint="@color/secondaryIcon"
+        app:layout_constraintBottom_toBottomOf="@+id/configurationTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/configurationTextView"
+        app:srcCompat="@drawable/ic_settings" />
 
-        <TextView
-            android:id="@+id/receiverTextView"
-            style="@style/ListTextView"
-            android:layout_width="0dp"
-            android:text="@string/receiver"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/controllerTextView" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/receiverImageView"
-            android:layout_width="@dimen/icon_24"
-            android:layout_height="@dimen/icon_24"
-            android:layout_marginStart="16dp"
-            android:tint="@color/secondaryIcon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/receiverTextView"
-            app:layout_constraintBottom_toBottomOf="@+id/receiverTextView"
-            app:srcCompat="@drawable/ic_receiver" />
-
-        <TextView
-            android:id="@+id/configurationTextView"
-            style="@style/ListTextView"
-            android:layout_width="0dp"
-            android:text="@string/configuration"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/receiverTextView" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/configurationImageView"
-            android:layout_width="@dimen/icon_24"
-            android:layout_height="@dimen/icon_24"
-            android:layout_marginStart="16dp"
-            android:tint="@color/secondaryIcon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/configurationTextView"
-            app:layout_constraintBottom_toBottomOf="@+id/configurationTextView"
-            app:srcCompat="@drawable/ic_settings" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

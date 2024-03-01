@@ -3,10 +3,9 @@ package com.oscleton.sdk.sample.configuration
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.oscleton.sdk.sample.R
-import com.oscleton.sdk.sample.databinding.ConfigurationActivityBinding
+import com.oscleton.sdk.sample.databinding.ActivityConfigurationBinding
 import com.oscleton.sdk.sample.utils.SnackbarUtils
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,9 +15,7 @@ import io.reactivex.rxkotlin.addTo
 class ConfigurationActivity : AppCompatActivity() {
 
     // UI
-    private val binding: ConfigurationActivityBinding by lazy {
-        DataBindingUtil.setContentView<ConfigurationActivityBinding>(this, R.layout.activity_configuration)
-    }
+    private lateinit var binding: ActivityConfigurationBinding
 
     // Data
     private val viewModel: ConfigurationViewModel by lazy {
@@ -30,8 +27,9 @@ class ConfigurationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding = ActivityConfigurationBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // Display back arrow
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -46,22 +44,27 @@ class ConfigurationActivity : AppCompatActivity() {
 
         // Connection / Discovery success message
         viewModel.onConnectionSuccess
-                .mergeWith(viewModel.onComputerIPDiscoverySuccess.map { Empty.VOID })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connectedToLive) }
-                .addTo(compositeDisposable)
+            .mergeWith(viewModel.onComputerIPDiscoverySuccess.map { Empty.VOID })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connectedToLive) }
+            .addTo(compositeDisposable)
 
         // Connection error message
         viewModel.onConnectionError
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connection_error) }
-                .addTo(compositeDisposable)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.connection_error) }
+            .addTo(compositeDisposable)
 
         // Discovery error message
         viewModel.onComputerIPDiscoveryError
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { SnackbarUtils.showShortSnackbar(binding.root, R.string.ip_discovery_error) }
-                .addTo(compositeDisposable)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                SnackbarUtils.showShortSnackbar(
+                    binding.root,
+                    R.string.ip_discovery_error
+                )
+            }
+            .addTo(compositeDisposable)
 
     }
 
@@ -72,6 +75,7 @@ class ConfigurationActivity : AppCompatActivity() {
                 finish()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

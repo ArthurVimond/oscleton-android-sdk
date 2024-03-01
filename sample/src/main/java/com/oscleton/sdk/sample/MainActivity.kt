@@ -1,22 +1,18 @@
 package com.oscleton.sdk.sample
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.oscleton.sdk.sample.configuration.ConfigurationActivity
 import com.oscleton.sdk.sample.controller.ControllerActivity
-import com.oscleton.sdk.sample.databinding.MainActivityBinding
+import com.oscleton.sdk.sample.databinding.ActivityMainBinding
 import com.oscleton.sdk.sample.receiver.ReceiverActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     // UI
-    private val binding: MainActivityBinding by lazy {
-        DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.activity_main)
-    }
+    private lateinit var binding: ActivityMainBinding
 
     // Data
     private val viewModel: MainViewModel by lazy {
@@ -25,7 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         viewModel.configure()
 
@@ -35,13 +33,13 @@ class MainActivity : AppCompatActivity() {
     private fun bindProperties() {
 
         // Controller
-        controllerTextView.setOnClickListener { goToControllerActivity() }
+        binding.controllerTextView.setOnClickListener { goToControllerActivity() }
 
         // Receiver
-        receiverTextView.setOnClickListener { goToReceiverActivity() }
+        binding.receiverTextView.setOnClickListener { goToReceiverActivity() }
 
         // Configuration
-        configurationTextView.setOnClickListener { goToConfigurationActivity() }
+        binding.configurationTextView.setOnClickListener { goToConfigurationActivity() }
 
     }
 

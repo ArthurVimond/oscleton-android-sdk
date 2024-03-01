@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    namespace "com.oscleton.sdk.sample"
     compileSdk Config.compileSdk
     defaultConfig {
         applicationId "com.oscleton.sdk.sample"
@@ -24,7 +24,7 @@ android {
     }
 
     buildFeatures {
-        dataBinding true
+        viewBinding true
     }
 
     compileOptions {

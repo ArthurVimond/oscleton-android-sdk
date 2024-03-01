@@ -1,19 +1,16 @@
 package com.oscleton.sdk.sample.receiver
 
-import androidx.lifecycle.ViewModelProviders
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.oscleton.sdk.sample.R
-import com.oscleton.sdk.sample.databinding.ReceiverActivityBinding
+import com.oscleton.sdk.sample.databinding.ActivityReceiverBinding
 
 class ReceiverActivity : AppCompatActivity() {
 
     // UI
-    private val binding: ReceiverActivityBinding by lazy {
-        DataBindingUtil.setContentView<ReceiverActivityBinding>(this, R.layout.activity_receiver)
-    }
+    private lateinit var binding: ActivityReceiverBinding
 
     // Data
     private val viewModel: ReceiverViewModel by lazy {
@@ -22,8 +19,9 @@ class ReceiverActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding = ActivityReceiverBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // Display back arrow
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -34,11 +32,12 @@ class ReceiverActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-        // Back arrow
+            // Back arrow
             android.R.id.home -> {
                 finish()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

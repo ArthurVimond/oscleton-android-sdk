@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace "com.oscleton.sdk.rx"
     compileSdk Config.compileSdk
     defaultConfig {
         minSdkVersion Config.minSdkVersion
@@ -27,8 +28,12 @@ android {
         targetCompatibility Config.targetCompatibility
     }
 
-    kotlinOptions {
-        jvmTarget = Config.jvmTarget
+    kotlin {
+        jvmToolchain(Config.jvmToolchain)
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 }
 

@@ -10,8 +10,8 @@ object Config {
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
     // Compile options
-    const val sourceCompatibility = "1.8"
-    const val targetCompatibility = "1.8"
+    const val sourceCompatibility = "17"
+    const val targetCompatibility = "17"
 
-    const val jvmTarget = "1.8"
+    const val jvmToolchain = 17
 }

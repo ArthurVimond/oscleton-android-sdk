@@ -1,19 +1,16 @@
 package com.oscleton.sdk.sample.controller
 
-import androidx.lifecycle.ViewModelProviders
-import androidx.databinding.DataBindingUtil
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.oscleton.sdk.sample.R
-import com.oscleton.sdk.sample.databinding.ControllerActivityBinding
+import com.oscleton.sdk.sample.databinding.ActivityControllerBinding
 
 class ControllerActivity : AppCompatActivity() {
 
     // UI
-    private val binding: ControllerActivityBinding by lazy {
-        DataBindingUtil.setContentView<ControllerActivityBinding>(this, R.layout.activity_controller)
-    }
+    private lateinit var binding: ActivityControllerBinding
 
     // Data
     private val viewModel: ControllerViewModel by lazy {
@@ -22,8 +19,9 @@ class ControllerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding = ActivityControllerBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // Display back arrow
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -34,11 +32,12 @@ class ControllerActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-        // Back arrow
+            // Back arrow
             android.R.id.home -> {
                 finish()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

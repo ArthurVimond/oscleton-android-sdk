@@ -21,8 +21,10 @@ import org.koin.core.context.loadKoinModules
  *
  * This singleton provides multiple features split in different classes:
  * - [Configuration] is responsible for the settings needed to establish the connection.
- * - [Controller] lets you control a Live set from your Android device.
- * - [Receiver] lets you receive Live set events in real time on your Android device.
+ * - [LiveSet] lets you control the Live set from your Android device.
+ * - [Tracks] lets you receive Tracks events in real time on your Android device.
+ * - [Devices] lets you receive Devices events in real time on your Android device.
+ * - [Browser] lets you control the Live Browser from your Android device.
  *
  * @since 0.1
  */
@@ -47,15 +49,6 @@ class OscletonSDK {
     // Public properties
 
     val config: Configuration by injector.inject()
-
-    @Deprecated(
-            message = "Use OscletonSDK.instance.liveSet instead",
-            replaceWith = ReplaceWith("OscletonSDK.instance.liveSet"))
-    val controller: Controller by injector.inject()
-
-    @Deprecated(message = "Use corresponding rx() or cb() extension functions from the 'core-rxjava2' or 'core-callbacks' artifacts instead")
-    val receiver: Receiver by injector.inject()
-
     val liveSet: LiveSet by injector.inject()
     val tracks: Tracks by injector.inject()
     val devices: Devices by injector.inject()

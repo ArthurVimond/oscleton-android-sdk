@@ -1,7 +1,6 @@
 package com.oscleton.sdk.rx
 
 import com.oscleton.sdk.BuildConfig
-import com.oscleton.sdk.CallbackReceiver
 import com.oscleton.sdk.configuration.ConfigurationDataManager
 import com.oscleton.sdk.utils.Empty
 import io.reactivex.Observable

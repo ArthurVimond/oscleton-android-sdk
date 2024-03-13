@@ -19,12 +19,14 @@ import com.oscleton.sdk.enums.SendType
  *
  * @since 0.8
  */
-data class Send(var trackIndex: Int,
-                var trackName: String = "",
-                var sendIndex: Int,
-                var sendName: String = "",
-                var sendType: SendType = SendType.TRACK,
-                var volume: Float = 0f,
-                var displayVolume: String = "",
-                var sendState: SendState = SendState.ENABLED,
-                var automationState: AutomationState = AutomationState.NONE)
+data class Send(
+    val trackIndex: Int,
+    val trackName: String = "",
+    val sendIndex: Int,
+    val sendName: String = "",
+    val sendType: SendType = SendType.TRACK,
+    val volume: Float = 0f,
+    val displayVolume: String = "",
+    val sendState: SendState = SendState.ENABLED,
+    val automationState: AutomationState = AutomationState.NONE
+)

@@ -10,5 +10,7 @@ package com.oscleton.sdk.models
  *
  * @since 0.7
  */
-internal data class MasterVolume(var volume: Float,
-                                 var displayVolume: String)
+internal data class MasterVolume(
+    val volume: Float,
+    val displayVolume: String
+)

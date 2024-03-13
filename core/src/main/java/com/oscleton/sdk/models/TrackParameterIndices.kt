@@ -10,5 +10,7 @@ package com.oscleton.sdk.models
  *
  * @since 0.4
  */
-internal data class TrackParameterIndices(var trackIndex: Int,
-                                          var paramIndex: Int)
+internal data class TrackParameterIndices(
+    val trackIndex: Int,
+    val paramIndex: Int
+)

@@ -12,7 +12,9 @@ package com.oscleton.sdk.models
  *
  * @since 0.4
  */
-internal data class TrackVolume(var trackIndex: Int,
-                       var trackName: String = "",
-                       var volume: Float,
-                       var displayVolume: String)
+internal data class TrackVolume(
+    val trackIndex: Int,
+    val trackName: String = "",
+    val volume: Float,
+    val displayVolume: String
+)

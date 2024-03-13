@@ -66,6 +66,18 @@ class Tracks internal constructor(
     }
 
     /**
+     * Set a return track send value.
+     *
+     * @param trackIndex the return track index
+     * @param sendIndex the return track send index
+     * @param value the return track send value to set
+     * @since 1.1
+     */
+    fun setReturnSend(trackIndex: Int, sendIndex: Int, value: Float) {
+        messageManager.sendMessage(LiveAPI.returnSend, listOf(trackIndex, sendIndex, value))
+    }
+
+    /**
      * Set a master track parameter value.
      *
      * @param trackParameterIndex the parameter index

@@ -11,6 +11,8 @@ package com.oscleton.sdk.models
  *
  * @since 0.1
  */
-data class Device(var trackIndex: Int,
-                  var deviceIndex: Int,
-                  var name: String = "")
+data class Device(
+    val trackIndex: Int,
+    val deviceIndex: Int,
+    val name: String = ""
+)

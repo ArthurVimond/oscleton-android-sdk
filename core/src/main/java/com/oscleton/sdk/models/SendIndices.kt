@@ -10,5 +10,7 @@ package com.oscleton.sdk.models
  *
  * @since 0.8
  */
-internal data class SendIndices(var trackIndex: Int,
-                                var sendIndex: Int)
+internal data class SendIndices(
+    val trackIndex: Int,
+    val sendIndex: Int
+)

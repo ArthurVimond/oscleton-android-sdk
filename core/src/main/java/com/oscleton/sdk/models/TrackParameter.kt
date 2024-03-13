@@ -18,13 +18,15 @@ import com.oscleton.sdk.enums.TrackParameterIndex
  *
  * @since 0.4
  */
-data class TrackParameter(var trackIndex: Int,
-                          var trackName: String = "",
-                          var paramIndex: Int,
-                          var value: Float = 0f,
-                          var displayValue: String = "",
-                          var min: Float = 0f,
-                          var max: Float = 1f) {
+data class TrackParameter(
+    val trackIndex: Int,
+    val trackName: String = "",
+    val paramIndex: Int,
+    val value: Float = 0f,
+    val displayValue: String = "",
+    val min: Float = 0f,
+    val max: Float = 1f
+) {
 
     val paramName: String
         get() = when (paramIndex) {

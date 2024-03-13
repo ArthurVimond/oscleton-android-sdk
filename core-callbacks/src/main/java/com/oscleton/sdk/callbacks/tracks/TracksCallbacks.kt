@@ -2,6 +2,7 @@ package com.oscleton.sdk.callbacks.tracks
 
 import com.oscleton.sdk.callbacks.tracks.listeners.OnMasterParameterChangeListener
 import com.oscleton.sdk.callbacks.tracks.listeners.OnReturnParameterChangeListener
+import com.oscleton.sdk.callbacks.tracks.listeners.OnReturnSendChangeListener
 import com.oscleton.sdk.callbacks.tracks.listeners.OnTrackParameterChangeListener
 import com.oscleton.sdk.callbacks.tracks.listeners.OnTrackSendChangeListener
 import com.oscleton.sdk.tracks.TracksDataManager
@@ -16,6 +17,7 @@ class TracksCallbacks internal constructor(private val tracksDataManager: Tracks
     private var returnParameterDisp: Disposable? = null
     private var masterParameterDisp: Disposable? = null
     private var trackSendDisp: Disposable? = null
+    private var returnSendDisp: Disposable? = null
 
     /**
      * Register a callback to be invoked when track parameter changes.
@@ -111,6 +113,30 @@ class TracksCallbacks internal constructor(private val tracksDataManager: Tracks
      */
     fun removeOnTrackSendChangeListener() {
         trackSendDisp?.dispose()
+    }
+
+    /**
+     * Register a callback to be invoked when return track send changes.
+     *
+     * @param listener The callback that will run
+     * @since 1.2
+     */
+    fun set(listener: OnReturnSendChangeListener) {
+        returnSendDisp = tracksDataManager.returnSend
+            .subscribe {
+                listener.onReturnSendChange(it)
+            }
+
+        compositeDisposable.add(returnSendDisp!!)
+    }
+
+    /**
+     * Remove the current [OnReturnSendChangeListener].
+     *
+     * @since 1.2
+     */
+    fun removeOnReturnSendChangeListener() {
+        returnSendDisp?.dispose()
     }
 
     /**

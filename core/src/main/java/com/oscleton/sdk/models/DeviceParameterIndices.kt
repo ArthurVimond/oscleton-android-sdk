@@ -11,6 +11,8 @@ package com.oscleton.sdk.models
  *
  * @since 0.1
  */
-internal data class DeviceParameterIndices(var trackIndex: Int,
-                                           var deviceIndex: Int,
-                                           var paramIndex: Int)
+internal data class DeviceParameterIndices(
+    val trackIndex: Int,
+    val deviceIndex: Int,
+    val paramIndex: Int
+)

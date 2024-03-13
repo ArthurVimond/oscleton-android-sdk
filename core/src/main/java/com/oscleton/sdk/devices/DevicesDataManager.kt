@@ -17,8 +17,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.PublishSubject
 
-class DevicesDataManager internal constructor(private val messageManager: MessageManager,
-                                              private val commonDataManager: CommonDataManager) {
+class DevicesDataManager internal constructor(
+    private val messageManager: MessageManager,
+    private val commonDataManager: CommonDataManager
+) {
 
     // Public properties
 
@@ -40,16 +42,22 @@ class DevicesDataManager internal constructor(private val messageManager: Messag
     private val compositeDisposable = CompositeDisposable()
 
     private val trackDevices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
-    private val trackDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
+    private val trackDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> =
+        mutableMapOf()
     private val returnDevices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
-    private val returnDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
+    private val returnDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> =
+        mutableMapOf()
     private val masterDevices: MutableMap<Pair<Int, Int>, Device> = mutableMapOf()
-    private val masterDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> = mutableMapOf()
+    private val masterDeviceParameters: MutableMap<Triple<Int, Int, Int>, DeviceParameter> =
+        mutableMapOf()
 
-    private val currentTrackDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
-    private val currentReturnDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
+    private val currentTrackDeviceParameterIndices: PublishSubject<DeviceParameterIndices> =
+        PublishSubject.create()
+    private val currentReturnDeviceParameterIndices: PublishSubject<DeviceParameterIndices> =
+        PublishSubject.create()
 
-    private val currentMasterDeviceParameterIndices: PublishSubject<DeviceParameterIndices> = PublishSubject.create()
+    private val currentMasterDeviceParameterIndices: PublishSubject<DeviceParameterIndices> =
+        PublishSubject.create()
 
     init {
         observeTrackDeviceParametersProperties()
@@ -61,42 +69,45 @@ class DevicesDataManager internal constructor(private val messageManager: Messag
 
         // Fill the maps on track device parameters changes
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.trackDeviceParam }
-                .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
-                .map { mapToDeviceParameter(it) }
-                .subscribe {
+            .filter { it.address == LiveAPI.trackDeviceParam }
+            .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
+            .map { mapToDeviceParameter(it) }
+            .subscribe {
 
-                    // Create new device (if needed)
-                    val pair = Pair(it.trackIndex, it.deviceIndex)
-                    if (trackDevices[pair] == null) {
-                        trackDevices[pair] = Device(it.trackIndex, it.deviceIndex)
-                    }
+                // Create new device (if needed)
+                val pair = Pair(it.trackIndex, it.deviceIndex)
+                if (trackDevices[pair] == null) {
+                    trackDevices[pair] = Device(it.trackIndex, it.deviceIndex)
+                }
 
-                    trackDevices[pair]!!.trackIndex = it.trackIndex
-                    trackDevices[pair]!!.deviceIndex = it.deviceIndex
+                val updatedDevice = trackDevices[pair]!!.copy(
+                    trackIndex = it.trackIndex,
+                    deviceIndex = it.deviceIndex
+                )
+                trackDevices[pair] = updatedDevice
 
-                    // Track device parameter
-                    val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
-                    trackDeviceParameters[triple] = it
+                // Track device parameter
+                val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
+                trackDeviceParameters[triple] = it
 
-                }.addTo(compositeDisposable)
+            }.addTo(compositeDisposable)
 
         // Current track device parameter indices
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.trackDeviceParam }
-                .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
-                .map { mapToDeviceParameterIndices(it) }
-                .subscribe { currentTrackDeviceParameterIndices.onNext(it) }
-                .addTo(compositeDisposable)
+            .filter { it.address == LiveAPI.trackDeviceParam }
+            .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
+            .map { mapToDeviceParameterIndices(it) }
+            .subscribe { currentTrackDeviceParameterIndices.onNext(it) }
+            .addTo(compositeDisposable)
 
         // Emit full track device parameter info from map
         currentTrackDeviceParameterIndices
-                .subscribe {
-                    val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
-                    val deviceParam = trackDeviceParameters.getValue(triple)
-                    _trackDeviceParameter.onNext(deviceParam)
-                }
-                .addTo(compositeDisposable)
+            .subscribe {
+                val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
+                val deviceParam = trackDeviceParameters.getValue(triple)
+                _trackDeviceParameter.onNext(deviceParam)
+            }
+            .addTo(compositeDisposable)
 
     }
 
@@ -104,84 +115,92 @@ class DevicesDataManager internal constructor(private val messageManager: Messag
 
         // Fill the maps on return device parameters changes
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.returnDeviceParam }
-                .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
-                .map { mapToDeviceParameter(it) }
-                .subscribe {
+            .filter { it.address == LiveAPI.returnDeviceParam }
+            .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
+            .map { mapToDeviceParameter(it) }
+            .subscribe {
 
-                    // Create new device (if needed)
-                    val pair = Pair(it.trackIndex, it.deviceIndex)
-                    if (returnDevices[pair] == null) {
-                        returnDevices[pair] = Device(it.trackIndex, it.deviceIndex)
-                    }
+                // Create new device (if needed)
+                val pair = Pair(it.trackIndex, it.deviceIndex)
+                if (returnDevices[pair] == null) {
+                    returnDevices[pair] = Device(it.trackIndex, it.deviceIndex)
+                }
 
-                    returnDevices[pair]!!.trackIndex = it.trackIndex
-                    returnDevices[pair]!!.deviceIndex = it.deviceIndex
+                val updatedDevice = returnDevices[pair]!!.copy(
+                    trackIndex = it.trackIndex,
+                    deviceIndex = it.deviceIndex
+                )
 
-                    // Return device parameter
-                    val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
-                    returnDeviceParameters[triple] = it
+                returnDevices[pair] = updatedDevice
 
-                }.addTo(compositeDisposable)
+                // Return device parameter
+                val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
+                returnDeviceParameters[triple] = it
+
+            }.addTo(compositeDisposable)
 
         // Current return device parameter indices
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.returnDeviceParam }
-                .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
-                .map { mapToDeviceParameterIndices(it) }
-                .subscribe { currentReturnDeviceParameterIndices.onNext(it) }
-                .addTo(compositeDisposable)
+            .filter { it.address == LiveAPI.returnDeviceParam }
+            .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
+            .map { mapToDeviceParameterIndices(it) }
+            .subscribe { currentReturnDeviceParameterIndices.onNext(it) }
+            .addTo(compositeDisposable)
 
         // Emit full return device parameter info from map
         currentReturnDeviceParameterIndices
-                .subscribe {
-                    val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
-                    val deviceParam = returnDeviceParameters.getValue(triple)
-                    _returnDeviceParameter.onNext(deviceParam)
-                }
-                .addTo(compositeDisposable)
+            .subscribe {
+                val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
+                val deviceParam = returnDeviceParameters.getValue(triple)
+                _returnDeviceParameter.onNext(deviceParam)
+            }
+            .addTo(compositeDisposable)
     }
 
     private fun observeMasterDeviceParametersProperties() {
 
         // Fill the maps on master device parameters changes
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.masterDeviceParam }
-                .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
-                .map { mapToDeviceParameter(it) }
-                .subscribe {
+            .filter { it.address == LiveAPI.masterDeviceParam }
+            .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
+            .map { mapToDeviceParameter(it) }
+            .subscribe {
 
-                    // Create new device (if needed)
-                    val pair = Pair(it.trackIndex, it.deviceIndex)
-                    if (masterDevices[pair] == null) {
-                        masterDevices[pair] = Device(it.trackIndex, it.deviceIndex)
-                    }
+                // Create new device (if needed)
+                val pair = Pair(it.trackIndex, it.deviceIndex)
+                if (masterDevices[pair] == null) {
+                    masterDevices[pair] = Device(it.trackIndex, it.deviceIndex)
+                }
 
-                    masterDevices[pair]!!.trackIndex = it.trackIndex
-                    masterDevices[pair]!!.deviceIndex = it.deviceIndex
+                val updatedDevice = masterDevices[pair]!!.copy(
+                    trackIndex = it.trackIndex,
+                    deviceIndex = it.deviceIndex
+                )
 
-                    // Master device parameter
-                    val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
-                    masterDeviceParameters[triple] = it
+                masterDevices[pair] = updatedDevice
 
-                }.addTo(compositeDisposable)
+                // Master device parameter
+                val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
+                masterDeviceParameters[triple] = it
+
+            }.addTo(compositeDisposable)
 
         // Current master device parameter indices
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.masterDeviceParam }
-                .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
-                .map { mapToDeviceParameterIndices(it) }
-                .subscribe { currentMasterDeviceParameterIndices.onNext(it) }
-                .addTo(compositeDisposable)
+            .filter { it.address == LiveAPI.masterDeviceParam }
+            .filter { commonDataManager.block(LiveParameter.DEVICE_PARAMETER) }
+            .map { mapToDeviceParameterIndices(it) }
+            .subscribe { currentMasterDeviceParameterIndices.onNext(it) }
+            .addTo(compositeDisposable)
 
         // Emit full master device parameter info from map
         currentMasterDeviceParameterIndices
-                .subscribe {
-                    val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
-                    val deviceParam = masterDeviceParameters.getValue(triple)
-                    _masterDeviceParameter.onNext(deviceParam)
-                }
-                .addTo(compositeDisposable)
+            .subscribe {
+                val triple = Triple(it.trackIndex, it.deviceIndex, it.paramIndex)
+                val deviceParam = masterDeviceParameters.getValue(triple)
+                _masterDeviceParameter.onNext(deviceParam)
+            }
+            .addTo(compositeDisposable)
 
     }
 
@@ -200,17 +219,18 @@ class DevicesDataManager internal constructor(private val messageManager: Messag
         val automationState = oscMessage.arguments[10].int.automationState
 
         return DeviceParameter(
-                trackIndex = trackIndex,
-                deviceIndex = deviceIndex,
-                paramIndex = paramIndex,
-                trackName = trackName,
-                deviceName = deviceName,
-                paramName = paramName,
-                displayValue = displayValue,
-                value = value,
-                min = min,
-                max = max,
-                automationState = automationState)
+            trackIndex = trackIndex,
+            deviceIndex = deviceIndex,
+            paramIndex = paramIndex,
+            trackName = trackName,
+            deviceName = deviceName,
+            paramName = paramName,
+            displayValue = displayValue,
+            value = value,
+            min = min,
+            max = max,
+            automationState = automationState
+        )
     }
 
     private fun mapToDeviceParameterIndices(oscMessage: OSCMessage): DeviceParameterIndices {
@@ -220,9 +240,10 @@ class DevicesDataManager internal constructor(private val messageManager: Messag
         val paramIndex = oscMessage.arguments[2].int
 
         return DeviceParameterIndices(
-                trackIndex = trackIndex,
-                deviceIndex = deviceIndex,
-                paramIndex = paramIndex)
+            trackIndex = trackIndex,
+            deviceIndex = deviceIndex,
+            paramIndex = paramIndex
+        )
     }
 
 }

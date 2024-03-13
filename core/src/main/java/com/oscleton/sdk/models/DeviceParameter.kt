@@ -20,14 +20,16 @@ import com.oscleton.sdk.enums.AutomationState
  *
  * @since 0.1
  */
-data class DeviceParameter(var trackIndex: Int,
-                           var deviceIndex: Int,
-                           var paramIndex: Int,
-                           var trackName: String = "",
-                           var deviceName: String = "",
-                           var paramName: String = "",
-                           var displayValue: String = "",
-                           var value: Float = 0f,
-                           var min: Float = 0f,
-                           var max: Float = 1f,
-                           var automationState: AutomationState = AutomationState.NONE)
+data class DeviceParameter(
+    val trackIndex: Int,
+    val deviceIndex: Int,
+    val paramIndex: Int,
+    val trackName: String = "",
+    val deviceName: String = "",
+    val paramName: String = "",
+    val displayValue: String = "",
+    val value: Float = 0f,
+    val min: Float = 0f,
+    val max: Float = 1f,
+    val automationState: AutomationState = AutomationState.NONE
+)

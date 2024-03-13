@@ -16,11 +16,13 @@ import com.oscleton.sdk.enums.MasterParameterIndex
  *
  * @since 0.7
  */
-data class MasterParameter(var paramIndex: Int,
-                           var value: Float = 0f,
-                           var displayValue: String = "",
-                           var min: Float = 0f,
-                           var max: Float = 1f) {
+data class MasterParameter(
+    val paramIndex: Int,
+    val value: Float = 0f,
+    val displayValue: String = "",
+    val min: Float = 0f,
+    val max: Float = 1f
+) {
 
     val paramName: String
         get() = when (paramIndex) {

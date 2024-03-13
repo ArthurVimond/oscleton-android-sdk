@@ -30,7 +30,7 @@ internal val oscletonSDKModule = module {
 
 internal val liveSetModule = module {
     single { LiveSet(get(), get()) }
-    single { LiveSetDataManager(get(), get()) }
+    single { LiveSetDataManager(get(), get(), get()) }
 }
 
 internal val tracksModule = module {

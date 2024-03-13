@@ -41,6 +41,14 @@ class TracksRx internal constructor(tracksDataManager: TracksDataManager) {
     val returnParameter: Observable<ReturnParameter> = tracksDataManager.returnParameter
 
     /**
+     * Returns the last changing return track send as Observable.
+     *
+     * @return the last changing return track send as Observable
+     * @since 1.2
+     */
+    val returnSend: Observable<Send> = tracksDataManager.returnSend
+
+    /**
      * Returns the last changing master parameter as Observable.
      *
      * @return the last changing master parameter as Observable

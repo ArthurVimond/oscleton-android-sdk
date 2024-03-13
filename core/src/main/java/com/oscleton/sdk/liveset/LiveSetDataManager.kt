@@ -1,5 +1,6 @@
 package com.oscleton.sdk.liveset
 
+import com.oscleton.sdk.configuration.ConfigurationDataManager
 import com.oscleton.sdk.extensions.boolean
 import com.oscleton.sdk.extensions.float
 import com.oscleton.sdk.extensions.int
@@ -9,10 +10,14 @@ import com.oscleton.sdk.internal.MessageManager
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.withLatestFrom
 import io.reactivex.subjects.BehaviorSubject
 
-class LiveSetDataManager internal constructor(private val messageManager: MessageManager,
-                                              private val commonDataManager: CommonDataManager) {
+class LiveSetDataManager internal constructor(
+    private val messageManager: MessageManager,
+    private val configurationDataManager: ConfigurationDataManager,
+    private val commonDataManager: CommonDataManager
+) {
 
     // Public properties
 
@@ -37,17 +42,26 @@ class LiveSetDataManager internal constructor(private val messageManager: Messag
 
         // Tempo
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.tempo }
-                .map { it.arguments.first().float }
-                .subscribe { _tempo.onNext(it) }
-                .addTo(compositeDisposable)
+            .filter { it.address == LiveAPI.tempo }
+            .map { it.arguments.first().float }
+            .subscribe { _tempo.onNext(it) }
+            .addTo(compositeDisposable)
 
         // Can capture MIDI
         messageManager.oscMessage
-                .filter { it.address == LiveAPI.canCaptureMidi }
-                .map { it.arguments.first().int.boolean }
-                .subscribe { _canCaptureMidi.onNext(it) }
-                .addTo(compositeDisposable)
+            .filter { it.address == LiveAPI.canCaptureMidi }
+            .withLatestFrom(configurationDataManager.liveVersion)
+            .map { (oscMessage, liveVersion) ->
+                val majorLiveVersion = liveVersion.split(".")[0].toInt()
+                if (majorLiveVersion <= 10) {
+                    oscMessage.arguments.first().int.boolean
+                } else {
+                    oscMessage.arguments.first().boolean
+                }
+
+            }
+            .subscribe { _canCaptureMidi.onNext(it) }
+            .addTo(compositeDisposable)
 
     }
 

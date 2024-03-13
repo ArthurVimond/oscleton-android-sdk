@@ -17,13 +17,15 @@ import com.oscleton.sdk.utils.BrowserItemUtils
  *
  * @since 1.0
  */
-data class BrowserItem(val name: String,
-                       val uri: String,
-                       val source: String,
-                       val isDevice: Boolean,
-                       val isFolder: Boolean,
-                       val isLoadable: Boolean,
-                       val hasChildren: Boolean) {
+data class BrowserItem(
+    val name: String,
+    val uri: String,
+    val source: String,
+    val isDevice: Boolean,
+    val isFolder: Boolean,
+    val isLoadable: Boolean,
+    val hasChildren: Boolean
+) {
 
     enum class Category {
         SOUNDS,

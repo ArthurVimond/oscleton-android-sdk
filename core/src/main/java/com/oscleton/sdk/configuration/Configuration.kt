@@ -34,6 +34,9 @@ class Configuration internal constructor(
     private var onComputerIPDiscoveryErrorDisp: Disposable? = null
     private var onComputerIPDiscoveryCancelDisp: Disposable? = null
 
+    var localPort: Int = 9001
+        private set
+
     init {
         observeProperties()
     }
@@ -57,6 +60,10 @@ class Configuration internal constructor(
 
     }
 
+    fun requestCurrentState() {
+        messageManager.requestCurrentState()
+    }
+
     /**
      * Set the computer IP address in order to send actions.
      *
@@ -66,8 +73,9 @@ class Configuration internal constructor(
      * @return the SDK result
      * @since 0.1
      */
-    fun setComputerIP(ip: String): SDKResult {
-        return messageManager.setComputerIP(ip)
+    fun setComputerIP(ip: String, localPort: Int): SDKResult {
+        this.localPort = localPort
+        return messageManager.setComputerIP(ip = ip, localPort = localPort)
     }
 
     /**
@@ -78,7 +86,7 @@ class Configuration internal constructor(
      * @return the SDK result
      */
     fun startComputerIPDiscovery(): SDKResult {
-        return messageManager.startIPDiscovery()
+        return messageManager.startIPDiscovery(localPort)
     }
 
     /**

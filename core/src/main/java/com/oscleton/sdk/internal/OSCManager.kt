@@ -35,7 +35,7 @@ internal class OSCManager {
 
     }
 
-    fun initSender(ip: String, port: Int = 9000): SDKResult {
+    fun initSender(ip: String, port: Int = 9000, localPort: Int): SDKResult {
         Logger.d("initSender", this)
 
         // Validate IP address
@@ -43,7 +43,7 @@ internal class OSCManager {
 
         return if (isIpAddressValid) {
             try {
-                connect()
+                connect(localPort)
                 sender = OSCPortOut(InetAddress.getByName(ip), port)
                 SDKResult.SUCCESS
             } catch (e: SocketException) {
@@ -57,7 +57,7 @@ internal class OSCManager {
     }
 
     // Receiver
-    fun connect(receiverPort: Int = 9001) {
+    fun connect(receiverPort: Int) {
         Logger.d("connect", this)
 
         if (!isConnected) {
@@ -100,12 +100,12 @@ internal class OSCManager {
     fun sendMessage(address: String, args: List<Any>? = null) {
         Logger.d("sendMessage - address: $address - args: $args", this)
         Completable
-                .fromCallable {
-                    sendOSCMessage(address, args)
-                }
-                .subscribeOn(Schedulers.io())
-                .subscribe()
-                .addTo(compositeDisposable)
+            .fromCallable {
+                sendOSCMessage(address, args)
+            }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+            .addTo(compositeDisposable)
     }
 
     private fun sendOSCMessage(address: String, args: List<Any>?) {

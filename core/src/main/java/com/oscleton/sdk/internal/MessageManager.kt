@@ -57,21 +57,21 @@ internal class MessageManager internal constructor(private val context: Context,
         Logger.d("init", this)
     }
 
-    fun setComputerIP(ip: String, port: Int = 9000): SDKResult {
+    fun setComputerIP(ip: String, port: Int = 9000, localPort: Int): SDKResult {
         val isConnected = NetworkUtils.isConnected(context)
         if (!isConnected) {
             _onSetComputerIPError.onNext("no_network_connection")
             return SDKResult.ERROR
         }
 
-        val result = oscManager.initSender(ip, port)
+        val result = oscManager.initSender(ip = ip, port = port, localPort = localPort)
 
         if (result != SDKResult.SUCCESS) {
             _onSetComputerIPError.onNext("connection_error")
             return result
         }
 
-        setPeer()
+        setPeer(localPort)
 
         startSetComputerIPTimer()
 
@@ -85,23 +85,23 @@ internal class MessageManager internal constructor(private val context: Context,
         setComputerIPCompositeDisposable = CompositeDisposable()
 
         Observable.timer(1, TimeUnit.SECONDS)
-                .subscribe {
-                    _onSetComputerIPError.onNext("timeout")
-                }
-                .addTo(setComputerIPCompositeDisposable)
+            .subscribe {
+                _onSetComputerIPError.onNext("timeout")
+            }
+            .addTo(setComputerIPCompositeDisposable)
     }
 
     fun cancelSetComputerIPTimeout() {
         setComputerIPCompositeDisposable.clear()
     }
 
-    private fun setPeer() {
+    private fun setPeer(localPort: Int) {
         val ipAddress = NetworkUtils.deviceIPAddress()
-        val args: List<Any> = listOf(ipAddress, 9001)
+        val args: List<Any> = listOf(ipAddress, localPort)
         sendMessage(LiveAPI.setPeer, args)
     }
 
-    fun startIPDiscovery(): SDKResult {
+    fun startIPDiscovery(localPort: Int): SDKResult {
 
         val isConnected = NetworkUtils.isConnected(context)
         if (!isConnected) {
@@ -124,27 +124,26 @@ internal class MessageManager internal constructor(private val context: Context,
         val ipFirstPart = deviceIPAddress.substringBeforeLast(".")
         val ipIndexLimit = 255
 
-        Observable.intervalRange(1, ipIndexLimit.toLong(), 0,100, TimeUnit.MILLISECONDS)
-                .subscribe({ ip4thIndex ->
-                    val ip = "$ipFirstPart.$ip4thIndex"
-                    val port = 9000
-                    oscManager.initSender(ip, port)
+        Observable.intervalRange(1, ipIndexLimit.toLong(), 0, 100, TimeUnit.MILLISECONDS)
+            .subscribe({ ip4thIndex ->
+                val ip = "$ipFirstPart.$ip4thIndex"
+                oscManager.initSender(ip = ip, port = 9000, localPort = localPort)
 
-                    // Discover IP
-                    discoverIP(ip)
+                // Discover IP
+                discoverIP(computerIP = ip, localPort = localPort)
 
-                    // Progress
-                    val progress = ip4thIndex / ipIndexLimit.toFloat()
-                    _onComputerIPDiscoveryProgress.onNext(progress)
-                }, {
-                    // onError
-                    _onComputerIPDiscoveryError.onNext("discovery_error")
-                }, {
-                    // onComplete
-                    resetIPDiscovery()
-                    _onComputerIPDiscoveryError.onNext("discovery_timeout")
-                })
-                .addTo(ipDiscoveryCompositeDisposable)
+                // Progress
+                val progress = ip4thIndex / ipIndexLimit.toFloat()
+                _onComputerIPDiscoveryProgress.onNext(progress)
+            }, {
+                // onError
+                _onComputerIPDiscoveryError.onNext("discovery_error")
+            }, {
+                // onComplete
+                resetIPDiscovery()
+                _onComputerIPDiscoveryError.onNext("discovery_timeout")
+            })
+            .addTo(ipDiscoveryCompositeDisposable)
 
         ipDiscoveryInProgress = true
 
@@ -169,9 +168,9 @@ internal class MessageManager internal constructor(private val context: Context,
         sendMessage(LiveAPI.setAppPlatform, listOf(appPlatform))
     }
 
-    private fun discoverIP(computerIP: String) {
+    private fun discoverIP(computerIP: String, localPort: Int) {
         val mobileIPAddress = NetworkUtils.deviceIPAddress()
-        val args: List<Any> = listOf(mobileIPAddress, 9001, computerIP)
+        val args: List<Any> = listOf(mobileIPAddress, localPort, computerIP)
         sendMessage(LiveAPI.discoverIP, args)
     }
 
@@ -189,8 +188,8 @@ internal class MessageManager internal constructor(private val context: Context,
     }
 
     // Receiver
-    fun connect() {
-        oscManager.connect()
+    fun connect(localPort: Int) {
+        oscManager.connect(localPort)
     }
 
     fun startListening() {

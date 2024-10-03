@@ -102,7 +102,7 @@ class OscletonSDK {
         lifecycleObserver.rxOnAppForeground()
                 .subscribe {
                     Logger.i("APP IS FOREGROUND", this)
-                    connect()
+                    connect(localPort = config.localPort)
                 }
                 .addTo(lifecycleCompositeDisposable)
 
@@ -129,9 +129,9 @@ class OscletonSDK {
      *
      * @since 0.1
      */
-    fun connect() {
+    fun connect(localPort: Int) {
         checkInitialized()
-        messageManager.connect()
+        messageManager.connect(localPort)
     }
 
     /**

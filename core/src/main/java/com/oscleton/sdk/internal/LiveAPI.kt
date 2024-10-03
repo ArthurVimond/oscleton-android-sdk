@@ -42,8 +42,12 @@ internal object LiveAPI {
 
 
     // Tracks
+    const val trackBankPrevious = live + "track-bank/previous"
+    const val trackBankNext = live + "track-bank/next"
+
     const val trackCount = live + "tracks"
     const val trackName = live + "track/name"
+    const val trackNames = live + "track/names"
     const val trackArm = live + "track/arm"
     const val trackMute = live + "track/mute"
     const val trackSolo = live + "track/solo"

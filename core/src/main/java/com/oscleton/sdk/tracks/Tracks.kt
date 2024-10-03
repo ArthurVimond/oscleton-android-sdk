@@ -14,6 +14,18 @@ class Tracks internal constructor(
     private val messageManager: MessageManager
 ) {
 
+    fun selectTrack(index: Int) {
+        messageManager.sendMessage(LiveAPI.selectTrack, listOf(index))
+    }
+
+    fun previousTrackBank() {
+        messageManager.sendMessage(LiveAPI.trackBankPrevious)
+    }
+
+    fun nextTrackBank() {
+        messageManager.sendMessage(LiveAPI.trackBankNext)
+    }
+
     /**
      * Set a track parameter value.
      *

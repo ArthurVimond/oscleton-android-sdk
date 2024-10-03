@@ -4,7 +4,6 @@ import com.illposed.osc.OSCMessage
 import com.oscleton.sdk.enums.LiveParameter
 import com.oscleton.sdk.enums.MasterParameterIndex
 import com.oscleton.sdk.enums.ReturnParameterIndex
-import com.oscleton.sdk.enums.SendType
 import com.oscleton.sdk.enums.TrackParameterIndex
 import com.oscleton.sdk.extensions.automationState
 import com.oscleton.sdk.extensions.float
@@ -18,8 +17,10 @@ import com.oscleton.sdk.internal.MessageManager
 import com.oscleton.sdk.models.MasterParameter
 import com.oscleton.sdk.models.MasterVolume
 import com.oscleton.sdk.models.ReturnParameter
+import com.oscleton.sdk.models.SelectedTrack
 import com.oscleton.sdk.models.Send
 import com.oscleton.sdk.models.SendIndices
+import com.oscleton.sdk.models.TrackName
 import com.oscleton.sdk.models.TrackParameter
 import com.oscleton.sdk.models.TrackParameterIndices
 import com.oscleton.sdk.models.TrackVolume
@@ -35,6 +36,31 @@ class TracksDataManager internal constructor(
 ) {
 
     // Public properties
+
+    val selectedTrack: Observable<SelectedTrack>
+        get() = messageManager.oscMessage.filter { it.address == LiveAPI.selectedTrack }
+            .map {
+                val index = it.arguments[0].int
+                val name = it.arguments[1].string
+                SelectedTrack(index, name)
+            }
+
+    val trackName: Observable<TrackName>
+        get() = messageManager.oscMessage.filter { it.address == LiveAPI.trackName }
+            .map {
+                val index = it.arguments[0].int
+                val name = it.arguments[1].string
+                TrackName(index, name)
+            }
+
+    val trackNames: Observable<List<TrackName>>
+        get() = messageManager.oscMessage.filter { it.address == LiveAPI.trackNames }
+            .map {
+                it.arguments.mapIndexed { index, nameAny ->
+                    val name = nameAny.string
+                    TrackName(index, name)
+                }
+            }
 
     val trackParameter: Observable<TrackParameter>
         get() = _trackParameter
@@ -346,7 +372,13 @@ class TracksDataManager internal constructor(
         val trackIndex = oscMessage.arguments[0].int
         val trackName = oscMessage.arguments[1].string
         val volume = oscMessage.arguments[2].float
-        val displayVolume = convertToTrackDisplayVolume(volume)
+        val displayVolume = if (oscMessage.arguments.count() >= 4) {
+            // Bitwig
+            oscMessage.arguments[3].string
+        } else {
+            // Live
+            convertToTrackDisplayVolume(volume)
+        }
 
         return TrackVolume(
             trackIndex = trackIndex,

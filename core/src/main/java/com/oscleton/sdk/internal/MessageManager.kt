@@ -181,6 +181,10 @@ internal class MessageManager internal constructor(private val context: Context,
 
         sendMessage(LiveAPI.tempo)
 
+        sendMessage(LiveAPI.selectedTrackRequest)
+        sendMessage(LiveAPI.trackNamesRequest)
+        sendMessage(LiveAPI.trackVolumesRequest)
+
     }
 
     fun sendMessage(address: String, args: List<Any>? = null) {

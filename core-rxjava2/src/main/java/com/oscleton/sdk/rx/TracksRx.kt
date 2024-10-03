@@ -2,7 +2,9 @@ package com.oscleton.sdk.rx
 
 import com.oscleton.sdk.models.MasterParameter
 import com.oscleton.sdk.models.ReturnParameter
+import com.oscleton.sdk.models.SelectedTrack
 import com.oscleton.sdk.models.Send
+import com.oscleton.sdk.models.TrackName
 import com.oscleton.sdk.models.TrackParameter
 import com.oscleton.sdk.tracks.TracksDataManager
 import io.reactivex.Observable
@@ -15,6 +17,11 @@ import io.reactivex.Observable
  * @since 1.0
  */
 class TracksRx internal constructor(tracksDataManager: TracksDataManager) {
+
+    val selectedTrack: Observable<SelectedTrack> = tracksDataManager.selectedTrack
+
+    val trackName: Observable<TrackName> = tracksDataManager.trackName
+    val trackNames: Observable<List<TrackName>> = tracksDataManager.trackNames
 
     /**
      * Returns the last changing track parameter as Observable.

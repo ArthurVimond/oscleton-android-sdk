@@ -58,8 +58,13 @@ internal object LiveAPI {
     const val trackCrossfader = live + "track/crossfader"
 
     const val selectTrack = live + "track/select"
+    const val selectedTrack = live + "track/selected"
     const val trackState = live + "track/state"
     const val trackStop = live + "track/stop"
+
+    const val selectedTrackRequest = live + "track/selected/request"
+    const val trackNamesRequest = live + "track/names/request"
+    const val trackVolumesRequest = live + "track/volumes/request"
 
 
     // Returns
@@ -100,6 +105,7 @@ internal object LiveAPI {
     const val masterDeviceParam = live + "master/device/param"
 
     const val selectTrackDevice = live + "track/device/select"
+    const val selectedTrackDevice = live + "track/device/selected"
     const val selectReturnDevice = live + "return/device/select"
     const val selectMasterDevice = live + "master/device/select"
 

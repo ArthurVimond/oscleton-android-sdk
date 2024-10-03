@@ -13,6 +13,8 @@ import io.reactivex.Observable
  */
 class DevicesRx internal constructor(devicesDataManager: DevicesDataManager) {
 
+    val selectedTrackDevice = devicesDataManager.selectedTrackDevice
+
     /**
      * Returns the last changing track device parameter as Observable.
      *

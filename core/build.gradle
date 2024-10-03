@@ -47,6 +47,7 @@ dependencies {
     testImplementation Libs.jUnit
     testImplementation Libs.testRunner
     testImplementation Libs.espresso
+    androidTestImplementation Libs.jUnitExt
 
     // Lifecycle
     api Libs.lifecycleExtensions

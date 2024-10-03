@@ -24,6 +24,10 @@ class DevicesDataManager internal constructor(
 
     // Public properties
 
+    val selectedTrackDevice: Observable<String> = messageManager.oscMessage
+        .filter { it.address == LiveAPI.selectedTrackDevice }
+        .map { it.arguments[0].string }
+
     val trackDeviceParameter: Observable<DeviceParameter>
         get() = _trackDeviceParameter
 
@@ -209,6 +213,17 @@ class DevicesDataManager internal constructor(
         val trackIndex = oscMessage.arguments[0].int
         val deviceIndex = oscMessage.arguments[1].int
         val paramIndex = oscMessage.arguments[2].int
+
+        val argumentsCount = oscMessage.arguments.count()
+        if (argumentsCount == 3) {
+            // None DeviceParameter
+            return DeviceParameter(
+                trackIndex = trackIndex,
+                deviceIndex = deviceIndex,
+                paramIndex = paramIndex
+            )
+        }
+
         val trackName = oscMessage.arguments[3].string
         val deviceName = oscMessage.arguments[4].string
         val paramName = oscMessage.arguments[5].string

@@ -69,6 +69,10 @@ internal class OSCManager {
             }
 
             receiver?.addListener("") { _, message ->
+                Logger.d(
+                    "OSCMessage received - address: ${message.address} - args: ${message.arguments}",
+                    this
+                )
                 oscMessage.onNext(message)
             }
 
